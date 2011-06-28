@@ -732,9 +732,11 @@ public class EditorHandler extends BasisHandler {
 	}
 
 	private boolean isSupported(HttpServletRequest req) {
-		String userAgent = req.getHeader("User-Agent");
-		Matcher m = SUPPORTED_USER_AGENT_PATTERN.matcher(userAgent);
-		return m.find();
+		//TODO 浏览器的切换
+		return true;
+//		String userAgent = req.getHeader("User-Agent");
+//		Matcher m = SUPPORTED_USER_AGENT_PATTERN.matcher(userAgent);
+//		return m.find();
 	}
 
 	private static String compressJS(Collection<IDiagramPlugin> plugins,

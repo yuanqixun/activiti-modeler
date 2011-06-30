@@ -21,11 +21,15 @@
  */
 package com.signavio.platform.util.fsbackend;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.DocumentBuilder;
@@ -43,6 +47,9 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.apache.batik.transcoder.TranscoderInput;
+import org.apache.batik.transcoder.TranscoderOutput;
+import org.apache.batik.transcoder.image.PNGTranscoder;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -51,39 +58,40 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class FileSystemUtil {
-	
+
 	public static String getCleanFileName(String rawName) {
 		return rawName.replaceAll("/|\\\\|:|\\*|\\?|\\\"|<|>|\\||;|$|%|&", "");
 	}
-	
+
 	public static boolean isFileExistent(String path) {
 		synchronized (path.intern()) {
 			File file = new File(path);
 			return file.exists();
 		}
 	}
-	
+
 	public static boolean isFileAccessible(String path) {
 		synchronized (path.intern()) {
 			File file = new File(path);
 			return file.canRead() && file.canWrite();
 		}
 	}
-	
+
 	public static boolean isFileDirectory(String path) {
 		synchronized (path.intern()) {
 			File file = new File(path);
 			return file.isDirectory();
 		}
 	}
-	
+
 	public static File createFile(String path) {
 		synchronized (path.intern()) {
 			File f = new File(path);
 			try {
-				if (f.exists()){
+				if (f.exists()) {
 					return null;
-				} if (f.createNewFile()) {
+				}
+				if (f.createNewFile()) {
 					return f;
 				} else {
 					return null;
@@ -93,21 +101,21 @@ public class FileSystemUtil {
 			}
 		}
 	}
-	
-	public static File createDirectory(String path){
+
+	public static File createDirectory(String path) {
 		synchronized (path.intern()) {
 			File f = new File(path);
 			if (f.mkdir()) {
 				return f;
 			} else {
 				return null;
-			}	
+			}
 		}
 	}
-	
+
 	public static boolean renameFile(String path, String newPath) {
 		synchronized (path.intern()) {
-			File newFile = new File (newPath);
+			File newFile = new File(newPath);
 			if (newFile.exists()) {
 				return false;
 			}
@@ -126,14 +134,14 @@ public class FileSystemUtil {
 			}
 		}
 	}
-	
+
 	public static void deleteFileOrDirectory(String path) {
 		synchronized (path.intern()) {
-			File f = new File (path) ;
+			File f = new File(path);
 			deleteFileOrDirectory(f);
 		}
 	}
-	
+
 	private static void deleteFileOrDirectory(File f) {
 		if (f.isDirectory()) {
 			for (File child : f.listFiles()) {
@@ -146,14 +154,16 @@ public class FileSystemUtil {
 	public static class WriteOperation {
 		public String nodeName, attributeName, stringValue;
 		public boolean asCData;
-		public WriteOperation(String nodeName, String attributeName, String stringValue, boolean asCData) {
+
+		public WriteOperation(String nodeName, String attributeName,
+				String stringValue, boolean asCData) {
 			this.nodeName = nodeName;
 			this.attributeName = attributeName;
 			this.stringValue = stringValue;
 			this.asCData = asCData;
 		}
 	}
-	
+
 	public static File createFile(String path, String xmlString) {
 		synchronized (path.intern()) {
 			File f = createFile(path);
@@ -169,11 +179,13 @@ public class FileSystemUtil {
 			return f;
 		}
 	}
-	
-	public static String readXmlNodeChildFromFile(String xPath, String path, NamespaceContext nsContext) {
+
+	public static String readXmlNodeChildFromFile(String xPath, String path,
+			NamespaceContext nsContext) {
 		synchronized (path.intern()) {
 			File f = new File(path);
-			DocumentBuilderFactory xmlFact = DocumentBuilderFactory.newInstance();
+			DocumentBuilderFactory xmlFact = DocumentBuilderFactory
+					.newInstance();
 			xmlFact.setNamespaceAware(nsContext != null);
 			try {
 				DocumentBuilder builder = xmlFact.newDocumentBuilder();
@@ -197,18 +209,26 @@ public class FileSystemUtil {
 			}
 		}
 	}
-	
-	public static boolean writeXmlNodeChildToFile(String nodeName, String stringValue, boolean asCData, String fileName) {
-		return writeXmlNodeChildToFile(new WriteOperation[] { new WriteOperation(nodeName, null, stringValue, asCData )} , fileName );
+
+	public static boolean writeXmlNodeChildToFile(String nodeName,
+			String stringValue, boolean asCData, String fileName) {
+		return writeXmlNodeChildToFile(
+				new WriteOperation[] { new WriteOperation(nodeName, null,
+						stringValue, asCData) }, fileName);
 	}
-	
-	public static boolean writeXmlNodeAttributeToFile(String nodeName, String attributeName, String stringValue, String fileName) {
-		return writeXmlNodeChildToFile(new WriteOperation[] { new WriteOperation(nodeName, attributeName, stringValue, false )} , fileName );
+
+	public static boolean writeXmlNodeAttributeToFile(String nodeName,
+			String attributeName, String stringValue, String fileName) {
+		return writeXmlNodeChildToFile(
+				new WriteOperation[] { new WriteOperation(nodeName,
+						attributeName, stringValue, false) }, fileName);
 	}
-	
-	private static boolean writeXmlNodeChildToFile(WriteOperation[] operations, String path) {
+
+	private static boolean writeXmlNodeChildToFile(WriteOperation[] operations,
+			String path) {
 		synchronized (path.intern()) {
-			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory
+					.newInstance();
 			docFactory.setNamespaceAware(true);
 			try {
 				DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -217,20 +237,21 @@ public class FileSystemUtil {
 				for (WriteOperation operation : operations) {
 					String nodeName = operation.nodeName;
 					boolean handleAttribute = operation.attributeName != null;
-					
+
 					if (nodeName.contains(":")) {
-						nodeName = nodeName.substring(nodeName.lastIndexOf(':')+1);
+						nodeName = nodeName
+								.substring(nodeName.lastIndexOf(':') + 1);
 					}
 					NodeList nodelist = doc.getElementsByTagName(nodeName);
 					if (nodelist.getLength() != 1) {
 						return false;
 					}
 					Node node = nodelist.item(0);
-					
-					
+
 					if (handleAttribute) {
 						NamedNodeMap attributes = node.getAttributes();
-						Attr newAttr = doc.createAttribute(operation.attributeName);
+						Attr newAttr = doc
+								.createAttribute(operation.attributeName);
 						newAttr.setNodeValue(operation.stringValue);
 						attributes.setNamedItem(newAttr);
 					} else {
@@ -239,33 +260,37 @@ public class FileSystemUtil {
 							node.removeChild(children.item(j));
 						}
 						if (operation.asCData) {
-							if (node.appendChild(doc.createCDATASection(operation.stringValue)) == null) {
+							if (node.appendChild(doc
+									.createCDATASection(operation.stringValue)) == null) {
 								return false;
 							}
 						} else {
-							if (node.appendChild(doc.createTextNode(operation.stringValue)) == null) {
+							if (node.appendChild(doc
+									.createTextNode(operation.stringValue)) == null) {
 								return false;
 							}
 						}
 					}
 				}
-				Transformer transformer = TransformerFactory.newInstance().newTransformer();
+				Transformer transformer = TransformerFactory.newInstance()
+						.newTransformer();
 				transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-	
-				StreamResult result = new StreamResult(new FileWriter(new File(path)));
-				
+
+				StreamResult result = new StreamResult(new FileWriter(new File(
+						path)));
+
 				File f = new File(path);
 				if (!f.exists() || !f.canRead() || !f.canWrite()) {
 					return false;
 				}
-				
+
 				DOMSource source = new DOMSource(doc);
 				transformer.transform(source, result);
-				
+
 				result.getWriter().close();
-				
+
 				return true;
-	
+
 			} catch (FileNotFoundException e) {
 				return false;
 			} catch (IOException e) {
@@ -281,6 +306,25 @@ public class FileSystemUtil {
 			} catch (ParserConfigurationException e) {
 				return false;
 			}
+		}
+	}
+
+	public static boolean writePngFile(String svgRep, String path) {
+		try {
+			InputStream in = new ByteArrayInputStream(svgRep.getBytes("UTF-8"));
+			PNGTranscoder transcoder = new PNGTranscoder();
+			TranscoderInput input = new TranscoderInput(in);
+			// Setup output
+			ByteArrayOutputStream outBytes = new ByteArrayOutputStream();
+			TranscoderOutput output = new TranscoderOutput(outBytes);
+			// Do the transformation
+			transcoder.transcode(input, output);
+			FileOutputStream fos = new FileOutputStream(new File("d:/a.png"));
+			outBytes.writeTo(fos);
+			return true;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
 		}
 	}
 

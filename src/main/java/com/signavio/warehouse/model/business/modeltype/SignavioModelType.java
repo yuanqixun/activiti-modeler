@@ -140,6 +140,7 @@ public class SignavioModelType implements ModelType {
 			throw new IllegalStateException(
 					"Could not write new revision data to file");
 		}
+		//FileSystemUtil.writePngFile(svgRep,path);
 	}
 
 	public boolean acceptUsageForTypeName(String typeName) {

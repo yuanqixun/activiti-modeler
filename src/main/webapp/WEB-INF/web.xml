@@ -65,6 +65,7 @@
 
 
 	<!--FILTER MAPPING -->
+	<!--
 	<filter-mapping>
 		<filter-name>GZIPFilter</filter-name>
 		<url-pattern>*.js</url-pattern>
@@ -74,7 +75,7 @@
 		<filter-name>GZIPFilter</filter-name>
 		<url-pattern>*.css</url-pattern>
 	</filter-mapping>
-	
+	-->
 	<filter-mapping>
 		<filter-name>RequestExceptionFilter</filter-name>
 		<url-pattern>

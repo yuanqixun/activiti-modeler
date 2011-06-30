@@ -36,7 +36,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
@@ -81,11 +80,10 @@ public class EditorHandler extends BasisHandler {
 	private Map<String, List<IDiagramPlugin>> _pluginfiles = new HashMap<String, List<IDiagramPlugin>>();
 	private Map<String, List<IDiagramPlugin>> _uncompressedPlugins = new WeakHashMap<String, List<IDiagramPlugin>>();
 	private List<String> _envFiles = new ArrayList<String>();
-	
-	
+
 	private IDiagramPluginService _pluginService = null;
 	private static Logger _logger = Logger.getLogger(EditorHandler.class);
-	private boolean _devMode = false;
+	private boolean _devMode = true;
 
 	private static final Pattern SUPPORTED_USER_AGENT_PATTERN = Pattern
 			.compile(Platform.getInstance().getPlatformProperties()
@@ -99,9 +97,9 @@ public class EditorHandler extends BasisHandler {
 		_pluginService = PluginServiceImpl.getInstance(servletContext);
 		try {
 			_logger.info("++++initialize js files+++");
-			//initialize core oryx files
+			// initialize core oryx files
 			initEnvFiles(servletContext);
-			//initialize plugin files
+			// initialize plugin files
 			initializePlugins(servletContext);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -121,7 +119,7 @@ public class EditorHandler extends BasisHandler {
 	public <T extends FsSecureBusinessObject> void doGet(
 			HttpServletRequest req, HttpServletResponse res,
 			FsAccessToken token, T sbo) {
-		
+
 		// check for firefox
 		if (!isSupported(req)) {
 			// show firefox page
@@ -287,16 +285,18 @@ public class EditorHandler extends BasisHandler {
 				}
 			}
 
-			if (!_devMode) {
+			if (_devMode) {
 				// let's call the compression routine
 				StringBuffer sb = new StringBuffer();
 				String compressedJs = compressJS(_pluginfiles.get(profileName),
 						getServletContext());
 				sb.append(compressedJs);
-				//TODO non compressed js need to be include.
+				// TODO non compressed js need to be include.
 				try {
 					FileWriter w = new FileWriter(getServletContext()
-							.getRealPath("editor/scripts/jsc/plugins_" + profileName + ".js"));
+							.getRealPath(
+									"editor/scripts/jsc/plugins_" + profileName
+											+ ".js"));
 					w.write(sb.toString());
 					w.close();
 				} catch (Exception e) {
@@ -433,13 +433,13 @@ public class EditorHandler extends BasisHandler {
 				+ "<script src=\""
 				+ libsUri
 				+ "/utils.js\" type=\"text/javascript\" />\n"
-				//core oryx script files
-				+getCoreOryxScripts()
-				//plugin script files
-//				+ "<script src=\""
-//				+ EDITOR_URL_PREFIX
-//				+ "oryx.debug.js\" type=\"text/javascript\" />\n"
-				+getPluginScripts()
+				// core oryx script files
+				+ getCoreOryxScripts()
+				// plugin script files
+				// + "<script src=\""
+				// + EDITOR_URL_PREFIX
+				// + "oryx.debug.js\" type=\"text/javascript\" />\n"
+				+ getPluginScripts()
 				+ "<!-- erdf schemas -->\n"
 				+ "<link rel=\"schema.dc\" href=\"http://purl.org/dc/elements/1.1/\" />\n"
 				+ "<link rel=\"schema.dcTerms\" href=\"http://purl.org/dc/terms/\" />\n"
@@ -459,7 +459,7 @@ public class EditorHandler extends BasisHandler {
 			for (String jsFile : _envFiles) {
 				sb.append("<script src=\"");
 				sb.append(EDITOR_URL_PREFIX);
-				sb.append(jsFile+"\" ");
+				sb.append(jsFile + "\" ");
 				sb.append("type=\"text/javascript\" />\n");
 			}
 		} else {
@@ -479,88 +479,90 @@ public class EditorHandler extends BasisHandler {
 				sb.append("<script src=\"");
 				sb.append(EDITOR_URL_PREFIX);
 				sb.append("plugin/");
-				sb.append(jsFile.getName()+".js\" ");
+				sb.append(jsFile.getName() + ".js\" ");
 				sb.append("type=\"text/javascript\" />\n");
 			}
-			for (IDiagramPlugin uncompressedJsFile : _uncompressedPlugins.get("default")) {
+			for (IDiagramPlugin uncompressedJsFile : _uncompressedPlugins
+					.get("default")) {
 				sb.append("<script src=\"");
 				sb.append(EDITOR_URL_PREFIX);
 				sb.append("plugin/");
-				sb.append(uncompressedJsFile.getName()+".js\" ");
+				sb.append(uncompressedJsFile.getName() + ".js\" ");
 				sb.append("type=\"text/javascript\" />\n");
 			}
-			
+
 		} else {
 			sb.append("<script src=\"");
 			sb.append(EDITOR_URL_PREFIX);
 			sb.append("scripts/jsc/");
-			sb.append("plugins_default.js\" ");//TODO 替换为变量的profile
+			sb.append("plugins_default.js\" ");// TODO 替换为变量的profile
 			sb.append("type=\"text/javascript\" />\n");
 		}
 		return sb.toString();
 	}
 
 	/**
-     * Initiate the compression of the environment.
-     * @param context
-     * @throws IOException
-     */
-    private void initEnvFiles(ServletContext context) throws IOException {
-        // only do it the first time the servlet starts
-        try {
-            JSONObject obj = new JSONObject(readEnvFiles(context));
-    
-            JSONArray array = obj.getJSONArray("files");
-            for (int i = 0 ; i < array.length() ; i++) {
-                _envFiles.add(array.getString(i));
-            }
-        } catch (JSONException e) {
-            _logger.error("invalid js_files.json");
-            _logger.error(e.getMessage(), e);
-            throw new RuntimeException("Error initializing the " +
-                "environment of the editor");
-        }
-    
-        if (!_devMode) {
-        	StringBuffer sb = new StringBuffer();
-            for (String fileName : _envFiles) {
-                String compressedJsContent = compress(fileName);
-                sb.append(compressedJsContent).append("\n");
-            }
-            
-            try {
-                FileWriter w = new FileWriter(
-                        context.getRealPath("editor/scripts/jsc/env_combined.js"));
-                w.write(sb.toString());
-                w.close();
-            } catch (IOException e) {
-                _logger.error(e.getMessage(), e);
-            }
-        } else {
-            if (_logger.isInfoEnabled()) {
-                _logger.info(
-                    "The diagram editor is running in development mode. " +
-                    "Javascript will be served uncompressed");
-            }
-        }
-    }
-    
-    private String compress(String fileName){
-    	String filePath = getServletContext().getRealPath("editor/"+fileName);
-    	StringWriter sw = new StringWriter();
-        sw.append("/* ").append(fileName).append(" */\n");
-        try {
-        	InputStream input = new FileInputStream(new File(filePath));
-    		JavaScriptCompressor compressor = new JavaScriptCompressor(
-    				new InputStreamReader(input), null);
-    		compressor.compress(sw, -1, false, false, false, false);
-    		input.close();
+	 * Initiate the compression of the environment.
+	 * 
+	 * @param context
+	 * @throws IOException
+	 */
+	private void initEnvFiles(ServletContext context) throws IOException {
+		// only do it the first time the servlet starts
+		try {
+			JSONObject obj = new JSONObject(readEnvFiles(context));
+
+			JSONArray array = obj.getJSONArray("files");
+			for (int i = 0; i < array.length(); i++) {
+				_envFiles.add(array.getString(i));
+			}
+		} catch (JSONException e) {
+			_logger.error("invalid js_files.json");
+			_logger.error(e.getMessage(), e);
+			throw new RuntimeException("Error initializing the "
+					+ "environment of the editor");
+		}
+
+		if (!_devMode) {
+			StringBuffer sb = new StringBuffer();
+			for (String fileName : _envFiles) {
+				String compressedJsContent = compress(fileName);
+				sb.append(compressedJsContent).append("\n");
+			}
+
+			try {
+				FileWriter w = new FileWriter(
+						context.getRealPath("editor/scripts/jsc/env_combined.js"));
+				w.write(sb.toString());
+				w.close();
+			} catch (IOException e) {
+				_logger.error(e.getMessage(), e);
+			}
+		} else {
+			if (_logger.isInfoEnabled()) {
+				_logger.info("The diagram editor is running in development mode. "
+						+ "Javascript will be served uncompressed");
+			}
+		}
+	}
+
+	private String compress(String fileName) {
+		String filePath = getServletContext().getRealPath("editor/" + fileName);
+		StringWriter sw = new StringWriter();
+		sw.append("/* ").append(fileName).append(" */\n");
+		try {
+			InputStream input = new FileInputStream(new File(filePath));
+
+			JavaScriptCompressor compressor = new JavaScriptCompressor(
+					new InputStreamReader(input), null);
+			compressor.compress(sw, -1, false, false, false, false);
+			input.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			_logger.error(filePath,e);
 		}
 		return sw.toString();
-    }
-	
+	}
+
 	@SuppressWarnings("unchecked")
 	private String getJSONString(String id, String revision,
 			FsAccessToken token, HttpServletRequest req) {
@@ -732,11 +734,11 @@ public class EditorHandler extends BasisHandler {
 	}
 
 	private boolean isSupported(HttpServletRequest req) {
-		//TODO 浏览器的切换
+		// TODO 浏览器的切换
 		return true;
-//		String userAgent = req.getHeader("User-Agent");
-//		Matcher m = SUPPORTED_USER_AGENT_PATTERN.matcher(userAgent);
-//		return m.find();
+		// String userAgent = req.getHeader("User-Agent");
+		// Matcher m = SUPPORTED_USER_AGENT_PATTERN.matcher(userAgent);
+		// return m.find();
 	}
 
 	private static String compressJS(Collection<IDiagramPlugin> plugins,
@@ -764,30 +766,29 @@ public class EditorHandler extends BasisHandler {
 		return sw.toString();
 	}
 
-	
 	/**
-     * @return read the files to be placed as core scripts
-     * from a configuration file in a json file.
-     * @throws IOException 
-     */
-    private static String readEnvFiles(ServletContext context) throws IOException {
-        FileInputStream core_scripts = new FileInputStream(
-                context.getRealPath("/editor/scripts/js_files.json"));
-        try {
-            ByteArrayOutputStream stream = 
-                new ByteArrayOutputStream();
-            byte[] buffer = new byte[4096];
-            int read;
-            while ((read = core_scripts.read(buffer)) != -1) {
-                stream.write(buffer, 0, read);
-            }
-            return stream.toString();
-        } finally {
-            try {
-                core_scripts.close();
-            } catch (IOException e) {
-                _logger.error(e.getMessage(), e);
-            }
-        }
-    }
+	 * @return read the files to be placed as core scripts from a configuration
+	 *         file in a json file.
+	 * @throws IOException
+	 */
+	private static String readEnvFiles(ServletContext context)
+			throws IOException {
+		FileInputStream core_scripts = new FileInputStream(
+				context.getRealPath("/editor/scripts/js_files.json"));
+		try {
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			byte[] buffer = new byte[4096];
+			int read;
+			while ((read = core_scripts.read(buffer)) != -1) {
+				stream.write(buffer, 0, read);
+			}
+			return stream.toString();
+		} finally {
+			try {
+				core_scripts.close();
+			} catch (IOException e) {
+				_logger.error(e.getMessage(), e);
+			}
+		}
+	}
 }

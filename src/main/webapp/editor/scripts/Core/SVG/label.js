@@ -35,19 +35,19 @@ if(!ORYX.Core.SVG) {ORYX.Core.SVG = {};}
 ORYX.Core.SVG.Label = Clazz.extend({
 	
 	_characterSets:[
-		"%W",
-		"@",
-		"m",
-		"wDGMOQÖ#+=<>~^",
-		"ABCHKNRSUVXZÜÄ&",
-		"bdghnopquxöüETY1234567890ß_§${}*´`µ€",
-		"aeksvyzäFLP?°²³",
-		"c-",
-		"rtJ\"/()[]:;!|\\",
-		"fjI., ",
-		"'",
-		"il"
-		],
+	                "%W",
+	                "@",
+	                "m",
+	                "wDGMOQÖ#+=<>~^",
+	                "ABCHKNRSUVXZÜÄ&",
+	                "bdghnopquxöüETY1234567890ß_§${}*´`µ€",
+	                "aeksvyzäFLP?°²³",
+	                "c-",
+	                "rtJ\"/()[]:;!|\\",
+	                "fjI., ",
+	                "'",
+	                "il"
+	                ],
 	_characterSetValues:[15,14,13,11,10,9,8,7,6,5,4,3],
 
 	/**

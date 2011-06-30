@@ -32,6 +32,8 @@ import java.util.Set;
 
 import javax.servlet.ServletContext;
 
+import org.apache.log4j.Logger;
+
 import com.signavio.platform.core.PlatformProperties;
 import com.signavio.platform.exceptions.InitializationException;
 
@@ -50,7 +52,7 @@ public class FsPlatformPropertiesImpl implements PlatformProperties {
 	
 	private final String rootDirectoryPath;
 	
-
+	private static Logger log = Logger.getLogger(FsPlatformPropertiesImpl.class);
 	public FsPlatformPropertiesImpl(ServletContext context) {
 		supportedBrowserEditor = context.getInitParameter("supportedBrowserEditor");
 		
@@ -62,7 +64,7 @@ public class FsPlatformPropertiesImpl implements PlatformProperties {
 		}
 		
 		String tempRootDirectoryPath = props.getProperty("fileSystemRootDirectory");
-		System.out.println("ROOT: " +tempRootDirectoryPath );
+		log.info("ROOT: " +tempRootDirectoryPath );
 		if (tempRootDirectoryPath.endsWith(File.separator)) {
 			rootDirectoryPath = tempRootDirectoryPath.substring(0, tempRootDirectoryPath.length()-1);
 		} else {

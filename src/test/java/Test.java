@@ -20,12 +20,12 @@ public class Test {
 		
 		
         sw.append("/* ").append("aaaa").append(" */\n");
-		String path = "D:\\AppServer\\apache-tomcat-7.0.14\\wtpwebapps\\activiti-modeler\\editor\\scripts\\utils.js";
+		String path = "src/main/webapp/editor/scripts/Core/SVG/label.js";
 		InputStream input = new FileInputStream(new File(path));
 		JavaScriptCompressor compressor = new JavaScriptCompressor(
 				new InputStreamReader(input), null);
 		System.out.println(compressor.hashCode());
-		compressor.compress(sw, 1, false, false, true, false);
+		compressor.compress(sw, -1, false, false, false, false);
 		input.close();
 		System.out.println(sw.toString());
 		

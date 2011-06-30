@@ -164,7 +164,8 @@ public class ModelHandler extends BasisHandler {
 			throw new RequestException("unsupportedEncoding", e);
 		}
 		
-		return getRepresentation(model, params, token);
+		Object obj = getRepresentation(model, params, token);
+		return obj;
 	}	
     
 	/**
@@ -178,7 +179,7 @@ public class ModelHandler extends BasisHandler {
 	public Object postRepresentation(Object params, FsAccessToken token) {
 		JSONObject jsonParams = (JSONObject) params;
 		
-		String id=null, copy=null,parentId, name, description, type, comment, jsonRep, svgRep;
+		String id=null, parentId, name, description, type, comment, jsonRep, svgRep;
 		FsDirectory parent;
 		try {
 			parentId = jsonParams.getString("parent");

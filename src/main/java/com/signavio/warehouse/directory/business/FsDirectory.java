@@ -189,7 +189,7 @@ public class FsDirectory extends FsSecureBusinessObject {
 		
 		String namespace;
 		try {
-			Diagram diagram = new DiagramBuilder().parseJson(jsonRep);
+			Diagram diagram = DiagramBuilder.parseJson(jsonRep);
 			namespace = diagram.getStencilset().getNamespace();
 		} catch (JSONException e) {
 			throw new IllegalStateException("Could not create new model", e);
@@ -197,15 +197,16 @@ public class FsDirectory extends FsSecureBusinessObject {
 		
 		ModelType modelType = ModelTypeManager.getInstance().getModelType(namespace);
 		
-		String path = getPath() + File.separator + name + modelType.getFileExtension();
-		File f = new File (path);
-		if (f.exists()) {
-			throw new IllegalArgumentException("Name already exists.");
-		}
+//		String path = getPath() + File.separator + name + modelType.getFileExtension();
+//		File f = new File (path);
+//		if (f.exists()) {
+//			throw new IllegalArgumentException("Name already exists.");
+//		}
 		
-		modelType.storeModel(path, id, namespace, description, type, jsonRep, svgRep);
-
-		return new FsModel(getPath(), name, modelType.getFileExtension());
+//		File modelFile = modelType.storeModel(path, id, namespace, description, type, jsonRep, svgRep);
+		File modelFile = modelType.storeModel(id, name, namespace, description, type, jsonRep, svgRep);
+		return new FsModel(modelFile);
+//		return new FsModel(getPath(), name, modelType.getFileExtension());
 	}
 	
 	public void delete() {

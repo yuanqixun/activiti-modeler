@@ -38,6 +38,8 @@ public class SignavioModelType implements ModelType {
 	private static final String TYPE_ElEMENT_NAME = "type";
 	private static final String JSON_ElEMENT_NAME = "json-representation";
 	private static final String SVG_ElEMENT_NAME = "svg-representation";
+	//yuanqixun 2011-07-01 add
+	private static final String NAME_ElEMENT_NAME = "name";
 
 	public String getFileExtension() {
 		return this.getClass().getAnnotation(ModelTypeFileExtension.class)
@@ -66,6 +68,14 @@ public class SignavioModelType implements ModelType {
 	public boolean storeTypeStringToModelFile(String typeString, String path) {
 		if (!FileSystemUtil.writeXmlNodeChildToFile(TYPE_ElEMENT_NAME,
 				typeString, false, path)) {
+			throw new IllegalStateException("Could not write new type to file");
+		}
+		return true;
+	}
+	
+	public boolean storeNameStringToModelFile(String nameString, String path) {
+		if (!FileSystemUtil.writeXmlNodeChildToFile(NAME_ElEMENT_NAME,
+				nameString, false, path)) {
 			throw new IllegalStateException("Could not write new type to file");
 		}
 		return true;
@@ -148,8 +158,12 @@ public class SignavioModelType implements ModelType {
 	}
 
 	// @Override
-	public File storeModel(String path, String id, String name,
+	public File storeModel(String path, String id, String name,String namespace,
 			String description, String type, String jsonRep, String svgRep) {
+		File f = new File (path);
+		if (f.exists()) {
+			throw new IllegalArgumentException("Name already exists.");
+		}
 		File modelFile;
 		if ((modelFile = FileSystemUtil.createFile(path, this
 				.getInitialModelString(id, name, description, type, jsonRep,
@@ -159,10 +173,16 @@ public class SignavioModelType implements ModelType {
 			throw new IllegalStateException("Could not create new model");
 		}
 	}
+	
+	public File storeModel(String id, String name,String namespace,
+			String description, String type, String jsonRep, String svgRep) {
+		return null;
+	}
 
 	private String getInitialModelString(String id, String name,
 			String description, String type, String jsonRep, String svgRep) {
 		return "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" + "<oryxmodel>\n"
+				+ "<name>" + name + "</name>\n"
 				+ "<description>" + description + "</description>\n" + "<type>"
 				+ type + "</type>\n" + "<json-representation><![CDATA["
 				+ jsonRep + "]]></json-representation>\n"
@@ -184,6 +204,11 @@ public class SignavioModelType implements ModelType {
 	public void deleteFile(String parentPath, String name) {
 		FileSystemUtil.deleteFileOrDirectory(parentPath + File.separator + name
 				+ getFileExtension());
+	}
+
+	public String getNameFromModelFile(String path) {
+		return FileSystemUtil.readXmlNodeChildFromFile(XPATH_PREFIX
+				+ NAME_ElEMENT_NAME, path, null);
 	}
 
 }

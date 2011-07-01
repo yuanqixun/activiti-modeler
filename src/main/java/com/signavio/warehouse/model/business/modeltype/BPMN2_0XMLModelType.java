@@ -19,6 +19,7 @@ import com.signavio.warehouse.revision.business.RepresentationType;
 import de.hpi.bpmn2_0.exceptions.BpmnConverterException;
 
 @ModelTypeRequiredNamespaces(namespaces={"http://b3mn.org/stencilset/bpmn2.0#", "http://b3mn.org/stencilset/bpmn2.0conversation#", "http://b3mn.org/stencilset/bpmn2.0choreography#"})
+@ModelTypeFileExtension(fileExtension=".bpmn20.xml")
 public class BPMN2_0XMLModelType extends SignavioModelType {
 
 	@Override
@@ -46,12 +47,13 @@ public class BPMN2_0XMLModelType extends SignavioModelType {
 			}
 		}
 	}
-
+	
 	@Override
 	public void storeRevisionToModelFile(String jsonRep, String svgRep,String path) {
 		super.storeRevisionToModelFile(jsonRep, svgRep, path);
 		try {
-			String bpmn20Path = path.substring(0,path.lastIndexOf(this.getClass().getAnnotation(ModelTypeFileExtension.class).fileExtension())) + ".bpmn20.xml";
+			//String bpmn20Path = path.substring(0,path.lastIndexOf(this.getClass().getAnnotation(ModelTypeFileExtension.class).fileExtension())) + ".bpmn20.xml";
+			String bpmn20Path = path.replace(new SignavioModelType().getFileExtension(), this.getFileExtension());
             BPMN20XMLFileUtil.storeBPMN20XMLFile(bpmn20Path, jsonRep);
         } catch (IOException e) {
                 throw new IllegalStateException("Cannot save BPMN2.0 XML", e);
@@ -81,12 +83,17 @@ public class BPMN2_0XMLModelType extends SignavioModelType {
 	}
 	
 	@Override
-	public File storeModel(String path, String id, String name, String description,
+	public File storeModel(String id, String name,String namespace, String description,
 			String type, String jsonRep, String svgRep) {
-		File file = super.storeModel(path, id, name, description, type, jsonRep, svgRep);
+		File file = null;
+		String modelPath = "";
 		try {
-			String bpmn20Path = path.substring(0,path.lastIndexOf(this.getClass().getAnnotation(ModelTypeFileExtension.class).fileExtension())) + ".bpmn20.xml";
-            BPMN20XMLFileUtil.storeBPMN20XMLFile(bpmn20Path, jsonRep);
+			//1.先保存bpmn20.xml，获得流程定义编号
+            String bpmn20Path = BPMN20XMLFileUtil.storeBPMN20XMLFile(jsonRep);
+            
+            modelPath = bpmn20Path.replace(".bpmn20.xml", ".signavio.xml");
+            //2.再保存signavio.xml，存储模型数据
+            file = super.storeModel(modelPath, id, name,namespace,description, type, jsonRep, svgRep);
         } catch (IOException e) {
                 throw new IllegalStateException("Cannot save BPMN2.0 XML", e);
         } catch (JSONException e) {

@@ -285,7 +285,7 @@ public class EditorHandler extends BasisHandler {
 				}
 			}
 
-			if (_devMode) {
+			if (!_devMode) {
 				// let's call the compression routine
 				StringBuffer sb = new StringBuffer();
 				String compressedJs = compressJS(_pluginfiles.get(profileName),

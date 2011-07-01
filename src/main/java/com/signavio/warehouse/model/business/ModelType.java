@@ -40,11 +40,16 @@ public interface ModelType {
 
 	public void storeRevisionToModelFile(String jsonRep, String svgRep, String path);
 
-	public File storeModel(String path, String id, String name, String description, String type, String jsonRep, String svgRep);
-
+	public File storeModel(String path, String id,String name, String namespace, String description, String type, String jsonRep, String svgRep);
+	
+	public File storeModel(String id,String name,String namespace, String description, String type, String jsonRep, String svgRep);
+	
 	public boolean acceptUsageForTypeName(String typeName);
 	
 	public boolean renameFile(String parentPath, String oldName, String newName);
 	
 	public void deleteFile(String parentPath, String name);
+	//从模型文件中获得模型名称
+	public String getNameFromModelFile(String path);
+	public boolean storeNameStringToModelFile(String nameString, String path);
 }

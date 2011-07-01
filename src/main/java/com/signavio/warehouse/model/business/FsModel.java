@@ -54,6 +54,7 @@ public class FsModel extends FsSecureBusinessObject {
 	private String pathPrefix;
 	private String name;
 	private String fileExtension;
+	private String fileFullName;
 	
 	/**
 	 * Constructor
@@ -71,12 +72,17 @@ public class FsModel extends FsSecureBusinessObject {
 		this.fileExtension = fileExtension;
 		
 		String path = getPath();
+		fileFullName = path;
 		if (FileSystemUtil.isFileDirectory(path)){
 			throw new IllegalStateException("Path does not point to a file.");
 		} else if ( ! FileSystemUtil.isFileExistent(path) || ! FileSystemUtil.isFileAccessible(path )){
 			throw new IllegalStateException("Model can not be accessed");
 		}
 		
+	}
+	
+	public FsModel(File modelFile){
+		this(modelFile.getPath());
 	}
 	
 	public FsModel(String fullName){
@@ -88,14 +94,15 @@ public class FsModel extends FsSecureBusinessObject {
 			this.pathPrefix = fullName.substring(0, i);
 			String remainder = fullName.substring(i+1);
 			String[] splittedName = ModelTypeManager.splitNameAndExtension(remainder);
-			this.name = splittedName[0];
+			this.name = splittedName[0];//从文件中解析
 			this.fileExtension = splittedName[1];
 		} else {
 			throw new IllegalStateException("Path does not point to a model.");
 		}
 		
-		String path = getPath();
-		if ( ! FileSystemUtil.isFileExistent(path) || ! FileSystemUtil.isFileAccessible(path )){
+//		String path = getPath();
+		fileFullName = fullName;
+		if ( ! FileSystemUtil.isFileExistent(fileFullName) || ! FileSystemUtil.isFileAccessible(fileFullName )){
 			throw new IllegalStateException("Model can not be accessed.");
 		}
 		
@@ -106,36 +113,39 @@ public class FsModel extends FsSecureBusinessObject {
 		if (name.equals(this.name)) {
 			return ;
 		}
-		
-		FsModelRevision rev = getHeadRevision();
-		Diagram diagram = DiagramBuilder.parseJson(new String(rev.getRepresentation(RepresentationType.JSON).getContent(), "utf8"));
-		String namespace = diagram.getStencilset().getNamespace();
-		
-		if (ModelTypeManager.getInstance().getModelType(namespace).renameFile(getParentDirectory().getPath(), this.name, name)){
-			this.name = name;
-		} else {
-			throw new IllegalArgumentException("Cannot rename model");
-		}
+//		不能直接修改文件名，因为新版本设计器文件名不与流程名不同
+//		FsModelRevision rev = getHeadRevision();
+//		Diagram diagram = DiagramBuilder.parseJson(new String(rev.getRepresentation(RepresentationType.JSON).getContent(), "utf8"));
+//		String namespace = diagram.getStencilset().getNamespace();
+//		
+//		if (ModelTypeManager.getInstance().getModelType(namespace).renameFile(getParentDirectory().getPath(), this.name, name)){
+//			this.name = name;
+//		} else {
+//			throw new IllegalArgumentException("Cannot rename model");
+//		}
+		ModelTypeManager.getInstance().getModelType(this.fileExtension).storeNameStringToModelFile(name, getFileFullName());
 	}
 
 	public String getName() {
-		return name;
+		//获得模型名称
+		return ModelTypeManager.getInstance().getModelType(this.fileExtension).getNameFromModelFile(getFileFullName());
+//		return name;
 	}
 	
 	public void setDescription(String description) {
-		ModelTypeManager.getInstance().getModelType(this.fileExtension).storeDescriptionToModelFile(description, getPath());
+		ModelTypeManager.getInstance().getModelType(this.fileExtension).storeDescriptionToModelFile(description, getFileFullName());
 	}
 	
 	public String getDescription() {
-		return ModelTypeManager.getInstance().getModelType(this.fileExtension).getDescriptionFromModelFile(getPath());
+		return ModelTypeManager.getInstance().getModelType(this.fileExtension).getDescriptionFromModelFile(getFileFullName());
 	}
 	
 	public void setType(String type) {
-		ModelTypeManager.getInstance().getModelType(this.fileExtension).storeTypeStringToModelFile(type, getPath());
+		ModelTypeManager.getInstance().getModelType(this.fileExtension).storeTypeStringToModelFile(type, getFileFullName());
 	}
 	
 	public String getType() {
-		return ModelTypeManager.getInstance().getModelType(this.fileExtension).getTypeStringFromModelFile(getPath());
+		return ModelTypeManager.getInstance().getModelType(this.fileExtension).getTypeStringFromModelFile(getFileFullName());
 	}
 	
 	public Date getCreationDate() {
@@ -173,12 +183,12 @@ public class FsModel extends FsSecureBusinessObject {
 			throw new IllegalArgumentException("JSON representation of diagram is not valid.", e);
 		}
 		String namespace = diagram.getStencilset().getNamespace();
-		ModelTypeManager.getInstance().getModelType(namespace).storeRevisionToModelFile(jsonRep, svgRep, getPath());
+		ModelTypeManager.getInstance().getModelType(namespace).storeRevisionToModelFile(jsonRep, svgRep, getFileFullName());
 	}
 	
 	public FsModelRepresentationInfo getRepresentation(RepresentationType type) {
 		
-		byte [] resultingInfo = ModelTypeManager.getInstance().getModelType(this.fileExtension).getRepresentationInfoFromModelFile(type, getPath());
+		byte [] resultingInfo = ModelTypeManager.getInstance().getModelType(this.fileExtension).getRepresentationInfoFromModelFile(type, getFileFullName());
 		if (resultingInfo != null) {
 			return new FsModelRepresentationInfo(resultingInfo);
 		}
@@ -187,7 +197,7 @@ public class FsModel extends FsSecureBusinessObject {
 	}
 
 	public FsModelRepresentationInfo createRepresentation(RepresentationType type, byte[] content) {
-		ModelTypeManager.getInstance().getModelType(this.fileExtension).storeRepresentationInfoToModelFile(type, content, getPath());
+		ModelTypeManager.getInstance().getModelType(this.fileExtension).storeRepresentationInfoToModelFile(type, content, getFileFullName());
 		return getRepresentation(type);
 	}
 	
@@ -214,6 +224,10 @@ public class FsModel extends FsSecureBusinessObject {
 	
 	private String getPath(){
 		return pathPrefix + File.separator + name + fileExtension;
+	}
+	
+	public String getFileFullName(){
+		return fileFullName;
 	}
 	
 	public void moveTo(FsDirectory newParent) throws UnsupportedEncodingException, JSONException {
@@ -244,7 +258,7 @@ public class FsModel extends FsSecureBusinessObject {
 	public boolean equals(Object o){
 		if (o instanceof FsModel){
 			FsModel m = (FsModel)o;
-			return getPath().equals(m.getPath());
+			return getFileFullName().equals(m.getFileFullName());
 		}
 		return false;
 	}
@@ -284,7 +298,7 @@ public class FsModel extends FsSecureBusinessObject {
 
 	@Override
 	public String getId() {
-		String path = getPath();
+		String path = getFileFullName();
 		String rootPath = FsRootDirectory.getSingleton().getPath() + File.separator;
 		if (path.startsWith(rootPath)){
 			path = FsRootDirectory.ID_OF_SINGLETON + File.separator + path.substring(rootPath.length());

@@ -172,7 +172,7 @@ public class JpdlModelType implements ModelType {
 	}
 
 //	@Override
-	public File storeModel(String path, String id, String name,
+	public File storeModel(String path, String id,String name, String namespace,
 			String description, String type, String jsonRep, String svgRep) {
 		File modelFile;
 		if ((modelFile = FileSystemUtil.createFile(path, this.getInitialModelString(id, name, description, type, jsonRep, svgRep)))
@@ -181,6 +181,11 @@ public class JpdlModelType implements ModelType {
 		} else {
 			throw new IllegalStateException("Could not create new model");
 		}
+	}
+	
+	public File storeModel(String id,String name, String namespace,
+			String description, String type, String jsonRep, String svgRep){
+		return storeModel(null, id, name, namespace, description, type, jsonRep, svgRep);
 	}
 
 //	@Override
@@ -194,5 +199,15 @@ public class JpdlModelType implements ModelType {
 //	@Override
 	public void deleteFile(String parentPath, String name) {
 		FileSystemUtil.deleteFileOrDirectory(parentPath + File.separator + name + getFileExtension());
+	}
+
+	public String getNameFromModelFile(String path) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public boolean storeNameStringToModelFile(String nameString, String path) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

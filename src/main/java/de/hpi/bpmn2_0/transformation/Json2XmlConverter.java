@@ -13,6 +13,7 @@ import org.oryxeditor.server.diagram.DiagramBuilder;
 import org.xml.sax.SAXException;
 
 import de.hpi.bpmn2_0.exceptions.BpmnConverterException;
+import de.hpi.bpmn2_0.model.Definitions;
 
 public class Json2XmlConverter {
 
@@ -39,7 +40,6 @@ public class Json2XmlConverter {
 		} else {
 			converter = new Diagram2XmlConverter(diagram, bpmn20XsdPath);
 		}
-		
 		return converter.getXml();
 	}
 	

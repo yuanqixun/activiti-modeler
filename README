@@ -5,3 +5,4 @@ The source project is so bad project structure:
 So, I modified it and it can run better in Tomcat(jboss will have some problem for the jar's conflict problem.
 Maybe some dependce will not find from central repo. you should down manual yourself and upload to your local nexus repo.
 Enjoy it!
+Change the reopsitory to dropbox.

@@ -566,7 +566,6 @@ public class EditorHandler extends BasisHandler {
 	@SuppressWarnings("unchecked")
 	private String getJSONString(String id, String revision,
 			FsAccessToken token, HttpServletRequest req) {
-
 		JSONObject result = new JSONObject();
 
 		try {
@@ -666,15 +665,21 @@ public class EditorHandler extends BasisHandler {
 			// new model. return a json stub with the info in the session
 			Map<String, String> params = (Map<String, String>) req.getSession()
 					.getAttribute(id);
-
+			
 			try {
-				result.put("modelId", id);
-
-				result.put("parent", (String) params.get("directory"));
-
-				String stencilset = (String) params.get("stencilset");
+				String stencilset;
 				String[] extensions;
-				if (params.containsKey("extensions")) {
+				result.put("modelId", id);
+				if(params!=null && !params.isEmpty()){
+					result.put("parent", (String) params.get("directory"));
+					stencilset= (String) params.get("stencilset");
+				}else{
+					//TODO
+					result.put("parent", "D:;oryx;activiti;");
+					stencilset="http://b3mn.org/stencilset/bpmn2.0#";
+				}
+				
+				if (params!=null && params.containsKey("extensions")) {
 					String str = params.get("extensions");
 					extensions = str.split(";");
 				} else {

@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
 	<display-name>Signavio Platform</display-name>
-
+	
 	<!-- This app is cluster-ready and enforces serializalbe session attributes -->
 
 	<context-param>
@@ -31,9 +31,7 @@
 		<filter-class>com.signavio.platform.filters.EncodingFilter</filter-class>
 		<init-param>
 			<param-name>encoding</param-name>
-			<param-value>
-                UTF-8
-            </param-value>
+			<param-value>UTF-8</param-value>
 		</init-param>
 	</filter>
 
@@ -43,8 +41,7 @@
 		<init-param>
 			<description></description>
 			<param-name>requiresNoAuthorization</param-name>
-			<param-value>
-            </param-value>
+			<param-value></param-value>
 		</init-param>
 	</filter>
 
@@ -129,9 +126,7 @@
 	<!--SERVLET MAPPING -->
 	<servlet-mapping>
 		<servlet-name>Dispatcher</servlet-name>
-		<url-pattern>
-            /p/*
-        </url-pattern>
+		<url-pattern>/p/*</url-pattern>
 	</servlet-mapping>
 
 	<!--LISTENER -->

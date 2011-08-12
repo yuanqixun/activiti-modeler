@@ -183,6 +183,7 @@ public class FsModel extends FsSecureBusinessObject {
 			throw new IllegalArgumentException("JSON representation of diagram is not valid.", e);
 		}
 		String namespace = diagram.getStencilset().getNamespace();
+		//将改变保存到模型文件中
 		ModelTypeManager.getInstance().getModelType(namespace).storeRevisionToModelFile(jsonRep, svgRep, getFileFullName());
 	}
 	

@@ -40,7 +40,9 @@ public class BPMN20XMLFileUtil {
 		try {
 			Document document = DocumentHelper.parseText(xml.toString());
 			Element root = document.getRootElement();
-			String id=root.attributeValue("id");
+			//获得第一个流程定义的id，忽略其他流程
+			Element process = (Element) root.elements("process").get(0);
+			String id=process.attributeValue("id");
 			id=id.substring(4);
 			//创建目录
 			String dir = props.getRootDirectoryPath();

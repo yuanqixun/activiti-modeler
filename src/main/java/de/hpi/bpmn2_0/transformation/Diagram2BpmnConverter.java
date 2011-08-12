@@ -149,7 +149,9 @@ public class Diagram2BpmnConverter {
 		this.factories = new HashMap<String, AbstractBpmnFactory>();
 		this.bpmnElements = new HashMap<String, BPMNElement>();
 		this.definitions = new Definitions();
-		this.definitions.setId(SignavioUUID.generate());
+		//TODO 默认指定一个id
+//		this.definitions.setId(SignavioUUID.generate());
+		this.definitions.setId("definition");
 		this.diagram = diagram;
 		this.factoryClasses = factoryClasses;
 		this.configuration = new Configuration();
@@ -818,8 +820,13 @@ public class Diagram2BpmnConverter {
 
 		/* Identify components within allNodes */
 		while (allNodes.size() > 0) {
+			//生成流程定义对象，区分新建和更新情况
 			Process currentProcess = new Process();
-			currentProcess.setId(SignavioUUID.generate());
+			String processDefId = diagram.getResourceId();
+			if(!processDefId.equals("canvas"))
+				currentProcess.setId(processDefId);
+			else
+				currentProcess.setId(SignavioUUID.generate());
 			this.processes.add(currentProcess);
 
 			addNode(currentProcess,

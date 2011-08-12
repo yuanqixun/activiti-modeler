@@ -54,7 +54,8 @@ public class BPMN2_0XMLModelType extends SignavioModelType {
 		try {
 			//String bpmn20Path = path.substring(0,path.lastIndexOf(this.getClass().getAnnotation(ModelTypeFileExtension.class).fileExtension())) + ".bpmn20.xml";
 			String bpmn20Path = path.replace(new SignavioModelType().getFileExtension(), this.getFileExtension());
-            BPMN20XMLFileUtil.storeBPMN20XMLFile(bpmn20Path, jsonRep);
+            //json存储为xml文件
+			BPMN20XMLFileUtil.storeBPMN20XMLFile(bpmn20Path, jsonRep);
         } catch (IOException e) {
                 throw new IllegalStateException("Cannot save BPMN2.0 XML", e);
         } catch (JSONException e) {

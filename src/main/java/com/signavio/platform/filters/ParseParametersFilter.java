@@ -48,6 +48,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.catalina.util.RequestUtil;
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -81,6 +82,8 @@ public class ParseParametersFilter implements Filter {
 			chain.doFilter(req, res);
 		}		
 		HttpServletRequest httpReq = (HttpServletRequest) req;
+		Map ps = req.getParameterMap();
+		System.out.println(ps);
 		Map<String, List<String>> params = new HashMap<String, List<String>>();
 		parseUriParameters(httpReq, params);
 		parseStreamParameters(httpReq, params);
@@ -168,7 +171,8 @@ public class ParseParametersFilter implements Filter {
     		String key 		= paramNames.nextElement();
     		String[] values = req.getParameterValues(key);
     		for (String value : values) {
-				addParameter(params, key, value); 
+    			if(StringUtils.isNotEmpty(value))
+    				addParameter(params, key, value); 
 			}	
     	}
 	}

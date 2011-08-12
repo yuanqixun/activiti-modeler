@@ -6,10 +6,6 @@
 	<display-name>Signavio Platform</display-name>
 
 	<!-- This app is cluster-ready and enforces serializalbe session attributes -->
-	<distributable />
-
-
-
 
 	<context-param>
 		<description>Define a reg exp for all user agents which are supported for the editor</description>
@@ -178,6 +174,7 @@
 	</welcome-file-list>
 
 	<!-- Servlets from the Oryx Editor -->
+	<!-- 
 	<servlet>
 		<display-name>BPMN Layouter</display-name>
 		<servlet-name>BPMNLayouterServlet</servlet-name>
@@ -207,7 +204,7 @@
 		<servlet-name>XFormsImportServlet</servlet-name>
 		<servlet-class>org.oryxeditor.server.XFormsImportServlet</servlet-class>
 	</servlet>
-
+	
 	<servlet>
 		<display-name>Oryx Legacy File Download Servlet</display-name>
 		<servlet-name>DownloadServlet</servlet-name>
@@ -237,12 +234,13 @@
 		<servlet-name>RDF2JSONServlet</servlet-name>
 		<servlet-class>org.oryxeditor.server.RDF2JSONServlet</servlet-class>
 	</servlet>
-
+-->
 	<servlet-mapping>
 		<servlet-name>PluginServiceServlet</servlet-name>
 		<url-pattern>/editor/plugin/*</url-pattern>
 	</servlet-mapping>
 
+	<!--
 	<servlet-mapping>
 		<servlet-name>BPMNLayouterServlet</servlet-name>
 		<url-pattern>/editor/bpmnlayouter</url-pattern>
@@ -267,7 +265,7 @@
 		<servlet-name>XFormsImportServlet</servlet-name>
 		<url-pattern>/editor/xformsimport</url-pattern>
 	</servlet-mapping>
-
+ 
 	<servlet-mapping>
 		<servlet-name>SyntaxChecker</servlet-name>
 		<url-pattern>/editor/syntaxchecker</url-pattern>
@@ -292,7 +290,7 @@
 		<servlet-name>RDF2JSONServlet</servlet-name>
 		<url-pattern>/editor/rdf2json</url-pattern>
 	</servlet-mapping>
-
+	-->
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>

@@ -117,6 +117,7 @@ public class ModelHandler extends BasisHandler {
 		FsModel model = (FsModel) sbo;
 		
 		//set parent
+		String processDefId;
 		try {
 			String parentId = jParams.getString("parent");
 			
@@ -124,6 +125,7 @@ public class ModelHandler extends BasisHandler {
 			FsDirectory dir = FsSecurityManager.getInstance().loadObject(FsDirectory.class, parentId, token);
 			
 			dir.addChildModel(model);
+			processDefId = "sid-"+dir.getName();
 		} catch (JSONException e) {
 			throw new RequestException("invalid_request_missing_parameter", e);
 		} catch (UnsupportedEncodingException e) {
@@ -138,8 +140,12 @@ public class ModelHandler extends BasisHandler {
 			 svgRep = jParams.getString("svg_xml");
 			 comment = jParams.getString("comment");
 			 
+			 //将json_xml中的id赋值回去
+			 jsonRep=jsonRep.replace("canvas", processDefId);
+			 
 			 model.setName(name);
 			 model.setDescription(description);
+			 //这里保存bpmn20.xml文件
 			 model.createRevision(jsonRep, svgRep, comment);	
 			 
 			 if(jParams.has("id")) {

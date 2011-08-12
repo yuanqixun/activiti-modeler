@@ -675,7 +675,7 @@ public class EditorHandler extends BasisHandler {
 					stencilset= (String) params.get("stencilset");
 				}else{
 					//TODO
-					result.put("parent", "D:;oryx;activiti;");
+					result.put("parent", "/directory/root-directory");
 					stencilset="http://b3mn.org/stencilset/bpmn2.0#";
 				}
 				

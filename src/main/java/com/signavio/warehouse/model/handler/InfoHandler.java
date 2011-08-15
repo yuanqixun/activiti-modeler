@@ -68,8 +68,9 @@ public class InfoHandler extends AbstractInfoHandler {
 		try {
 			
 			FsModel model = (FsModel) sbo;
-			
-			res.put("name", model.getName());
+			String fileFullName = model.getFileFullName();
+			String version = fileFullName.substring(fileFullName.lastIndexOf("\\")+1, fileFullName.lastIndexOf(".signavio.xml"));
+			res.put("name", model.getName()+"--"+version);
 			res.put("description", model.getDescription());
 			res.put("created", model.getCreationDate());
 			res.put("type", model.getType());

@@ -22,14 +22,20 @@
 package com.signavio.warehouse.model.business;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
 import org.oryxeditor.server.diagram.Diagram;
 import org.oryxeditor.server.diagram.DiagramBuilder;
@@ -175,7 +181,27 @@ public class FsModel extends FsSecureBusinessObject {
 		return new FsDirectory(pathPrefix);
 	}
 	
+	/**
+	 * 更新模型文件
+	 * @param jsonRep
+	 * @param svgRep
+	 * @param comment
+	 */
 	public void createRevision(String jsonRep, String svgRep, String comment) {
+		doRevision(jsonRep, svgRep, comment, false);
+	}
+	
+	/**
+	 * 发布模型文件
+	 * @param jsonRep
+	 * @param svgRep
+	 * @param comment
+	 */
+	public void publishRevision(String jsonRep, String svgRep, String comment) {
+		doRevision(jsonRep, svgRep, comment, true);
+	}
+	
+	private void doRevision(String jsonRep, String svgRep, String comment,boolean publishing){
 		Diagram diagram;
 		try {
 			diagram = DiagramBuilder.parseJson(jsonRep);
@@ -185,6 +211,53 @@ public class FsModel extends FsSecureBusinessObject {
 		String namespace = diagram.getStencilset().getNamespace();
 		//将改变保存到模型文件中
 		ModelTypeManager.getInstance().getModelType(namespace).storeRevisionToModelFile(jsonRep, svgRep, getFileFullName());
+		//生成新的版本
+		if(publishing){
+			FsDirectory parent = this.getParentDirectory();
+			Properties index = new Properties();
+			String indexPath = parent.getPath()+"/.index";
+			try {
+				FileInputStream fis = new FileInputStream(indexPath);
+				index.load(fis);
+			} catch (FileNotFoundException e) {
+				File file = new File(indexPath);
+				try {
+					file.createNewFile();
+					FileInputStream fis = new FileInputStream(file);
+					index.load(fis);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			String latestVersion = index.getProperty("latest");
+			int latest=0;
+			if(StringUtils.isEmpty(latestVersion))
+				latest = 1;
+			else
+				latest = Integer.parseInt(latestVersion)+1;
+			index.setProperty("latest", String.valueOf(latest));
+			//生成发布版本文件
+			File srcBPMN20File = new File(parent.getPath()+"/draft.bpmn20.xml");
+			File destBPMN20File = new File(parent.getPath()+"/"+latest+".bpmn20.xml");
+			File srcSignavioFile = new File(parent.getPath()+"/draft.signavio.xml");
+			File destSignavioFile = new File(parent.getPath()+"/"+latest+".signavio.xml");
+			try {
+				FileUtils.copyFile(srcBPMN20File, destBPMN20File);
+				FileUtils.copyFile(srcSignavioFile, destSignavioFile);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			try {
+				FileOutputStream fos = new FileOutputStream(indexPath);
+				index.store(fos, comment);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public FsModelRepresentationInfo getRepresentation(RepresentationType type) {
@@ -317,5 +390,6 @@ public class FsModel extends FsSecureBusinessObject {
 		}
 		return parents;
 	}
+
 
 }

@@ -133,12 +133,14 @@ public class ModelHandler extends BasisHandler {
 		}
 		
 		String name, description, jsonRep, svgRep, comment;
+		boolean publishing = false;
 		try {
 			 name = jParams.getString("name");
 			 description = jParams.getString("description");
 			 jsonRep = jParams.getString("json_xml");
 			 svgRep = jParams.getString("svg_xml");
 			 comment = jParams.getString("comment");
+			 publishing = jParams.getBoolean("publishing");
 			 
 			 //将json_xml中的id赋值回去
 			 jsonRep=jsonRep.replace("canvas", processDefId);
@@ -146,7 +148,10 @@ public class ModelHandler extends BasisHandler {
 			 model.setName(name);
 			 model.setDescription(description);
 			 //这里保存bpmn20.xml文件
-			 model.createRevision(jsonRep, svgRep, comment);	
+			 if(publishing)
+				 model.publishRevision(jsonRep, svgRep, comment);
+			 else
+				 model.createRevision(jsonRep, svgRep, comment);	
 			 
 			 if(jParams.has("id")) {
 				 String id = jParams.getString("id");

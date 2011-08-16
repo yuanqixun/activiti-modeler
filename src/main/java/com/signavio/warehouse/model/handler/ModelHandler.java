@@ -44,6 +44,8 @@ import com.signavio.warehouse.model.business.FsModel;
 import com.signavio.warehouse.revision.business.FsModelRevision;
 import com.signavio.warehouse.revision.business.RepresentationType;
 
+import de.hpi.diagram.SignavioUUID;
+
 /**
  * Concrete implementation to get all information from a model
  * @author Willi
@@ -188,41 +190,29 @@ public class ModelHandler extends BasisHandler {
 			parentId = parentId.replace("/directory/", "");
 			parent = FsSecurityManager.getInstance().loadObject(FsDirectory.class, parentId, token);
 			
-			if(jsonParams.has("copy")&&jsonParams.has("id")) {
-				//create a copy of the model identified by id
-				String mId = jsonParams.getString("id").replace("/model/", "");
-				FsModel model = FsSecurityManager.getInstance().loadObject(FsModel.class, mId, token);
-				name = model.getName();
-				description = model.getDescription();
-				type = model.getType();
-				comment = "";
-				jsonRep = new String(model.getHeadRevision().getRepresentation(RepresentationType.JSON).getContent(), "utf-8");
-				svgRep = new String(model.getHeadRevision().getRepresentation(RepresentationType.SVG).getContent(), "utf-8");
-			} else {
-				name = jsonParams.getString("name");
-				description = jsonParams.getString("description");
-				type = jsonParams.getString("type");
-				comment = jsonParams.getString("comment");
-				jsonRep = jsonParams.getString("json_xml");
-				svgRep = jsonParams.getString("svg_xml");
-				
-				if(jsonParams.has("id")) {
-					id = jsonParams.getString("id");
-				}
-			}
+			name = jsonParams.getString("name");
+			description = jsonParams.getString("description");
+			type = jsonParams.getString("type");
+			comment = jsonParams.getString("comment");
+			jsonRep = jsonParams.getString("json_xml");
+			svgRep = jsonParams.getString("svg_xml");
 			
+			if(jsonParams.has("id")) {
+				id = jsonParams.getString("id");
+			}
 			
 		} catch (JSONException e) {
 			throw new RequestException("invalid_request_missing_parameter ", e);
-		} catch (UnsupportedEncodingException e) {
-			throw new RequestException("unsupported_encoding ", e);
 		}
 		
 		FsModel model;
 		
 		try { 
-			if(id == null) {
-				model = parent.createModel(name, description, type, jsonRep, svgRep, comment);
+			if(id == null && jsonParams.has("copy")) {
+				JSONObject jsonObj = new JSONObject(jsonRep);
+				jsonObj.remove("resourceId");
+				jsonObj.accumulate("resourceId", SignavioUUID.generate());
+				model = parent.createModel(name, description, type, jsonObj.toString(), svgRep, comment);
 			} else {
 				model = parent.createModel(id, name, description, type, jsonRep, svgRep, comment);
 				this.getServletContext().setAttribute(id, model.getId());

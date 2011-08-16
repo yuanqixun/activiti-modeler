@@ -133,7 +133,10 @@
 	<listener>
 		<listener-class>com.signavio.platform.listeners.EntryPoint</listener-class>
 	</listener>
-
+	<listener>
+		<listener-class>com.signavio.platform.listeners.ProcessEnginesServletContextListener</listener-class>
+	</listener>
+	
 	<!--SESSION CONFIG -->
 	<session-config>
 		<session-timeout>1440</session-timeout>

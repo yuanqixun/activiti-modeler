@@ -25,6 +25,7 @@ package de.hpi.bpmn2_0.factory.node;
 
 import javax.xml.namespace.QName;
 
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -288,9 +289,12 @@ public class TaskFactory extends AbstractActivityFactory {
 
 				if (actResource != null) {
 					/* Set ResourceRef */
-					Resource resourceRef = new Resource(resource
-							.getString("resource"));
-					actResource.setResourceRef(resourceRef);
+					String resourceVal = resource.getString("resource");
+					//避免出现空字符串
+					if(StringUtils.isNotEmpty(resourceVal)){
+						Resource resourceRef = new Resource();
+						actResource.setResourceRef(resourceRef);
+					}
 
 					/* Set Resource Assignment Expression */
 					ResourceAssignmentExpression resAsgExpr = new ResourceAssignmentExpression();

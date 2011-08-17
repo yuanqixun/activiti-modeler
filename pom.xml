@@ -6,7 +6,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<properties>
-	<activiti.version>5.7</activiti.version>
+		<activiti.version>5.7.1-SNAPSHOT</activiti.version>
 	</properties>
 	<dependencies>
 		<dependency>

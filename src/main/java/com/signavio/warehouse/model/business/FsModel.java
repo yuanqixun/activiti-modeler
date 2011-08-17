@@ -277,20 +277,20 @@ public class FsModel extends FsSecureBusinessObject {
 			}
 			
 			//生成发布模型的流程图
-			byte[] imageByte=generateImage(getHeadRevision(),RepresentationType.PNG,new PNGTranscoder());
-			File pngFile = null;
-			if(imageByte != null){
-				pngFile = new File(parent.getPath()+"/"+currentVersion+".png");
-				try {
-					FileOutputStream fos = new FileOutputStream(pngFile);
-					fos.write(imageByte);
-					fos.close();
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+//			byte[] imageByte=generateImage(getHeadRevision(),RepresentationType.PNG,new PNGTranscoder());
+//			File pngFile = null;
+//			if(imageByte != null){
+//				pngFile = new File(parent.getPath()+"/"+currentVersion+".png");
+//				try {
+//					FileOutputStream fos = new FileOutputStream(pngFile);
+//					fos.write(imageByte);
+//					fos.close();
+//				} catch (FileNotFoundException e) {
+//					e.printStackTrace();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
 			
 			//发布当前版本至Activiti引擎
 			ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
@@ -301,9 +301,9 @@ public class FsModel extends FsSecureBusinessObject {
 			try {
 				bpmnFIS = new FileInputStream(destBPMN20File);
 				deploymentBuilder.addInputStream(currentVersion+".bpmn20.xml", bpmnFIS);
-				pngFIS = new FileInputStream(pngFile);
-				if(pngFile!=null)
-					deploymentBuilder.addInputStream(currentVersion+".png", pngFIS);
+//				pngFIS = new FileInputStream(pngFile);
+//				if(pngFile!=null)
+//					deploymentBuilder.addInputStream(currentVersion+".png", pngFIS);
 				JSONObject deployInfo = new JSONObject();
 				Deployment deployment=deploymentBuilder.deploy();
 				deployInfo.accumulate("id", deployment.getId());

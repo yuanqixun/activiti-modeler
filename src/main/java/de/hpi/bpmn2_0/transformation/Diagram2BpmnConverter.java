@@ -822,6 +822,7 @@ public class Diagram2BpmnConverter {
 		while (allNodes.size() > 0) {
 			//生成流程定义对象，区分新建和更新情况
 			Process currentProcess = new Process();
+			currentProcess.setName(diagram.getProperty("name"));
 			String processDefId = diagram.getResourceId();
 			if(!processDefId.equals("canvas"))
 				currentProcess.setId(processDefId);

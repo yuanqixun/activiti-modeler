@@ -224,9 +224,6 @@
 				}
  			]
  		},
-		
-		// Event Definitions Attributes
-		
 		{
  			"name":"error",
  			"properties":[
@@ -401,9 +398,6 @@
  				}
  			]
  		},
-		
-		// End Event Definitions
-		
 		{
 			"name" : "diagram",
 			"properties" : [
@@ -2310,9 +2304,6 @@
 			"propertyPackages" : ["baseAttributes","diagram"],
 			"roles":			["canContainArtifacts"]
 		},
-		
-		// Acitvities
-		
 		{
 			"type" : 			"node",
 			"id": 				"Task",
@@ -2699,9 +2690,6 @@
 				"EventActivitiesMorph"
 			]
 		},
-		
-		// Gateways
-		
 		{
 			"type" : 			"node",
 			"id" :				"Exclusive_Databased_Gateway",
@@ -3048,9 +3036,6 @@
 				"GatewaysMorph"
 			]
 		},
-		
-		// Swimlanes
-		
 		{
 			"type" : 			"node",
 			"id" :				"Pool",
@@ -3229,9 +3214,6 @@
                 "eventSubprocessElement"
             ]
         },
-		
-		// Artifacts
-		
 		{
 			"type" : 			"node",
 			"id" : 				"Group",
@@ -3318,9 +3300,6 @@
 				"TextAnnotationMorph"
 			]
 		},
-		
-		// Data Objects
-		
 		{
 			"type" : 			"node",
 			"id" :				"DataObject",
@@ -3576,9 +3555,6 @@
 				"DataObjectMorph"
 			]
 		},
-		
-		// Start Events
-		
 		{
 			"type" : 			"node",
 			"id": 				"StartNoneEvent",
@@ -3983,9 +3959,6 @@
 				}
 			]
 		},
-		
-		// Intermediate Events Catching
-		
 		{
 			"type": "node",
 			"id":"IntermediateMessageEventCatching",
@@ -4494,9 +4467,6 @@
 				}
 			]
 		},
-		
-		// Intermediate Events Throwing
-		
 		{
 			"type": "node",
 			"id":"IntermediateEvent",
@@ -4786,9 +4756,6 @@
 				}
 			]
 		},
-		
-		// End Events
-		
 		{
 			"type" : "node",
 			"id": "EndNoneEvent",
@@ -5138,9 +5105,6 @@
 				}
 			]
 		},
-		
-		// Edges
-		
 		{
 			"type": "edge",
 			"id":"SequenceFlow",

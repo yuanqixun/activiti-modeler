@@ -196,11 +196,15 @@ public class ModelHandler extends BasisHandler {
 			comment = jsonParams.getString("comment");
 			jsonRep = jsonParams.getString("json_xml");
 			svgRep = jsonParams.getString("svg_xml");
-			
 			if(jsonParams.has("id")) {
 				id = jsonParams.getString("id");
 			}
-			
+			//赋予传入的id begin
+			JSONObject jsonObj = new JSONObject(jsonRep);
+			jsonObj.remove("resourceId");
+			jsonObj.accumulate("resourceId", id);
+			jsonRep = jsonObj.toString();
+			//赋予传入的id end
 		} catch (JSONException e) {
 			throw new RequestException("invalid_request_missing_parameter ", e);
 		}

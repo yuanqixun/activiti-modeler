@@ -43,6 +43,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -138,8 +139,11 @@ public class EditorHandler extends BasisHandler {
 
 			try {
 				// get id of model or revision
+				//请求参数
 				String id = jParams.getString("id");
-
+				String name=jParams.getString("name");
+				String version=jParams.getString("version");
+				
 				id = id.replace("/directory/", "");
 
 				String revision = null;
@@ -160,63 +164,58 @@ public class EditorHandler extends BasisHandler {
 					}
 				} else {
 					FsAccount account = token.getAccount();
-
-					try {
-						// try to get the sbo for the id
-						FsSecureBusinessObject tempsbo = FsSecurityManager
-								.getInstance().loadObject(id, token);
-
-						if (tempsbo instanceof FsModel) {
+//					try {
+//						// try to get the sbo for the id
+//						FsSecureBusinessObject tempsbo = FsSecurityManager
+//								.getInstance().loadObject(id, token);
+//						if (tempsbo instanceof FsModel) {
+//							// check, if sbo is a model
+//							FsModel model = (FsModel) tempsbo;
+//							// set location
+//							res.setHeader("location", req.getRequestURL()
+//									+ "?id=" + id);
+//							// print xhtml site
+//							sendEditorXHTML(res, model.getName(), account);
+//						}
+//						else {
+//							throw new RequestException(
+//									"editor.invalidIdentifier");
+//						}
+//
+//					} catch (BusinessObjectDoesNotExistException e) {
+//						addJSPAttributes(req);
+//						String name = jParams.getString("name");
+//						String title = StringUtils.isEmpty(name) ? "New Process" : name;
+//						req.setAttribute("title", title);
+//						req.setAttribute("language", account.getLanguageCode());
+//						req.setAttribute("country", account.getCountryCode());
+//						res.setHeader("location", req.getRequestURL() + "?id="
+//								+ id);
+//						sendEditorXHTML(res, title, account);
+//					}
+					if(sbo != null){
+						if (sbo instanceof FsModel) {
 							// check, if sbo is a model
-							FsModel model = (FsModel) tempsbo;
+							FsModel model = (FsModel) sbo;
 							// set location
 							res.setHeader("location", req.getRequestURL()
-									+ "?id=" + id);
+									+ "?id=" + id+"&name="+name+"&version="+version);
 							// print xhtml site
 							sendEditorXHTML(res, model.getName(), account);
 						}
-						// else if (sbo instanceof ModelRevision) {
-						// //check, if sbo is a model revision
-						// ModelRevision rev = (ModelRevision) tempsbo;
-						// Model model = (Model)
-						// SecurityManager.getInstance().loadObject(rev.getModelId(),
-						// token);
-						//
-						// sendEditorXHTML(res, model.getName(), account);
-						// }
 						else {
 							throw new RequestException(
 									"editor.invalidIdentifier");
 						}
-
-					} catch (BusinessObjectDoesNotExistException e) {
-						// id is no existing model/revision, get info from
-						// session
-						// Map<String,String> tempModelInfo =
-						// (Map<String,String>)
-						// req.getSession().getAttribute(id);
+					}else{
 						addJSPAttributes(req);
-
-						// Properties translation =
-						// TranslationFactory.getTranslation(token);
-
-						req.setAttribute("title", "New Process");
+						String title = StringUtils.isEmpty(name) ? "New Process" : name;
+						req.setAttribute("title", title);
 						req.setAttribute("language", account.getLanguageCode());
 						req.setAttribute("country", account.getCountryCode());
-
-						// set location
 						res.setHeader("location", req.getRequestURL() + "?id="
 								+ id);
-
-						// try {
-						sendEditorXHTML(res, "New Process", account);
-						// req.getRequestDispatcher("/WEB-INF/jsp/editor.jsp").include(req,
-						// res);
-						// } catch (ServletException e1) {
-						// throw new RequestException("servletException", e1);
-						// } catch (IOException e1) {
-						// throw new IORequestException(e1);
-						// }
+						sendEditorXHTML(res, title, account);
 					}
 				}
 
@@ -687,8 +686,9 @@ public class EditorHandler extends BasisHandler {
 				}
 
 				result.put("model", createJSONStub(stencilset, extensions));
-
-				result.put("name", "New Model");
+				String name = req.getParameter("name");
+				String modelName = StringUtils.isEmpty(name) ? "New Model" : name;
+				result.put("name", modelName);
 				result.put("description", "");
 
 				result.put("modelHandler", getModelHandlerURI(req));

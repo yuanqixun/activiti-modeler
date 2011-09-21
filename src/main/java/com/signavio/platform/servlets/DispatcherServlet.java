@@ -32,6 +32,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.signavio.platform.core.HandlerEntry;
 import com.signavio.platform.exceptions.RequestException;
 import com.signavio.platform.handler.ExportHandler;
@@ -71,7 +73,7 @@ public class DispatcherServlet extends HttpServlet {
 	}
 	
 	private void dispatch(HttpServletRequest req, HttpServletResponse res) {
-
+		req.getParameter("id");
 		//First, try to get the access token
 		FsAccessToken token = (FsAccessToken) req.getSession().getAttribute("token");
 		
@@ -96,6 +98,11 @@ public class DispatcherServlet extends HttpServlet {
 			res.setHeader("Cache-Control", "no-cache");
 		}
 		
+		//请求参数
+		String id=req.getParameter("id");
+		String name=req.getParameter("name");
+		String version=req.getParameter("version");
+		
 		//if the identifier is not null, get the corresponding SBO
 		FsSecureBusinessObject sbo = null;
 		if(token != null) {
@@ -104,7 +111,7 @@ public class DispatcherServlet extends HttpServlet {
 					Object idObjInContext = servletContext.getAttribute(identifier);
 					if(idObjInContext != null && idObjInContext instanceof String) {
 						sbo = FsSecurityManager.getInstance().loadObject((String)idObjInContext, token);
-					} else {
+					} else{
 						sbo = FsSecurityManager.getInstance().loadObject(identifier, token);
 					}
 				} catch (BusinessObjectDoesNotExistException e) {
@@ -113,10 +120,24 @@ public class DispatcherServlet extends HttpServlet {
 					throw new RequestException("platform.dispatcher.sboCreationFailed", e);
 				}
 				
+			}else if(StringUtils.isNotEmpty(id)) {
+				sbo = FsSecurityManager.getInstance().loadObject(id,version);
 			}
 		} else {
 			//throw new RequestException("platform.dispatcher.noValidToken");
 		}
+		
+//		if (token != null) {
+//			if (StringUtils.isNotEmpty(id)) {
+//				try {
+//					sbo = FsSecurityManager.getInstance().loadObject(id,
+//							version);
+//				} catch (BusinessObjectDoesNotExistException e) {
+//					throw new RequestException(
+//							"platform.dispatcher.sboNotFound", e);
+//				}
+//			}
+//		}
 		
 		
 		

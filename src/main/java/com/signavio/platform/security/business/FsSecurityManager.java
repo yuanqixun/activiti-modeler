@@ -26,6 +26,8 @@ import java.net.URLDecoder;
 
 import com.signavio.platform.account.business.FsAccount;
 import com.signavio.platform.account.business.FsAccountManager;
+import com.signavio.platform.core.Platform;
+import com.signavio.platform.core.PlatformProperties;
 import com.signavio.platform.exceptions.AccountInActiveException;
 import com.signavio.platform.exceptions.IncorrectPasswordException;
 import com.signavio.platform.exceptions.PrincipalException;
@@ -40,6 +42,8 @@ import com.signavio.warehouse.business.FsEntityManager;
 import com.signavio.warehouse.directory.business.FsDirectory;
 import com.signavio.warehouse.directory.business.FsRootDirectory;
 import com.signavio.warehouse.model.business.FsModel;
+import com.signavio.warehouse.model.business.ModelTypeFileExtension;
+import com.signavio.warehouse.model.business.modeltype.SignavioModelType;
 import com.signavio.warehouse.revision.business.FsComment;
 import com.signavio.warehouse.revision.business.FsModelRevision;
 
@@ -107,9 +111,34 @@ public class FsSecurityManager {
 		
 	}
 	
+	/**
+	 * 根据传入的id和版本加载模型对象
+	 * @param id
+	 * @param version
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public <T extends FsSecureBusinessObject> T loadObject(String id, String version) {
+		PlatformProperties props = Platform.getInstance().getPlatformProperties();
+		String repoDir = props.getRootDirectoryPath();
+		//获得文件后缀
+		ModelTypeFileExtension fileExtension=SignavioModelType.class.getAnnotation(ModelTypeFileExtension.class);
+		String fullPath=repoDir+File.separator+id+File.separator+version+fileExtension.fileExtension();
+		fullPath = fullPath.replace(";", File.separator);
+		try {
+			return (T) (new FsModel(fullPath));
+		} catch (Exception e) {
+			try {
+				return (T)(new FsModel(URLDecoder.decode(fullPath, "utf8").replace(";", File.separator)));
+			} catch (Exception e2) {
+				//throw new BusinessObjectDoesNotExistException(id);
+				return null;
+			}
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	public <T extends FsSecureBusinessObject> T loadObject(Class<T> businessObjectClass, String id, FsAccessToken token) {
-		
 		if (id.length() == 0){
 			return null;
 			
@@ -244,6 +273,7 @@ public class FsSecurityManager {
 			return (T)FsBusinessObjectManager.getTenantManagerInstance((Class<? extends FsBusinessObjectManager>)businessClass, tenantId, token);
 		}
 		throw new IllegalArgumentException("Could not load tenant singleton of " + businessClass.getCanonicalName());
-	}		
+	}
+
 }
 	

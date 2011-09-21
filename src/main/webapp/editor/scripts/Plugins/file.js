@@ -57,7 +57,7 @@ ORYX.Plugins.Save = Clazz.extend({
 			}
 		}, false)
 		
-		
+		/*
 		this.facade.offer({
 			'name': ORYX.I18N.Save.saveAs,
 			'functionality': this.save.bind(this,true,false),
@@ -68,7 +68,7 @@ ORYX.Plugins.Save = Clazz.extend({
 			'minShape': 0,
 			'maxShape': 0
 		});	
-		
+		*/
 		this.facade.offer({
 					'name' : 'Save&Publish',
 					'functionality' : this.save.bind(this, false, true),
@@ -146,7 +146,7 @@ ORYX.Plugins.Save = Clazz.extend({
 						'<fieldset>',
 							'<p class="description">' + ORYX.I18N.Save.dialogDesciption + '</p>',
 							'<input type="hidden" name="namespace" value="{namespace}" />',
-							'<p><label for="edit_model_title">' + ORYX.I18N.Save.dialogLabelTitle + '</label><input type="text" class="text" name="title" value="{title}" id="edit_model_title" onfocus="this.className = \'text activated\'" onblur="this.className = \'text\'"/></p>',
+							'<p><label for="edit_model_title">' + ORYX.I18N.Save.dialogLabelTitle + '</label><input type="text" class="text" name="title" readonly="true" value="{title}" id="edit_model_title" onfocus="this.className = \'text activated\'" onblur="this.className = \'text\'"/></p>',
 							'<p><label for="edit_model_summary">' + ORYX.I18N.Save.dialogLabelDesc + '</label><textarea rows="5" name="summary" id="edit_model_summary" onfocus="this.className = \'activated\'" onblur="this.className = \'\'">{summary}</textarea></p>',
 							(modelMeta.versioning) ? '<p><label for="edit_model_comment">' + ORYX.I18N.Save.dialogLabelComment + '</label><textarea rows="5" name="comment" id="edit_model_comment" onfocus="this.className = \'activated\'" onblur="this.className = \'\'">{comment}</textarea></p>' : '',
 							'<p><label for="edit_model_type">' + ORYX.I18N.Save.dialogLabelType + '</label><input type="text" name="type" class="text disabled" value="{type}" disabled="disabled" id="edit_model_type" /></p>',
@@ -370,6 +370,8 @@ ORYX.Plugins.Save = Clazz.extend({
 						reqURI += "/" + modelMeta.modelId;
 						
 					params.id = modelMeta.modelId;
+					//yuan 2011-09-21增加版本的参数
+					params.version = modelMeta.version;
 					// Send the request out
 					this.sendSaveRequest('PUT', reqURI, params, false, successFn, failure);
 				}

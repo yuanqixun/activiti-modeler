@@ -33,6 +33,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.signavio.platform.core.HandlerEntry;
 import com.signavio.platform.exceptions.RequestException;
@@ -112,7 +114,15 @@ public class DispatcherServlet extends HttpServlet {
 					if(idObjInContext != null && idObjInContext instanceof String) {
 						sbo = FsSecurityManager.getInstance().loadObject((String)idObjInContext, token);
 					} else{
-						sbo = FsSecurityManager.getInstance().loadObject(identifier, token);
+//						sbo = FsSecurityManager.getInstance().loadObject(identifier, token);
+						JSONObject putParam = (JSONObject)req.getAttribute("params");
+						try {
+							version = putParam.getString("version");
+						} catch (JSONException e) {
+							version = "draft";
+							e.printStackTrace();
+						}
+						sbo = FsSecurityManager.getInstance().loadObject(identifier,version);
 					}
 				} catch (BusinessObjectDoesNotExistException e) {
 					throw new RequestException("platform.dispatcher.sboNotFound", e);

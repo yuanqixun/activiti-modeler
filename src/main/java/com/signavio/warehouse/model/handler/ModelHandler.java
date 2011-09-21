@@ -127,7 +127,8 @@ public class ModelHandler extends BasisHandler {
 			FsDirectory dir = FsSecurityManager.getInstance().loadObject(FsDirectory.class, parentId, token);
 			
 			dir.addChildModel(model);
-			processDefId = "sid-"+dir.getName();
+//			processDefId = "sid-"+dir.getName();
+			processDefId = dir.getName();
 		} catch (JSONException e) {
 			throw new RequestException("invalid_request_missing_parameter", e);
 		} catch (UnsupportedEncodingException e) {

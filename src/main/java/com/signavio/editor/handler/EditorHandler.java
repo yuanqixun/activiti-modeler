@@ -151,10 +151,10 @@ public class EditorHandler extends BasisHandler {
 				if (jParams.has("revision")) {
 					revision = jParams.getString("revision");
 				}
-
+				//获得json数据
 				if (jParams.has("data")) {
-					// editor requested model data (json)
-					String json = getJSONString(id, revision, token, req);
+					//String json = getJSONString(id, revision, token, req);
+					String json = getJSONString(id,version, revision,sbo,req);
 					res.setStatus(200);
 					res.setContentType("application/json");
 					try {
@@ -164,43 +164,11 @@ public class EditorHandler extends BasisHandler {
 					}
 				} else {
 					FsAccount account = token.getAccount();
-//					try {
-//						// try to get the sbo for the id
-//						FsSecureBusinessObject tempsbo = FsSecurityManager
-//								.getInstance().loadObject(id, token);
-//						if (tempsbo instanceof FsModel) {
-//							// check, if sbo is a model
-//							FsModel model = (FsModel) tempsbo;
-//							// set location
-//							res.setHeader("location", req.getRequestURL()
-//									+ "?id=" + id);
-//							// print xhtml site
-//							sendEditorXHTML(res, model.getName(), account);
-//						}
-//						else {
-//							throw new RequestException(
-//									"editor.invalidIdentifier");
-//						}
-//
-//					} catch (BusinessObjectDoesNotExistException e) {
-//						addJSPAttributes(req);
-//						String name = jParams.getString("name");
-//						String title = StringUtils.isEmpty(name) ? "New Process" : name;
-//						req.setAttribute("title", title);
-//						req.setAttribute("language", account.getLanguageCode());
-//						req.setAttribute("country", account.getCountryCode());
-//						res.setHeader("location", req.getRequestURL() + "?id="
-//								+ id);
-//						sendEditorXHTML(res, title, account);
-//					}
 					if(sbo != null){
 						if (sbo instanceof FsModel) {
-							// check, if sbo is a model
 							FsModel model = (FsModel) sbo;
-							// set location
 							res.setHeader("location", req.getRequestURL()
 									+ "?id=" + id+"&name="+name+"&version="+version);
-							// print xhtml site
 							sendEditorXHTML(res, model.getName(), account);
 						}
 						else {
@@ -256,6 +224,99 @@ public class EditorHandler extends BasisHandler {
 					throw new RequestException("platform.ioexception", e3);
 				}
 			}
+		}
+	}
+
+	//根据id和版本获得json字符串
+	private String getJSONString(String id,String version,String revision,FsSecureBusinessObject sbo,HttpServletRequest req) {
+		JSONObject result = new JSONObject();
+		if(sbo!=null) {
+			String modelData = null;
+			String directory = null;
+			String name = "";
+			String description = "";
+			FsModelRevision rev;
+			
+			if (sbo instanceof FsModel) {
+				FsModel model = (FsModel) sbo;
+				if (revision != null) {
+					rev = model.getRevision(Integer.parseInt(revision));
+				} else {
+					rev = model.getHeadRevision();
+				}
+				name = model.getName();
+				description = model.getDescription();
+				FsDirectory dir = model.getParentDirectory();
+				directory = dir.getId();
+			}else {
+				throw new RequestException("editor.invalidIdException");
+			}
+			// get model data (json)
+			try {
+				modelData = new String(rev.getRepresentation(
+						RepresentationType.JSON).getContent(), "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				throw new RequestException(
+						"editor.unsupportedEncodingException");
+			}
+
+			try {
+				result.put("modelId", id);
+				result.put("parent", directory);
+				JSONObject modelJSON = new JSONObject(modelData);
+				result.put("model", modelJSON);
+				result.put("name", name);
+				result.put("description", description);
+				result.put("modelHandler", getModelHandlerURI(req));
+				result.put("revision", rev.getRevisionNumber());
+				result.put("versioning", true);
+				result.put("version", version);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			return result.toString();
+		} else {
+			// new model. return a json stub with the info in the session
+			Map<String, String> params = (Map<String, String>) req.getSession()
+					.getAttribute(id);
+			try {
+				String stencilset;
+				String[] extensions;
+				result.put("modelId", id);
+				if(params!=null && !params.isEmpty()){
+					result.put("parent", (String) params.get("directory"));
+					stencilset= (String) params.get("stencilset");
+				}else{
+					//TODO
+					result.put("parent", "/directory/root-directory");
+					stencilset="http://b3mn.org/stencilset/bpmn2.0#";
+				}
+				
+				if (params!=null && params.containsKey("extensions")) {
+					String str = params.get("extensions");
+					extensions = str.split(";");
+				} else {
+					extensions = new String[] {};
+				}
+
+				result.put("model", createJSONStub(stencilset, extensions));
+				String name = req.getParameter("name");
+				String modelName = StringUtils.isEmpty(name) ? "New Model" : name;
+				result.put("name", modelName);
+				result.put("description", "");
+
+				result.put("modelHandler", getModelHandlerURI(req));
+
+				result.put("revision", 0);
+
+				result.put("new", true);
+
+				result.put("versioning", true);
+
+			} catch (JSONException e1) {
+				throw new JSONRequestException(e1);
+			}
+			return result.toString();
 		}
 	}
 

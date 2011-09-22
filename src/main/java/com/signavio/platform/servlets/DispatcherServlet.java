@@ -75,7 +75,6 @@ public class DispatcherServlet extends HttpServlet {
 	}
 	
 	private void dispatch(HttpServletRequest req, HttpServletResponse res) {
-		req.getParameter("id");
 		//First, try to get the access token
 		FsAccessToken token = (FsAccessToken) req.getSession().getAttribute("token");
 		
@@ -99,12 +98,17 @@ public class DispatcherServlet extends HttpServlet {
 		} else {
 			res.setHeader("Cache-Control", "no-cache");
 		}
-		
+//		try {
+//			req.setCharacterEncoding("utf-8");
+//		} catch (UnsupportedEncodingException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 		//请求参数
-		String id=req.getParameter("id");
-		String name=req.getParameter("name");
+		String id = req.getParameter("id");
 		String version=req.getParameter("version");
-		
+		if(StringUtils.isEmpty(version))
+			version="draft";
 		//if the identifier is not null, get the corresponding SBO
 		FsSecureBusinessObject sbo = null;
 		if(token != null) {

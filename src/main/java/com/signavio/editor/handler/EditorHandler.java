@@ -141,8 +141,14 @@ public class EditorHandler extends BasisHandler {
 				// get id of model or revision
 				//请求参数
 				String id = jParams.getString("id");
-				String name=jParams.getString("name");
-				String version=jParams.getString("version");
+				String name = jParams.getString("name");
+				try {
+					name = new String(name.getBytes("ISO8859-1"), "UTF-8");
+				} catch (UnsupportedEncodingException e) {
+				}
+				String version="draft";
+				if(jParams.has("version"))
+				 version=jParams.getString("version");
 				
 				id = id.replace("/directory/", "");
 
@@ -300,7 +306,7 @@ public class EditorHandler extends BasisHandler {
 				}
 
 				result.put("model", createJSONStub(stencilset, extensions));
-				String name = req.getParameter("name");
+				String name = decodeStr(req.getParameter("name"));
 				String modelName = StringUtils.isEmpty(name) ? "New Model" : name;
 				result.put("name", modelName);
 				result.put("description", "");
@@ -747,7 +753,7 @@ public class EditorHandler extends BasisHandler {
 				}
 
 				result.put("model", createJSONStub(stencilset, extensions));
-				String name = req.getParameter("name");
+				String name = decodeStr(req.getParameter("name"));
 				String modelName = StringUtils.isEmpty(name) ? "New Model" : name;
 				result.put("name", modelName);
 				result.put("description", "");
@@ -856,5 +862,14 @@ public class EditorHandler extends BasisHandler {
 				_logger.error(e.getMessage(), e);
 			}
 		}
+	}
+	
+	private String decodeStr(String str){
+		try {
+			return new String(str.getBytes("iso8859_1"),"utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return str;
 	}
 }

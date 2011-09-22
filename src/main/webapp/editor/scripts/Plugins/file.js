@@ -33,7 +33,10 @@ ORYX.Plugins.Save = Clazz.extend({
 	
     construct: function(facade){
 		this.facade = facade;
-		
+		var canEdit = false;
+		if(this.facade.getModelMetaData()['viewType']=='edit')
+			canEdit = true;
+		if(canEdit){
 		this.facade.offer({
 			'name': ORYX.I18N.Save.save,
 			'functionality': this.save.bind(this,false,false),
@@ -50,7 +53,7 @@ ORYX.Plugins.Save = Clazz.extend({
 				}
 			 ]
 		});
-		
+		}
 		document.addEventListener("keydown", function(e){
 			if (e.ctrlKey&&e.keyCode === 83){
 				Event.stop(e);
@@ -69,6 +72,7 @@ ORYX.Plugins.Save = Clazz.extend({
 			'maxShape': 0
 		});	
 		*/
+		if(canEdit){
 		this.facade.offer({
 					'name' : 'Save&Publish',
 					'functionality' : this.save.bind(this, false, true),
@@ -79,7 +83,7 @@ ORYX.Plugins.Save = Clazz.extend({
 					'minShape' : 0,
 					'maxShape' : 0
 				});
-				
+		}		
 		window.onbeforeunload = this.onUnLoad.bind(this)
 		
 		this.changeDifference = 0;

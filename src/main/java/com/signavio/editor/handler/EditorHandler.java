@@ -236,6 +236,7 @@ public class EditorHandler extends BasisHandler {
 	//根据id和版本获得json字符串
 	private String getJSONString(String id,String version,String revision,FsSecureBusinessObject sbo,HttpServletRequest req) {
 		JSONObject result = new JSONObject();
+		String viewType=req.getParameter("viewType");
 		if(sbo!=null) {
 			String modelData = null;
 			String directory = null;
@@ -267,6 +268,7 @@ public class EditorHandler extends BasisHandler {
 			}
 
 			try {
+				result.put("viewType", viewType);
 				result.put("modelId", id);
 				result.put("parent", directory);
 				JSONObject modelJSON = new JSONObject(modelData);
@@ -288,6 +290,7 @@ public class EditorHandler extends BasisHandler {
 			try {
 				String stencilset;
 				String[] extensions;
+				result.put("viewType", viewType);
 				result.put("modelId", id);
 				if(params!=null && !params.isEmpty()){
 					result.put("parent", (String) params.get("directory"));

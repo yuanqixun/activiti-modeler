@@ -58,7 +58,7 @@ ORYX.Plugins.Save = Clazz.extend({
 			if (e.ctrlKey&&e.keyCode === 83){
 				Event.stop(e);
 			}
-		}, false)
+		}, false);
 		
 		/*
 		this.facade.offer({

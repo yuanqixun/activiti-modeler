@@ -34,7 +34,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Properties;
 import java.util.Set;
 
 import org.activiti.engine.ProcessEngine;
@@ -42,14 +41,13 @@ import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.DeploymentBuilder;
+import org.activiti.engine.repository.ProcessDefinition;
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.PNGTranscoder;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.oryxeditor.server.diagram.Diagram;
 import org.oryxeditor.server.diagram.DiagramBuilder;
 
@@ -66,107 +64,121 @@ import com.signavio.warehouse.revision.business.RepresentationType;
  * Implementation of a model in the file accessing Oryx backend.
  * 
  * @author Stefan Krumnow
- *
+ * 
  */
 public class FsModel extends FsSecureBusinessObject {
-	
+
 	private String pathPrefix;
 	private String name;
 	private String fileExtension;
 	private String fileFullName;
-	
+
 	/**
 	 * Constructor
 	 * 
 	 * Constructs a new model object for an EXISTING filesystem model.
-	 *  
+	 * 
 	 * @param parentDirectory
 	 * @param name
 	 * @param uuid
 	 */
-	public FsModel(String pathPrefix, String name, String fileExtension){
-		
+	public FsModel(String pathPrefix, String name, String fileExtension) {
+
 		this.pathPrefix = pathPrefix;
 		this.name = name;
 		this.fileExtension = fileExtension;
-		
+
 		String path = getPath();
 		fileFullName = path;
-		if (FileSystemUtil.isFileDirectory(path)){
+		if (FileSystemUtil.isFileDirectory(path)) {
 			throw new IllegalStateException("Path does not point to a file.");
-		} else if ( ! FileSystemUtil.isFileExistent(path) || ! FileSystemUtil.isFileAccessible(path )){
+		} else if (!FileSystemUtil.isFileExistent(path)
+				|| !FileSystemUtil.isFileAccessible(path)) {
 			throw new IllegalStateException("Model can not be accessed");
 		}
-		
+
 	}
-	
-	public FsModel(File modelFile){
+
+	public FsModel(File modelFile) {
 		this(modelFile.getPath());
 	}
-	
-	public FsModel(String fullName){
-		
-		if (FileSystemUtil.isFileDirectory(fullName)){
+
+	public FsModel(String fullName) {
+
+		if (FileSystemUtil.isFileDirectory(fullName)) {
 			throw new IllegalStateException("Path does not point to a file.");
-		} else if (fullName.contains(File.separator)){
+		} else if (fullName.contains(File.separator)) {
 			int i = fullName.lastIndexOf(File.separator);
 			this.pathPrefix = fullName.substring(0, i);
-			String remainder = fullName.substring(i+1);
-			String[] splittedName = ModelTypeManager.splitNameAndExtension(remainder);
-			this.name = splittedName[0];//从文件中解析
+			String remainder = fullName.substring(i + 1);
+			String[] splittedName = ModelTypeManager
+					.splitNameAndExtension(remainder);
+			this.name = splittedName[0];// 从文件中解析
 			this.fileExtension = splittedName[1];
 		} else {
 			throw new IllegalStateException("Path does not point to a model.");
 		}
-		
-//		String path = getPath();
+
+		// String path = getPath();
 		fileFullName = fullName;
-		if ( ! FileSystemUtil.isFileExistent(fileFullName) || ! FileSystemUtil.isFileAccessible(fileFullName )){
+		if (!FileSystemUtil.isFileExistent(fileFullName)
+				|| !FileSystemUtil.isFileAccessible(fileFullName)) {
 			throw new IllegalStateException("Model can not be accessed.");
 		}
-		
+
 	}
-	
-	public void setName(String name) throws UnsupportedEncodingException, JSONException {
+
+	public void setName(String name) throws UnsupportedEncodingException,
+			JSONException {
 		name = FileSystemUtil.getCleanFileName(name);
 		if (name.equals(this.name)) {
-			return ;
+			return;
 		}
-//		不能直接修改文件名，因为新版本设计器文件名不与流程名不同
-//		FsModelRevision rev = getHeadRevision();
-//		Diagram diagram = DiagramBuilder.parseJson(new String(rev.getRepresentation(RepresentationType.JSON).getContent(), "utf8"));
-//		String namespace = diagram.getStencilset().getNamespace();
-//		
-//		if (ModelTypeManager.getInstance().getModelType(namespace).renameFile(getParentDirectory().getPath(), this.name, name)){
-//			this.name = name;
-//		} else {
-//			throw new IllegalArgumentException("Cannot rename model");
-//		}
-		ModelTypeManager.getInstance().getModelType(this.fileExtension).storeNameStringToModelFile(name, getFileFullName());
+		// 不能直接修改文件名，因为新版本设计器文件名不与流程名不同
+		// FsModelRevision rev = getHeadRevision();
+		// Diagram diagram = DiagramBuilder.parseJson(new
+		// String(rev.getRepresentation(RepresentationType.JSON).getContent(),
+		// "utf8"));
+		// String namespace = diagram.getStencilset().getNamespace();
+		//
+		// if
+		// (ModelTypeManager.getInstance().getModelType(namespace).renameFile(getParentDirectory().getPath(),
+		// this.name, name)){
+		// this.name = name;
+		// } else {
+		// throw new IllegalArgumentException("Cannot rename model");
+		// }
+		ModelTypeManager.getInstance().getModelType(this.fileExtension)
+				.storeNameStringToModelFile(name, getFileFullName());
 	}
 
 	public String getName() {
-		//获得模型名称
-		return ModelTypeManager.getInstance().getModelType(this.fileExtension).getNameFromModelFile(getFileFullName());
-//		return name;
+		// 获得模型名称
+		return ModelTypeManager.getInstance().getModelType(this.fileExtension)
+				.getNameFromModelFile(getFileFullName());
+		// return name;
 	}
-	
+
 	public void setDescription(String description) {
-		ModelTypeManager.getInstance().getModelType(this.fileExtension).storeDescriptionToModelFile(description, getFileFullName());
+		ModelTypeManager.getInstance().getModelType(this.fileExtension)
+				.storeDescriptionToModelFile(description, getFileFullName());
 	}
-	
+
 	public String getDescription() {
-		return ModelTypeManager.getInstance().getModelType(this.fileExtension).getDescriptionFromModelFile(getFileFullName());
+		return ModelTypeManager.getInstance().getModelType(this.fileExtension)
+				.getDescriptionFromModelFile(getFileFullName());
 	}
-	
+
 	public void setType(String type) {
-		ModelTypeManager.getInstance().getModelType(this.fileExtension).storeTypeStringToModelFile(type, getFileFullName());
+		ModelTypeManager.getInstance().getModelType(this.fileExtension)
+				.storeTypeStringToModelFile(type, getFileFullName());
 	}
-	
+
 	public String getType() {
-		return ModelTypeManager.getInstance().getModelType(this.fileExtension).getTypeStringFromModelFile(getFileFullName());
+		return ModelTypeManager.getInstance().getModelType(this.fileExtension)
+				.getTypeStringFromModelFile(getFileFullName());
 	}
-	
+
 	public Date getCreationDate() {
 		return new Date();
 	}
@@ -185,17 +197,19 @@ public class FsModel extends FsSecureBusinessObject {
 		File rootDir = new File(FsRootDirectory.getSingleton().getPath());
 		File parentDir = new File(pathPrefix);
 		try {
-			if (rootDir.getCanonicalPath().equals(parentDir.getCanonicalPath())){
+			if (rootDir.getCanonicalPath().equals(parentDir.getCanonicalPath())) {
 				return FsRootDirectory.getSingleton();
 			}
 		} catch (IOException e) {
-			throw new IllegalArgumentException("Cannot determine canonical path.", e);
+			throw new IllegalArgumentException(
+					"Cannot determine canonical path.", e);
 		}
 		return new FsDirectory(pathPrefix);
 	}
-	
+
 	/**
 	 * 更新模型文件
+	 * 
 	 * @param jsonRep
 	 * @param svgRep
 	 * @param comment
@@ -203,9 +217,10 @@ public class FsModel extends FsSecureBusinessObject {
 	public void createRevision(String jsonRep, String svgRep, String comment) {
 		doRevision(jsonRep, svgRep, comment, false);
 	}
-	
+
 	/**
 	 * 发布模型文件
+	 * 
 	 * @param jsonRep
 	 * @param svgRep
 	 * @param comment
@@ -213,75 +228,39 @@ public class FsModel extends FsSecureBusinessObject {
 	public void publishRevision(String jsonRep, String svgRep, String comment) {
 		doRevision(jsonRep, svgRep, comment, true);
 	}
-	
-	private void doRevision(String jsonRep, String svgRep, String comment,boolean publishing){
+
+	private void doRevision(String jsonRep, String svgRep, String comment,
+			boolean publishing) {
 		Diagram diagram;
 		try {
 			diagram = DiagramBuilder.parseJson(jsonRep);
 		} catch (JSONException e) {
-			throw new IllegalArgumentException("JSON representation of diagram is not valid.", e);
+			throw new IllegalArgumentException(
+					"JSON representation of diagram is not valid.", e);
 		}
 		String namespace = diagram.getStencilset().getNamespace();
-		//将改变保存到模型文件中
-		ModelTypeManager.getInstance().getModelType(namespace).storeRevisionToModelFile(jsonRep, svgRep, getFileFullName());
-		//生成新的版本
-		if(publishing){
-			FsDirectory parent = this.getParentDirectory();
-			Properties index = new Properties();
-			String indexPath = parent.getPath()+"/.index";
-			try {
-				FileInputStream fis = new FileInputStream(indexPath);
-				index.load(fis);
-				fis.close();
-			} catch (FileNotFoundException e) {
-				File file = new File(indexPath);
-				try {
-					file.createNewFile();
-					FileInputStream fis = new FileInputStream(file);
-					index.load(fis);
-					fis.close();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			String fileFullName=getFileFullName();
-			String currentVersion = fileFullName.substring(fileFullName.lastIndexOf("\\")+1, fileFullName.lastIndexOf(".signavio.xml"));
-			File srcBPMN20File = new File(parent.getPath()+"/"+currentVersion+".bpmn20.xml");
-			File srcSignavioFile = new File(parent.getPath()+"/"+currentVersion+".signavio.xml");
-			File destBPMN20File;
-			File destSignavioFile;
-			if(currentVersion.equals("draft")){
-				String latestVersion = index.getProperty("latest");
-				int latest=0;
-				if(StringUtils.isEmpty(latestVersion))
-					latest = 1;
-				else
-					latest = Integer.parseInt(latestVersion)+1;
-				currentVersion=String.valueOf(latest);
-				index.setProperty("latest", String.valueOf(latest));
-				//生成发布版本文件
-				destBPMN20File = new File(parent.getPath()+"/"+latest+".bpmn20.xml");
-				destSignavioFile = new File(parent.getPath()+"/"+latest+".signavio.xml");
-				try {
-					FileUtils.copyFile(srcBPMN20File, destBPMN20File);
-					FileUtils.copyFile(srcSignavioFile, destSignavioFile);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			}else{
-				destBPMN20File=srcBPMN20File;
-				destSignavioFile=srcSignavioFile;
-			}
-			
-			//生成发布模型的流程图
-			byte[] imageByte=generateImage(getHeadRevision(),RepresentationType.PNG,new PNGTranscoder());
+		// 将改变保存到模型文件中
+		ModelTypeManager.getInstance().getModelType(namespace)
+				.storeRevisionToModelFile(jsonRep, svgRep, getFileFullName());
+		// 生成新的版本
+		if (publishing) {
+			String fileFullName = getFileFullName();
+			File srcSignavioFile = new File(fileFullName);
+			String currentVersion = srcSignavioFile.getName().replace(
+					".signavio.xml", "");
+			String currentDir = srcSignavioFile.getParent();
+			File srcBPMN20File = new File(currentDir + File.separator
+					+ currentVersion + ".bpmn20.xml");
+
+			// 生成发布模型的流程图
+			byte[] imageByte = generateImage(getHeadRevision(),
+					RepresentationType.PNG, new PNGTranscoder());
 			File pngFile = null;
-			if(imageByte != null){
-				pngFile = new File(parent.getPath()+"/"+currentVersion+".png");
+			if (imageByte != null) {
+//				pngFile = new File(currentDir + File.separator + currentVersion
+//						+ ".png");
 				try {
+					pngFile = File.createTempFile("bpm", ".png");
 					FileOutputStream fos = new FileOutputStream(pngFile);
 					fos.write(imageByte);
 					fos.close();
@@ -291,51 +270,63 @@ public class FsModel extends FsSecureBusinessObject {
 					e.printStackTrace();
 				}
 			}
-			
-			//发布当前版本至Activiti引擎
-			ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-			RepositoryService repositoryService = processEngine.getRepositoryService();
-			DeploymentBuilder deploymentBuilder = repositoryService.createDeployment();
-			FileInputStream bpmnFIS=null;
-			FileInputStream pngFIS=null;
-			try {
-				bpmnFIS = new FileInputStream(destBPMN20File);
-				deploymentBuilder.addInputStream(currentVersion+".bpmn20.xml", bpmnFIS);
-				pngFIS = new FileInputStream(pngFile);
-				if(pngFile!=null)
-					deploymentBuilder.addInputStream(currentVersion+".png", pngFIS);
-				JSONObject deployInfo = new JSONObject();
-				Deployment deployment=deploymentBuilder.deploy();
-				deployInfo.accumulate("id", deployment.getId());
-				deployInfo.accumulate("name", deployment.getName());
-				deployInfo.accumulate("time", deployment.getDeploymentTime());
-				index.setProperty("deployed-"+currentVersion, deployInfo.toString());
-			} catch (FileNotFoundException e1) {
-				e1.printStackTrace();
-			} catch (JSONException e) {
-				e.printStackTrace();
-			} finally {
+			Integer newVersion = deployIntoActivitiEngine(srcBPMN20File, pngFile);
+			File destBPMN20File;
+			File destSignavioFile;
+			if (newVersion != null) {
+				// 生成发布版本文件
+				destBPMN20File = new File(currentDir + File.separator
+						+ newVersion + ".bpmn20.xml");
+				destSignavioFile = new File(currentDir + File.separator
+						+ newVersion + ".signavio.xml");
 				try {
-					if (bpmnFIS != null)
-						bpmnFIS.close();
-					if (pngFIS != null)
-						pngFIS.close();
-				} catch (IOException e) {
-					e.printStackTrace();
+					FileUtils.copyFile(srcBPMN20File, destBPMN20File);
+					FileUtils.copyFile(srcSignavioFile, destSignavioFile);
+				} catch (IOException e1) {
+					e1.printStackTrace();
 				}
 			}
+		}
+	}
+
+	private Integer deployIntoActivitiEngine(File srcBPMN20File, File pngFile) {
+		// 发布当前版本至Activiti引擎
+		ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+		RepositoryService repositoryService = processEngine
+				.getRepositoryService();
+		DeploymentBuilder deploymentBuilder = repositoryService
+				.createDeployment();
+		FileInputStream bpmnFIS = null;
+		FileInputStream pngFIS = null;
+		try {
+			bpmnFIS = new FileInputStream(srcBPMN20File);
+			deploymentBuilder.addInputStream("model.bpmn20.xml", bpmnFIS);
+			if (pngFile != null) {
+				pngFIS = new FileInputStream(pngFile);
+				if (pngFile != null)
+					deploymentBuilder.addInputStream("model.png", pngFIS);
+			}
+			Deployment deployment = deploymentBuilder.deploy();
+			ProcessDefinition pdf = repositoryService
+					.createProcessDefinitionQuery()
+					.deploymentId(deployment.getId()).singleResult();
+			if (pdf != null)
+				return pdf.getVersion();
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} finally {
 			try {
-				FileOutputStream fos = new FileOutputStream(indexPath);
-				index.store(fos, comment);
-				fos.close();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+				if (bpmnFIS != null)
+					bpmnFIS.close();
+				if (pngFIS != null)
+					pngFIS.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+		return null;
 	}
-	
+
 	private byte[] generateImage(FsModelRevision rev, RepresentationType type,
 			PNGTranscoder transcoder) {
 		FsModelRepresentationInfo rep = rev.getRepresentation(type);
@@ -387,109 +378,124 @@ public class FsModel extends FsSecureBusinessObject {
 	}
 
 	public FsModelRepresentationInfo getRepresentation(RepresentationType type) {
-		
-		byte [] resultingInfo = ModelTypeManager.getInstance().getModelType(this.fileExtension).getRepresentationInfoFromModelFile(type, getFileFullName());
+
+		byte[] resultingInfo = ModelTypeManager.getInstance()
+				.getModelType(this.fileExtension)
+				.getRepresentationInfoFromModelFile(type, getFileFullName());
 		if (resultingInfo != null) {
 			return new FsModelRepresentationInfo(resultingInfo);
 		}
 		return null;
-		
+
 	}
 
-	public FsModelRepresentationInfo createRepresentation(RepresentationType type, byte[] content) {
-		ModelTypeManager.getInstance().getModelType(this.fileExtension).storeRepresentationInfoToModelFile(type, content, getFileFullName());
+	public FsModelRepresentationInfo createRepresentation(
+			RepresentationType type, byte[] content) {
+		ModelTypeManager
+				.getInstance()
+				.getModelType(this.fileExtension)
+				.storeRepresentationInfoToModelFile(type, content,
+						getFileFullName());
 		return getRepresentation(type);
 	}
-	
+
 	public void delete() {
 		FsModelRevision rev = getHeadRevision();
 		Diagram diagram;
 		try {
-			diagram = DiagramBuilder.parseJson(new String(rev.getRepresentation(RepresentationType.JSON).getContent(), "utf8"));
+			diagram = DiagramBuilder.parseJson(new String(rev
+					.getRepresentation(RepresentationType.JSON).getContent(),
+					"utf8"));
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException("Deleting model failed.", e);
 		} catch (JSONException e) {
 			throw new RuntimeException("Deleting model failed.", e);
 		}
 		String namespace = diagram.getStencilset().getNamespace();
-		
-		ModelTypeManager.getInstance().getModelType(namespace).deleteFile(getParentDirectory().getPath(), this.name);
+
+		ModelTypeManager.getInstance().getModelType(namespace)
+				.deleteFile(getParentDirectory().getPath(), this.name);
 	}
-	
+
 	/*
 	 * 
 	 * Private Functions
-	 * 
 	 */
-	
-	private String getPath(){
+
+	private String getPath() {
 		return pathPrefix + File.separator + name + fileExtension;
 	}
-	
-	public String getFileFullName(){
+
+	public String getFileFullName() {
 		return fileFullName;
 	}
-	
-	public void moveTo(FsDirectory newParent) throws UnsupportedEncodingException, JSONException {
-		
+
+	public void moveTo(FsDirectory newParent)
+			throws UnsupportedEncodingException, JSONException {
+
 		FsDirectory parent = getParentDirectory();
-		
+
 		if (newParent.equals(parent)) {
-			return ;
+			return;
 		}
 
 		FsModelRevision rev = getHeadRevision();
-		Diagram diagram = DiagramBuilder.parseJson(new String(rev.getRepresentation(RepresentationType.JSON).getContent(), "utf8"));
+		Diagram diagram = DiagramBuilder.parseJson(new String(rev
+				.getRepresentation(RepresentationType.JSON).getContent(),
+				"utf8"));
 		String namespace = diagram.getStencilset().getNamespace();
-		
-		if (!ModelTypeManager.getInstance().getModelType(namespace).renameFile("", parent.getPath() + File.separator + this.name, newParent.getPath() + File.separator + this.name)){
+
+		if (!ModelTypeManager
+				.getInstance()
+				.getModelType(namespace)
+				.renameFile("", parent.getPath() + File.separator + this.name,
+						newParent.getPath() + File.separator + this.name)) {
 			throw new IllegalArgumentException("Cannot move model");
 		}
 	}
-	
-	
+
 	/*
 	 * 
-	 * INTERFACE COMPLIANCE METHODS 
-	 * 
+	 * INTERFACE COMPLIANCE METHODS
 	 */
-	
+
 	@Override
-	public boolean equals(Object o){
-		if (o instanceof FsModel){
-			FsModel m = (FsModel)o;
+	public boolean equals(Object o) {
+		if (o instanceof FsModel) {
+			FsModel m = (FsModel) o;
 			return getFileFullName().equals(m.getFileFullName());
 		}
 		return false;
 	}
-	
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public <T extends FsSecureBusinessObject> Set<T> getChildren(Class<T> type) {
-		if (FsModelRevision.class.isAssignableFrom(type)){
+		if (FsModelRevision.class.isAssignableFrom(type)) {
 			return (Set<T>) getRevisions();
 		} else {
 			return super.getChildren(type);
 		}
 	}
-	
+
 	@Override
 	@SuppressWarnings("unchecked")
-	public <T extends FsSecureBusinessObject> Set<T> getParents(Class<T> businessObjectClass) {
-		if (FsDirectory.class.isAssignableFrom(businessObjectClass)){
+	public <T extends FsSecureBusinessObject> Set<T> getParents(
+			Class<T> businessObjectClass) {
+		if (FsDirectory.class.isAssignableFrom(businessObjectClass)) {
 			Set<T> parents = new HashSet<T>(1);
 			FsDirectory parentDirectory = getParentDirectory();
 			if (parentDirectory != null) {
-				parents.add((T)parentDirectory);
+				parents.add((T) parentDirectory);
 			}
 			return parents;
-		} else if (FsEntityManager.class.isAssignableFrom(businessObjectClass)){
-			return (Set<T>)FsEntityManager.getSingletonSet();
+		} else if (FsEntityManager.class.isAssignableFrom(businessObjectClass)) {
+			return (Set<T>) FsEntityManager.getSingletonSet();
 		} else {
 			return super.getParents(businessObjectClass);
 		}
 	}
-	
+
 	public Set<FsModelRevision> getRevisions() {
 		Set<FsModelRevision> result = new HashSet<FsModelRevision>(1);
 		result.add(getHeadRevision());
@@ -499,23 +505,24 @@ public class FsModel extends FsSecureBusinessObject {
 	@Override
 	public String getId() {
 		String path = getFileFullName();
-		String rootPath = FsRootDirectory.getSingleton().getPath() + File.separator;
-		if (path.startsWith(rootPath)){
-			path = FsRootDirectory.ID_OF_SINGLETON + File.separator + path.substring(rootPath.length());
+		String rootPath = FsRootDirectory.getSingleton().getPath()
+				+ File.separator;
+		if (path.startsWith(rootPath)) {
+			path = FsRootDirectory.ID_OF_SINGLETON + File.separator
+					+ path.substring(rootPath.length());
 		}
 		path = path.replace(File.separator, ";");
 		return path;
 	}
-	
+
 	public List<FsDirectory> getParentDirectories() {
 		List<FsDirectory> parents = new ArrayList<FsDirectory>();
 		FsDirectory parent = getParentDirectory();
-		if(parent != null) {
+		if (parent != null) {
 			parents.add(parent);
 			parents.addAll(parent.getParentDirectories());
 		}
 		return parents;
 	}
-
 
 }

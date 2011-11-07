@@ -4,7 +4,7 @@
 	
 	<name>BDP Activiti - web modeler module.</name>
 	<groupId>com.eontime.bdp.bpm</groupId>
-	<artifactId>bdp-bpm-modeler</artifactId>
+	<artifactId>activiti-modeler</artifactId>
 	<packaging>war</packaging>
 
 	<parent>

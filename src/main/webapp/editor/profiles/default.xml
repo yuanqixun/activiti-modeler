@@ -2,7 +2,7 @@
 
 <profiles>
   <!-- name default is reserved for the standard profile -->
-  <profile name="default" stencilset="bpmn2.0">
+  <profile name="default" stencilset="bdp1.0">
     <plugin name="Signavio.Plugins.Version" />
     <plugin name="Signavio.Plugins.Loading" />
     <!-- following plugins require Ext -->
@@ -35,11 +35,6 @@
     <plugin name="ORYX.Plugins.BPMN2_0" />
     <plugin name="ORYX.Plugins.BPMN2CONVERSATION" />
     <plugin name="ORYX.Plugins.Bpmn2_0Choreography" />
-    <plugin name="Signavio.Plugins.Version" />
-    <plugin name="Signavio.Plugins.Version" />
-    <plugin name="Signavio.Plugins.Version" />
-    <plugin name="Signavio.Plugins.Version" />
-    <plugin name="Signavio.Plugins.Version" />
     <!-- End: BPMN2.0 specific plugins -->
     
     <stencilsetextension

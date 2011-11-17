@@ -400,30 +400,36 @@ public class EditorHandler extends BasisHandler {
 				.getExplorerUri();
 		String languageFiles = "";
 		// yuanqixun 2011-05-16 add
+		System.out.println("locale:"+languageCode+"_"+countryCode);
+		languageCode="zh";
+		countryCode="cn";
 		if (languageCode.equals("") && countryCode.equals("")) {
+			System.out.println("languageCode or countryCode is null!");
 			languageCode = java.util.Locale.getDefault().getLanguage()
 					.toLowerCase();
 			countryCode = java.util.Locale.getDefault().getCountry()
 					.toLowerCase();
 		}
+		//TODO设置默认的语言
+		System.out.println("locale:"+languageCode+"_"+countryCode);
 		// yuanqixun 2011-05-16 add
-
 		if (!languageCode.equals("en") && !countryCode.equals("us")) {
-			if (new File(this.getServerRootPath() + EDITOR_URL_PREFIX
-					+ "i18n/translation_" + languageCode + ".js").exists()) {
+			//TODO 判断语言包是否存在
+//			if (new File(this.getServerRootPath() + EDITOR_URL_PREFIX
+//					+ "i18n/translation_" + languageCode + ".js").exists()) {
 				// Add regular i18n file for language
-				languageFiles += "<script src=\"" + EDITOR_URL_PREFIX
-						+ "i18n/translation_" + languageCode
-						+ ".js\" type=\"text/javascript\" />\n";
-				// Add signavio i18n file for language
-				languageFiles += "<script src=\"" + EDITOR_URL_PREFIX
-						+ "i18n/translation_signavio_" + languageCode
-						+ ".js\" type=\"text/javascript\" />\n";
-			}
+//				languageFiles += "<script src=\"" + EDITOR_URL_PREFIX
+//						+ "i18n/translation_" + languageCode
+//						+ ".js\" type=\"text/javascript\" />\n";
+//				// Add signavio i18n file for language
+//				languageFiles += "<script src=\"" + EDITOR_URL_PREFIX
+//						+ "i18n/translation_signavio_" + languageCode
+//						+ ".js\" type=\"text/javascript\" />\n";
+//			}
 
-			if (new File(this.getServerRootPath() + EDITOR_URL_PREFIX
-					+ "i18n/translation_" + languageCode + "_" + countryCode
-					+ ".js").exists()) {
+//			if (new File(this.getServerRootPath() + EDITOR_URL_PREFIX
+//					+ "i18n/translation_" + languageCode + "_" + countryCode
+//					+ ".js").exists()) {
 				// Add regular i18n file for language
 				languageFiles += "<script src=\"" + EDITOR_URL_PREFIX
 						+ "i18n/translation_" + languageCode + "_"
@@ -433,9 +439,12 @@ public class EditorHandler extends BasisHandler {
 				languageFiles += "<script src=\"" + EDITOR_URL_PREFIX
 						+ "i18n/translation_signavio_" + languageCode + "_"
 						+ countryCode + ".js\" type=\"text/javascript\" />\n";
-			}
+//			}
 		}
 
+		System.out.println("---------------------");
+		System.out.println(languageFiles);
+		System.out.println("---------------------");
 		return "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 				+ "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">"
 				+ "<html xmlns=\"http://www.w3.org/1999/xhtml\"\n"

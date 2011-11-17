@@ -171,17 +171,18 @@ ORYX.I18N.Loading.waiting ="Please wait...";
 
 if(!ORYX.I18N.PropertyWindow) ORYX.I18N.PropertyWindow = {};
 
-ORYX.I18N.PropertyWindow.name = "Name";
-ORYX.I18N.PropertyWindow.value = "Value";
-ORYX.I18N.PropertyWindow.selected = "selected";
-ORYX.I18N.PropertyWindow.clickIcon = "Click Icon";
-ORYX.I18N.PropertyWindow.add = "Add";
-ORYX.I18N.PropertyWindow.rem = "Remove";
-ORYX.I18N.PropertyWindow.complex = "Editor for a Complex Type";
-ORYX.I18N.PropertyWindow.text = "Editor for a Text Type";
-ORYX.I18N.PropertyWindow.ok = "Ok";
-ORYX.I18N.PropertyWindow.cancel = "Cancel";
-ORYX.I18N.PropertyWindow.dateFormat = "m/d/y";
+ORYX.I18N.PropertyWindow.title="属性";
+ORYX.I18N.PropertyWindow.name = "名称";
+ORYX.I18N.PropertyWindow.value = "值";
+ORYX.I18N.PropertyWindow.selected = "选择";
+ORYX.I18N.PropertyWindow.clickIcon = "点击图标";
+ORYX.I18N.PropertyWindow.add = "添加";
+ORYX.I18N.PropertyWindow.rem = "移除";
+ORYX.I18N.PropertyWindow.complex = "复杂类型编辑器";
+ORYX.I18N.PropertyWindow.text = "文本类型编辑器";
+ORYX.I18N.PropertyWindow.ok = "确定";
+ORYX.I18N.PropertyWindow.cancel = "取消";
+ORYX.I18N.PropertyWindow.dateFormat = "Y/m/d";
 
 if(!ORYX.I18N.ShapeMenuPlugin) ORYX.I18N.ShapeMenuPlugin = {};
 
@@ -219,9 +220,6 @@ ORYX.I18N.View.zoomFitToModel = "Zoom fit to model";
 ORYX.I18N.View.zoomFitToModelDesc = "Zoom to fit the model size";
 
 /** New Language Properties: 08.12.2008 */
-
-ORYX.I18N.PropertyWindow.title = "Properties";
-
 if(!ORYX.I18N.ShapeRepository) ORYX.I18N.ShapeRepository = {};
 ORYX.I18N.ShapeRepository.title = "Shape Repository";
 

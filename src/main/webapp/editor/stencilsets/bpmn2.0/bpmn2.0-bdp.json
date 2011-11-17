@@ -1,0 +1,3549 @@
+{
+  "title":"BPMN 2.0 Simple",
+  "title_zh":"简单BPMN 2.0建模",
+  "namespace":"http://b3mn.org/stencilset/bpmn2.0#",
+  "description":"This is the BPMN 2.0 stencil set specification.",
+  "propertyPackages": [
+    {
+      "name":"baseAttributes",
+      "properties": [
+        {
+          "id":"name",
+          "type":"String",
+          "title":"Name",
+          "title_zh":"名称",
+          "value":"",
+          "description":"The descriptive name of the BPMN element.",
+          "description_de":"Bezeichnung des BPMN-Elementes.",
+          "readonly":false,
+          "optional":true,
+          "length":"",
+          "wrapLines" : true,
+          "refToView":"text_name" 
+        },
+        {
+          "id":"documentation",
+          "type":"Text",
+          "title":"Documentation",
+          "title_zh":"备注",
+          "title_de":"Dokumentation",
+          "value":"",
+          "description":"This attribute is used to annotate the BPMN element, such as descriptions and other documentation.",
+          "description_de":"Der Modellierer kann weiteren Text zur Dokumentation des BPMN-Elementes einfügen.",
+          "readonly":false,
+          "optional":true,
+          "length":"",
+          "wrapLines":true,
+          "popular" : true
+        },
+        {
+          "id":"auditing",
+          "type":"Text",
+          "title":"Auditing",
+          "title_zh":"审计",
+          "title_de":"Prüfung",
+          "value":"",
+          "description":"A hook for specifying audit related properties. Auditing can only be defined for a Process.",
+          "description_de":"",
+          "readonly":false,
+          "optional":true,
+          "length":"",
+          "wrapLines":true
+        },
+        {
+          "id":"monitoring",
+          "type":"Text",
+          "title":"Monitoring",
+          "title_zh":"监控",
+          "title_de":"Überwachung",
+          "value":"",
+          "description":"A hook for specifying monitoring related properties. Monitoring can only be defined for a Process.",
+          "description_de":"",
+          "readonly":false,
+          "optional":true,
+          "length":"",
+          "wrapLines":true
+        }
+      ]
+    },
+    {
+      "name" : "bgColor",
+      "properties" : [
+        {
+          "id":"bgcolor",
+          "type":"Color",
+          "title":"BackgroundColor",
+          "title_zh":"背景色",
+          "title_de":"Hintergrundfarbe",
+          "value":"#ffffff",
+          "description":"",
+          "readonly":false,
+          "optional":false,
+          "refToView": "fill_el",
+          "fill":true,
+          "stroke":false
+        }
+      ]
+    },
+    {
+      "name" : "condition",
+      "properties" : [
+        {
+          "id":"condition",
+          "type":"String",
+          "title":"Condition",
+          "title_zh":"条件",
+          "title_de":"Bedingung",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":false,
+          "popular":true
+        }
+      ]
+    },
+    {
+      "name":"boundaryevent",
+      "properties":[
+        {
+          "id":"boundarycancelactivity2",
+          "type":"Boolean",
+          "title":"CancelActivity",
+          "title_zh":"调用活动",
+          "title_de":"Aktivität abbrechen",
+          "value":true,
+          "description":"Denotes whether the activity should be cancelled or not, i.e., whether the boundary catch event acts as an error or an escalation. If the activity is not cancelled, multiple instances of that handler can run concurrently.",
+          "description_de":"Kennzeichnet ob eine Aktivität abgebrochen werden soll.",
+          "readonly":false,
+          "optional":true,
+          "refToView": [
+            "frame",
+            "frame2"
+          ]
+        }
+      ]
+    },
+    {
+      "name":"catchEventAttributes",
+      "properties":[
+        {
+          "id":"dataoutputassociations",
+          "type":"String",
+          "title":"DataOutputAssociations",
+          "title_de":"Daten Ausgangs-Assoziation",
+          "title_zh":"关联输出数据",
+          "value":"",
+          "description":"The Data Associations of the catch Event.",
+          "description_de":"Die Daten-Assoziation für ein eintretendes Ereignis.",
+          "readonly":false,
+          "optional":true,
+          "length":"",
+          "wrapLines":true
+        },
+        {
+          "id":"dataoutput",
+          "type":"String",
+          "title":"DataOutput",
+          "title_de":"Daten-Ausgang",
+          "title_zh":"输出数据",
+          "value":"",
+          "description":"The Data Associations of the catch Event.",
+          "description_de":"Die Daten-Assoziation für ein eintretendes Ereignis.",
+          "readonly":false,
+          "optional":true,
+          "length":"",
+          "wrapLines":true
+        },
+        {
+          "id":"outputset",
+          "type":"String",
+          "title":"OutputSet",
+          "title_de":"Ausgabe-Menge",
+          "title_zh":"输出集合",
+          "value":"",
+          "description":"The OutputSet for the catch Event.",
+          "description_de":"Die Ausgabe-Sätze für ein eintretendes Ereignis.",
+          "readonly":false,
+          "optional":true,
+          "length":"",
+          "wrapLines":true
+        }
+      ]
+    },
+    {
+      "name":"throwEventAttributes",
+      "properties":[
+        {
+          "id":"datainputassociations",
+          "type":"String",
+          "title":"DataInputAssociations",
+          "title_de":"Daten Ausgangs-Assoziationen",
+          "title_zh":"关联输入数据",
+          "value":"",
+          "description":"The Data Associations of the throw Event.",
+          "description_de":"Die Daten-Assoziationen für ein auslösendes Ereignis.",
+          "readonly":false,
+          "optional":true,
+          "length":"",
+          "wrapLines":true
+        },
+        {
+          "id":"datainput",
+          "type":"String",
+          "title":"Data Input",
+          "title_de":"Daten-Eingang",
+          "title_zh":"输入数据",
+          "value":"",
+          "description":"The Data Associations of the throw Event.",
+          "description_de":"Die Daten-Assoziation für ein auslösendes Ereignis.",
+          "readonly":false,
+          "optional":true,
+          "length":"",
+          "wrapLines":true
+        },
+        {
+          "id":"inputset",
+          "type":"String",
+          "title":"InputSet",
+          "title_de":"Ausgabe-Menge",
+          "title_zh":"输入集合",
+          "value":"",
+          "description":"The InputSet for the throw Event.",
+          "description_de":"Die Ausgabe-Sätze für ein auslösendes Ereignis.",
+          "readonly":false,
+          "optional":true,
+          "length":"",
+          "wrapLines":true
+        }
+      ]
+    },
+    {
+      "name":"interrupting",
+      "properties":[
+        {
+          "id":"isinterrupting",
+          "type":"Boolean",
+          "title":"Is Interrupting",
+          "title_de":"ist unterbrechend",
+          "title_zh":"是否中断",
+          "value":true,
+          "description":"This attribute denotes whether the Sub-Process encompassing the Event Sub-Process should be cancelled or not.",
+          "description_de":"Dieses Attribut gibt an, ob der umfassende Subprozess abgebrochen werden soll.",
+          "inverseBoolean":false,
+          "readonly":false,
+          "optional":true,
+          "refToView": [
+            "frame",
+            "frame2"
+          ]
+        }
+      ]
+    },
+    {
+      "name":"error",
+      "properties":[
+        {
+          "id":"errorname",
+          "type":"String",
+          "title":"Error Name",
+          "title_de":"Fehlername",
+          "value":"",
+          "description":"The name of an error definition.",
+          "description_de":"Name des definierten Fehlers",
+          "readonly":false,
+          "optional":true,
+          "popular": true
+        },
+        {
+          "id":"errorcode",
+          "type":"String",
+          "title":"Error Code",
+          "title_de":"Fehlercode",
+          "value":"",
+          "description":"The code of an error definition.",
+          "description_de":"Code des definierten Fehlers",
+          "readonly":false,
+          "optional":true,
+          "popular": true
+        }
+      ]
+    },
+    {
+      "name":"escalation",
+      "properties":[
+        {
+          "id":"escalationname",
+          "type":"String",
+          "title":"Escalation Name",
+          "title_de":"Eskalationsname",
+          "title_zh":"升级名称",
+          "value":"",
+          "description":"",
+          "description_de":"",
+          "readonly":false,
+          "optional":true,
+          "popular": true
+        },
+        {
+          "id":"escalationcode",
+          "type":"String",
+          "title":"Escalation Code",
+          "title_de":"Eskalationscode",
+          "title_zh":"升级代码",
+          "value":"",
+          "description":"",
+          "description_de":"",
+          "readonly":false,
+          "optional":true,
+          "popular": true
+        }
+      ]
+    },
+    {
+      "name":"message",
+      "properties":[
+        {
+          "id":"messagename",
+          "type":"String",
+          "title":"Message Name",
+          "title_de":"Nachrichtenname",
+          "title_zh":"消息名称",
+          "value":"",
+          "description":"",
+          "description_de":"",
+          "readonly":false,
+          "optional":true,
+          "popular": true
+        },
+        {
+          "id":"operationname",
+          "type":"String",
+          "title":"Operation Name",
+          "title_de":"Anweisungsname",
+          "title_zh":"操作名称",
+          "value":"",
+          "description":"",
+          "description_de":"",
+          "readonly":false,
+          "optional":true,
+          "popular": true
+        }
+      ]
+    },
+    {
+      "name":"signal",
+      "properties":[
+        {
+          "id":"signalname",
+          "type":"String",
+          "title":"Signal Name",
+          "title_de":"Signalname",
+          "title_zh":"信号名称",
+          "value":"",
+          "description":"",
+          "description_de":"",
+          "readonly":false,
+          "optional":true,
+          "popular": true
+        }
+      ]
+    },
+    {
+      "name":"timer",
+      "properties":[
+        {
+          "id":"timedate",
+          "type":"String",
+          "title":"Time Date",
+          "title_de":"Datum",
+          "title_zh":"时间日期",
+          "value":"",
+          "description":"",
+          "description_de":"",
+          "readonly":false,
+          "optional":true,
+          "popular": true
+        },
+        {
+          "id":"timecycle",
+          "type":"String",
+          "title":"Time Cycle",
+          "title_de":"Zeit-Zyklus",
+          "title_zh":"时间周期",
+          "value":"",
+          "description":"",
+          "description_de":"",
+          "readonly":false,
+          "optional":true,
+          "popular": true
+        },
+        {
+          "id":"timeduration",
+          "type":"String",
+          "title":"Time Duration",
+          "title_de":"Dauer",
+          "title_zh":"时间范围",
+          "value":"",
+          "description":"",
+          "description_de":"",
+          "readonly":false,
+          "optional":true,
+          "popular": true
+        }
+      ]
+    },
+    {
+      "name":"compensation",
+      "properties":[
+        {
+          "id":"waitforcompletion",
+          "type":"Boolean",
+          "title":"Wait for completion",
+          "title_de":"Auf Fertigstellung warten",
+          "value":true,
+          "popular":true,
+          "description":"Determine whether a throw compensation is performed synchronously or asynchronously.",
+          "description_de":"Gibt an, ob die erzeugt Kompensierung synchron oder asynchron aufgerufen wird.",
+          "readonly":false,
+          "optional":true
+        },
+        {
+          "id":"activityref",
+          "type":"String",
+          "title":"Activity reference",
+          "title_de":"Aktivitätsreferenz",
+          "value":"",
+          "popular":true,
+          "description":"The activity related to the compensation event",
+          "description_de":"Die Kompensierung betreffende Aktivität",
+          "readonly":false,
+          "optional":true
+        }
+      ]
+    },
+    {
+      "name" : "diagram",
+      "properties" : [
+        {
+          "id":"version",
+          "type":"String",
+          "title":"Version",
+          "title_zh":"版本",
+          "value":"1.0",
+          "description":"This defines the Version number of the Diagram.",
+          "description_de":"Setzt die Versionsnummer des Diagramms.",
+          "readonly":false,
+          "popular":true,
+          "optional":true
+        },
+        {
+          "id":"author",
+          "type":"String",
+          "title":"Author",
+          "title_de":"Autor",
+          "title_zh":"作者",
+          "value":"",
+          "description":"This holds the name of the author of the Diagram.",
+          "description_de": "Name des Autors des Diagramms.",
+          "readonly":false,
+          "popular":true,
+          "optional":true
+        },
+        {
+          "id":"language",
+          "type":"String",
+          "title":"Language",
+          "title_de":"Sprache",
+          "title_zh":"语言",
+          "value":"English",
+          "value_de":"Deutsch",
+          "value_zh":"中文",
+          "description":"This holds the name of the language in which text is written.",
+          "description_de":"Sprache, in welcher der Text geschrieben ist.",
+          "readonly":false,
+          "optional":true
+        },
+        { 
+          "id":"namespaces",
+          "type":"Complex",
+          "title":"Namespaces",
+          "title_zh":"命名空间",
+          "value":"",
+          "description":"Additional namespaces and theire prefixes used in the diagram., ",
+          "description_de":"Optionale Namespaces, die im Diagramm genutzt werden.",
+          "readonly":false,
+          "optional":true,
+          "complexItems": [
+            {
+              "id":"prefix",
+              "name":"Prefix",
+              "name_zh":"前缀",
+              "type":"String",
+              "value":"",
+              "width":100,
+              "optional":false 
+            },
+            {
+              "id":"url",
+              "name":"URL",
+              "name_zh":"地址",
+              "type":"String",
+              "value":"",
+              "width":200,
+              "optional":false 
+            }
+          ]
+        },
+        {
+          "id":"targetnamespace",
+          "type":"String",
+          "title":"Target Namespace",
+          "title_de":"Ziel-Namensraum",
+          "title_zh":"目标命名空间",
+          "value":"http://www.signavio.com/bpmn20",
+          "description":"Defines the XML namespace of the elements inside the document.",
+          "description_de":"Definiert den XML-Namensraum, der für die Elemente im Dokument verwendet wird.",
+          "readonly":false,
+          "optional":true
+        },
+        {
+          "id":"expressionlanguage",
+          "type":"String",
+          "title":"ExpressionLanguage",
+          "title_de":"Ausdruckssprache",
+          "title_zh":"表达式语言",
+          "value":"http://www.w3.org/1999/XPath",
+          "description":"A Language may be provided so that the syntax of expressions used in the Diagram can be understood.",
+          "description_de":"Sprache, mit welcher im Diagramm verwendete Ausdrücke beschrieben sind.",
+          "readonly":false,
+          "optional":true
+        },
+        {
+          "id":"typelanguage",
+          "type":"String",
+          "title":"TypeLanguage",
+          "title_de":"Typsprache",
+          "title_zh":"类型语言",
+          "value":"http://www.w3.org/2001/XMLSchema",
+          "description":"This attribute identifies the type system used by the elements of this Definition.",
+          "description_de":"Definiert das Typsystem der Elemente dieses Diagramms.",
+          "readonly":false,
+          "optional":true
+        },
+        {
+          "id":"creationdate",
+          "type":"Date",
+          "title":"CreationDate",
+          "title_de":"Erstellt am",
+          "title_zh":"创建日期",
+          "value":"",
+          "description":"This defines the date on which the Diagram was created.",
+          "description_de":"Datum an dem das Diagramm erstellt wurde.",
+          "readonly":false,
+          "optional":true,
+          "popular":true,
+          "dateFormat":"Y/m/d"
+        },
+        {
+          "id":"modificationdate",
+          "type":"Date",
+          "title":"ModificationDate",
+          "title_de":"Geändert am",
+          "title_zh":"更改日期",
+          "value":"",
+          "description":"This defines the date on which the Diagram was last modified.",
+          "description_de":"Datum der letzten Änderung.",
+          "readonly":false,
+          "optional":true,
+          "popular":true,
+          "dateFormat":"j/m/y"
+        }
+      ]
+    },
+    {
+      "name": "flowElement",
+      "properties" : [
+        {
+          "id":"categories",
+          "type":"String",
+          "title":"Categories",
+          "title_de":"Kategorien",
+          "title_zh":"目录",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "refToView":"",
+          "wrapLines":true
+        }
+      ]
+    },
+    {
+      "name" : "itemAwareElement",
+      "properties" : [
+        {
+          "id" : "itemsubjectref",
+          "type" : "String",
+          "title" : "ItemSubjectRef",
+          "title_de" : "ItemSubjectRef",
+          "description" : "Specification of the items that are stored or conveyed by the ItemAwareElement",
+          "description_de" : "",
+          "readonly" : false,
+          "optional" : true,
+          "length" : 50,
+          "wrapLines" : true
+        },
+        {
+          "id" : "datastate",
+          "type" : "String",
+          "title" : "DataState",
+          "title_de" : "Daten-Zustand",
+          "description" : "A reference to the DataState, which defines certain states for the data contained in the item.",
+          "description_de" : "",
+          "readonly" : false,
+          "optional" : true,
+          "length" : 50,
+          "wrapLines" : true
+        }
+      ]
+    },
+    {
+      "name":"properties",
+      "properties": [
+        {
+          "id":"properties",
+          "type":"Complex",
+          "title":"Properties",
+          "title_zh":"属性",
+          "title_de":"Eigenschaften",
+          "value":"",
+          "description":"Modeler-defined properties MAY be added to an Activity. These properties are local to the Activity. (e.g., Add Customer.Customer Name).",
+          "description_de":"Lokale Eigenschaften können der Aktivität hinzugefügt werden. Diese werden ausschließlich während der Abarbeitung der Aktivität angewendet.",
+          "readonly":   false,
+          "optional":   false,
+          "complexItems": [
+            {
+              "id":"name",
+              "name":"Name",
+              "name_zh":"名称",
+              "type":"String",
+              "value":"",
+              "width":100,
+              "optional":false 
+            },
+            {
+              "id":"datastate",
+              "name":"DataState",
+              "name_zh":"数据状态",
+              "name_de":"DatenStatus",
+              "type":"String",
+              "value":"",
+              "width":80,
+              "optional":true
+            },
+            {
+              "id":"itemkind",
+              "name":"ItemKind",
+              "name_de":"Elementart",
+              "name_zh":"条目类型",
+              "type":"Choice",
+              "value":"Information",
+              "items" : [
+                     {
+                       "id":"information",
+                       "title":"Information",
+                       "title_zh":"消息",
+                       "value":"Information"
+                     },
+                     {
+                       "id":"physical",
+                       "title":"Physical",
+                        "title_zh":"物理",
+                       "value":"Physical"
+                     }
+                         
+              ],
+              "width":80,
+              "optional":true
+            },
+            {
+              "id":"structure",
+              "name":"Structure",
+              "name_de":"Struktur",
+              "name_zh":"结构",
+              "type":"String",
+              "value":"",
+              "width":100,
+              "optional":true
+            },
+            {
+              "id":"iscollection",
+              "name":"isCollection",
+              "name_de":"isKollektion",
+              "name_zh":"是否多值",
+              "type":"Boolean",
+              "value":false,
+              "width":50,
+              "optional":true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name" : "iospecification",
+      "properties" : [
+        {
+          "id":"datainputset",
+          "type":"Complex",
+          "title":"DataInputSet",
+          "title_zh":"输入数据集合",
+          "title_de":"Dateneingabesatz",
+          "value":"",
+          "description":"An InputSet is a collection of DataInput elements that together define a valid set of data inputs.",
+          "description_de":"Ein Eingabesatz ist eine Zusammenstellung von Eingabe-Datenobjekten, die zusammen einen gültigen Satz von Dataeingaben definieren.",
+          "readonly":false,
+          "optional":true,
+          "complexItems": [
+            {
+              "id":"name",
+              "name":"Name",
+              "name_zh":"名称",
+              "type":"String",
+              "value":"",
+              "width":100,
+              "optional":false 
+            },
+            {
+              "id":"optional",
+              "name":"Optional",
+              "name_zh":"可选",
+              "type":"Boolean",
+              "value":false,
+              "width":50,
+              "optional":true
+            },
+            {
+              "id":"whileexecuting",
+              "name":"WhileExecuting",
+              "name_de":"Während der Ausführung",
+              "name_zh":"WhileExecuting",
+              "type":"Boolean",
+              "value":false,
+              "width":80,
+              "optional":true
+            }
+          ]
+        },            
+        {
+          "id":"dataoutputset",
+          "type":"Complex",
+          "title":"DataOutputSet",
+          "title_zh":"输出数据集合",
+          "title_de":"Datenausgabesatz",
+          "value":"",
+          "description":"An OutputSet is a collection of DataOutputs elements that together may be produced as output from an Activity or Event.",
+          "description_de":"Ein Ausgabesatz ist eine Zusammenstellung von Ausgabe-Datenobjekten, die zusammen als Ausgabe einer Aktivität oder eines Ereignisses produziert werden.",
+          "readonly":false,
+          "optional":true,
+          "complexItems": [
+            {
+              "id":"name",
+              "name":"Name",
+              "name_zh":"名称",
+              "type":"String",
+              "value":"",
+              "width":100,
+              "optional":false 
+            },
+            {
+              "id":"optional",
+              "name":"Optional",
+              "type":"Boolean",
+              "value":false,
+              "width":50,
+              "optional":true
+            },
+            {
+              "id":"whileexecuting",
+              "name":"WhileExecuting",
+              "name_de":"Während der Ausführung",
+              "type":"Boolean",
+              "value":false,
+              "width":80,
+              "optional":true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name" : "activity",
+      "properties": [
+        {
+          "id":"startquantity",
+          "type":"Integer",
+          "title":"StartQuantity",
+          "title_zh":"开始优先级",
+          "title_de":"Startanzahl",
+          "value":1,
+          "description":"",
+          "readonly":false,
+          "optional":false,
+          "refToView":"",
+          "min":"1"
+        },
+        {
+          "id":"completionquantity",
+          "type":"Integer",
+          "title":"CompletionQuantity",
+          "title_zh":"完成优先级",
+          "title_de":"Fertigstellungsanzahl",
+          "value":1,
+          "description":"Defines the number of tokens that must be generated from the activity",
+          "description_de":"Legt die Anzahl der Token fest, die von der Aktivität generiert werden müssen.",
+          "readonly":false,
+          "optional":false,
+          "refToView":"",
+          "min":"1"
+        },
+        {
+          "id":"isforcompensation",
+          "type":"Boolean",
+          "title":"Is for Compensation",
+          "title_de":"ist für Kompensation",
+          "title_zh":"是否补偿",
+          "value":false,
+          "description":"A flag that identifies whether this activity is intended for the purposes of compensation.",
+          "description_de":"Ein Flag, das angibt ob diese Aktivität für Kompensierungszwecke vorgesehen ist.",
+          "readonly":false,
+          "optional":true,
+          "refToView":"compensation"
+        },
+        {
+          "id":"assignments",
+          "type":"Complex",
+          "title":"Assignments",
+          "title_zh":"分配",
+          "title_de":"Zuweisungen",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "complexItems": [
+            {
+              "id":"to",
+              "name":"To",
+              "name_de":"Auf",
+              "type":"String",
+              "value":"",
+              "width":100,
+              "optional":false 
+            },
+            {
+              "id":"from",
+              "name":"From",
+              "name_de":"Aus",
+              "type":"String",
+              "value":"",
+              "width":100,
+              "optional":false
+            },
+            {
+              "id":"assigntime",
+              "name":"AssignTime",
+              "name_de":"Zuweisungszeit",
+              "type":"Choice",
+              "value":"Start",
+              "width":100,
+              "optional":true,
+              "items": [
+                {
+                  "id":"c1",
+                  "title":"Start",
+                  "value":"Start",
+                  "refToView":""
+                },
+                {
+                  "id":"c2",
+                  "title":"End",
+                  "title_de":"Ende",
+                  "value":"End",
+                  "refToView":""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id":"callacitivity",
+          "type":"Boolean",
+          "title":"is a Call Activity",
+          "title_de":"ist eine Call Activity",
+          "title_zh":"是否调用活动",
+          "value":false,
+          "value_zh":"否",
+          "description":"a Call Activity is a wrapper for a globally defined Sub-Process that is reused in the current process.",
+          "readonly":false,
+          "optional":"true",
+          "refToView":"callActivity"
+        }
+      ]
+    },
+    {
+      "name":"operation",
+      "properties": [
+        {
+          "id":"operationname",
+          "type":"String",
+          "title":"OperationName",
+          "title_de":"Operationsname",
+          "value":"",
+          "description":"The descriptive name for the operation element.",
+          "description_de":"Bezeichnung der Operation", 
+          "readonly":false,
+          "optional":"true"
+        },
+        {
+          "id":"inmessagename",
+          "type":"String",
+          "title":"InMessageName",
+          "title_de":"Eingangs-Nachricht-Name",
+          "value":"",
+          "description":"The descriptive name for the InMessage element",
+          "description_de":"Bezeichnung der Eingangs-Nachricht", 
+          "readonly":false,
+          "optional":"true"
+        },
+        {
+          "id":"inmsgitemkind",
+          "type":"Choice",
+          "title":"InMessageItemKind",
+          "title_de":"Eingangs-Nachricht-Typ",
+          "value":"Information",
+          "description":"This defines the nature of the Item. Possible values are Physical or Information. The default value is Information.",
+          "description_de":"Beim Typ der Nachricht kann zwischen Physisch und Information unterschieden werden.",
+          "readonly":false,
+          "optional":true,
+          "items": [
+            {
+              "id":"c1",
+              "title":"Physical",
+              "value":"Physical"
+            },
+            {
+              "id":"c2",
+              "title":"Information",
+              "value":"Information"
+            }
+          ]
+        },
+        {
+          "id":"inmsgstructure",
+          "type":"String",
+          "title":"InMessageStructure",
+          "title_de":"Eingangs-Nachricht-Struktur",
+          "value":"",
+          "description":"This defines the nature of the Item. Possible values are Physical or Information. The default value is Information.",
+          "description_de":"Beim Typ der Nachricht kann zwischen Physisch und Information unterschieden werden.",
+          "readonly":false,
+          "optional":true
+        },
+        {
+          "id":"inmsgimport",
+          "type":"Complex",
+          "title":"InMessageImport",
+          "title_de":"Eingangs-Nachricht-Import",
+          "value":"",
+          "description":"Identifies the location of the data structure and its format. If the importType attribute is left unspecified, the typeLanguage specified in the Definitions is assumed.",
+          "description_de":"Definiert den Ort der Datenstruktur und ihr Format.",
+          "readonly":false,
+          "optional":true,
+          "complexItems": [
+            {
+                  "id":"c1",
+                  "type":"String",
+                  "width":200,
+                  "value":"",
+                  "name":"ImportType",
+                  "name_de":"Importtyp"
+                },
+            {
+                  "id":"c2",
+                  "type":"String",
+                  "width":100,
+                  "value":"",
+                  "name":"Location"
+                },
+            {
+                  "id":"c3",
+                  "type":"String",
+                  "width":200,
+                  "value":"",
+                  "name":"Namespace",
+                  "name_de":"Namensraum"
+                }
+          ]
+        },
+        {
+          "id":"inmsgiscollection",
+          "type":"Boolean",
+          "title":"InMessageIsCollection",
+          "title_de":"Eingangs-Nachricht-Ist-Liste",
+          "value":false,
+          "description":"Setting this flag to true indicates that the actual data type is a collection.",
+          "description_de":"Ture signalisiert, dass der Datentyp eine Liste ist.",
+          "readonly":false,
+          "optional":true
+        },
+        {
+          "id":"outmessagename",
+          "type":"String",
+          "title":"OutMessageName",
+          "title_de":"Ausgangs-Nachricht-Name",
+          "value":"",
+          "description":"The descriptive name for the OutMessage element",
+          "description_de":"Bezeichnung der Ausgangs-Nachricht", 
+          "readonly":false,
+          "optional":"true"
+        },
+        {
+          "id":"outmsgitemkind",
+          "type":"Choice",
+          "title":"OutMessageItemKind",
+          "title_de":"Ausgangs-Nachricht-Typ",
+          "value":"Information",
+          "description":"This defines the nature of the Item. Possible values are Physical or Information. The default value is Information.",
+          "description_de":"Beim Typ der Nachricht kann zwischen Physisch und Information unterschieden werden.",
+          "readonly":false,
+          "optional":true,
+          "items": [
+            {
+              "id":"c1",
+              "title":"Physical",
+              "value":"Physical"
+            },
+            {
+              "id":"c2",
+              "title":"Information",
+              "value":"Information"
+            }
+          ]
+        },
+        {
+          "id":"outmsgstructure",
+          "type":"String",
+          "title":"OutMessageStructure",
+          "title_de":"Ausgangs-Nachricht-Struktur",
+          "value":"",
+          "description":"This defines the nature of the Item. Possible values are Physical or Information. The default value is Information.",
+          "description_de":"Beim Typ der Nachricht kann zwischen Physisch und Information unterschieden werden.",
+          "readonly":false,
+          "optional":true
+        },
+        {
+          "id":"outmsgimport",
+          "type":"Complex",
+          "title":"OutMessageImport",
+          "title_de":"Ausgangs-Nachricht-Import",
+          "value":"",
+          "description":"Identifies the location of the data structure and its format. If the importType attribute is left unspecified, the typeLanguage specified in the Definitions is assumed.",
+          "description_de":"Definiert den Ort der Datenstruktur und ihr Format.",
+          "readonly":false,
+          "optional":true,
+          "complexItems": [
+            {
+                  "id":"c1",
+                  "type":"String",
+                  "width":200,
+                  "value":"",
+                  "name":"ImportType",
+                  "name_de":"Importtyp"
+                },
+            {
+                  "id":"c2",
+                  "type":"String",
+                  "width":100,
+                  "value":"",
+                  "name":"Location"
+                },
+            {
+                  "id":"c3",
+                  "type":"String",
+                  "width":200,
+                  "value":"",
+                  "name":"Namespace",
+                  "name_de":"Namensraum"
+                }
+          ]
+        },
+        {
+          "id":"outmsgiscollection",
+          "type":"Boolean",
+          "title":"OutMessageIsCollection",
+          "title_de":"Ausgangs-Nachricht-Ist-Liste",
+          "value":false,
+          "description":"Setting this flag to true indicates that the actual data type is a collection.",
+          "description_de":"Ture signalisiert, dass der Datentyp eine Liste ist.",
+          "readonly":false,
+          "optional":true
+        }
+      ]
+    },
+    {
+      "name" : "loopcharacteristics",
+      "properties" : [
+        {
+          "id":"looptype",
+          "type":"Choice",
+          "title":"LoopType",
+          "title_de":"Schleifentyp",
+          "title_zh":"循环类型",
+          "value":"None",
+          "description":"",
+          "readonly":false,
+          "optional":false,
+          "refToView":"",
+          "items": [
+            {
+              "id":"c1",
+              "title":"None",
+              "title_zh":"无",
+              "title_de":"Keine Schleife",
+              "value":"None",
+              "refToView":"none"
+            },
+            {
+              "id":"c2",
+              "title":"Standard",
+              "title_de":"Standard",
+              "title_zh":"标准",
+              "value":"Standard",
+              "icon" : "activity/list/looptype.standard.png",
+              "refToView":"loop"
+            },
+            {
+              "id":"c3",
+              "title":"MI Parallel",
+              "title_de":"MI parallel",
+              "title_zh":"并行",
+              "value":"Parallel",
+              "icon" : "activity/list/mi.parallel.png",
+              "refToView":"parallel"
+            },
+            {
+              "id":"c4",
+              "title":"MI Sequential",
+              "title_de":"MI sequentialisiert",
+              "title_zh":"串行",
+              "value":"Sequential",
+              "icon" : "activity/list/mi.sequential.png",
+              "refToView":"sequential"
+            } 
+          ]
+        },
+        {
+          "id":"testbefore",
+          "type":"Boolean",
+          "title":"TestBefore",
+          "title_zh":"是否预先测试",
+          "title_de":"",
+          "value":false,
+          "description":"Flag that controls whether the loop condition is evaluated at the beginning (testBefore = true) or at the end (testBefore = false)of the loop iteration.",
+          "description_de":"Gibt an ob die Schleifen-Bedingung vor (true) oder nach (false) dem Schleifendurchlauf überprüft wird."
+        },
+        {
+          "id":"loopcondition",
+          "type":"String",
+          "title":"LoopCondition",
+          "title_de":"Schleifenbedingung",
+          "title_zh":"循环条件",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":false
+        },
+        {
+          "id":"loopmaximum",
+          "type":"Integer",
+          "title":"LoopMaximum",
+          "title_de":"Schleifenmaximum",
+          "title_zh":"循环最大值",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "refToView":"",
+          "min":"0"
+        },
+        {
+          "id":"loopcardinality",
+          "type":"String",
+          "title":"LoopCardinality",
+          "title_de":"Anzahl Schleifen",
+          "title_zh":"循环基数",
+          "value":"",
+          "description":"A numeric Expression that controls the number of Activity instances that will be created. This Expression MUST evaluate to an integer.",
+          "readonly":false,
+          "optional":true
+        },
+        {
+          "id":"loopdatainput",
+          "type":"String",
+          "title":"LoopDataInput",
+          "title_de":"Schleifen-Datan-Eingabe",
+           "title_zh":"循环输入数据",
+          "value":"",
+          "description":"A reference to a DataInput which is part of the Activity's InputOutputSpecification. This DataInput is used to determine the number of Activity instances, one Activity instance per item in the collection of data stored in that DataInput element.",
+          "readonly":false,
+          "optional":true
+        },
+        {
+          "id":"loopdataoutput",
+          "type":"String",
+          "title":"LoopDataOutput",
+          "title_de":"Schleifen-Datan-Ausgabe",
+           "title_zh":"循环输出数据",
+          "value":"",
+          "description":"A reference to a DataOutput which is part of the Activity's InputOutputSpecification.",
+          "readonly":false,
+          "optional":true
+        },
+        {
+          "id":"inputdataitem",
+          "type":"String",
+          "title":"InputDataItem",
+          "title_de":"Eingabe-Daten-Element",
+           "title_zh":"输入数据项",
+          "value":"",
+          "description":"A Property, representing for every Activity instance the single item of the collection stored in the loopDataInput.",
+          "readonly":false,
+          "optional":true
+        },
+        {
+          "id":"outputdataitem",
+          "type":"String",
+          "title":"OutputDataItem",
+          "title_de":"Ausgabe-Daten-Element",
+           "title_zh":"输出数据项",
+          "value":"",
+          "description":"A Property, representing for every Activity instance the single item of the collection stored in the loopDataOutput.",
+          "readonly":false,
+          "optional":true
+        },
+        {
+          "id":"behavior",
+          "type":"Choice",
+          "title":"Behavior",
+          "title_de":"Schleifen-Verhalten",
+          "description":"The attribute behavior acts as a shortcut for specifying when events shall be thrown from an Activity instance that is about to complete. It can assume values of none, one, all, and complex.",
+          "description_de":"Das Schleifen-Verhalten definiert das Auslöseverhalten von Ereignissen, wenn die Instanz einer Aktivität beendet wird. Mögliche Werte sind none, one, all und complex.",
+          "value":"all",
+          "items": [
+                {
+                  "id":"cnone",
+                  "value":"None",
+                  "title":"None"
+                },
+                {
+                  "id":"cone",
+                  "value":"One",
+                  "title":"One"
+                },
+                {
+                  "id":"call",
+                  "value":"All",
+                  "title":"All"
+                },
+                {
+                  "id":"ccomplex",
+                  "value":"Complex",
+                  "title":"Complex"
+                }
+          ]
+        },
+        {
+          "id":"complexbehaviordefinition",
+          "type":"Complex",
+          "title":"ComplexBehaviorDefinition:",
+          "title_de":"Komplexe Verhaltensdefinition",
+          "description":"Controls when and which Events are thrown in case behavior is set to complex.",
+          "description_de":"Kontrolliert wann und welche Ereignisse ausgelöst werden, wenn das Verhalten complex ausgewählt ist.",
+          "value":"",
+          "optional":true,
+          "readonly":false,
+          "complexItems": [
+                {
+                  "id":"cexpression",
+                  "type":"String",
+                  "width":200,
+                  "value":"",
+                  "name":"Condition",
+                  "name_de":"Bedingung"
+                },
+                {
+                  "id":"ceventdefinition",
+                  "type":"Choice",
+                  "value":"signal",
+                  "width":100,
+                  "name":"EventDefinition",
+                  "name_de":"Ereignis-Definition",
+                  "items":[
+                        {
+                          "id":"cnone",
+                          "value":"None",
+                          "title":"None"
+                        },
+                        {
+                          "id":"cmessage",
+                          "value":"Message",
+                          "title":"Message"
+                        },
+                        {
+                          "id":"cescalation",
+                          "value":"Escalation",
+                          "title":"Escalation"
+                        },
+                        {
+                          "id":"cerror",
+                          "value":"Error",
+                          "title":"Error"
+                        },
+                        {
+                          "id":"ccancel",
+                          "value":"Cancel",
+                          "title":"Cancel"
+                        },
+                        {
+                          "id":"ccompensation",
+                          "value":"Compensation",
+                          "title":"Compensation"
+                        },
+                        {
+                          "id":"csignal",
+                          "value":"Signal",
+                          "title":"Signal"
+                        },
+                        {
+                          "id":"cterminate",
+                          "value":"Terminate",
+                          "title":"Terminate"
+                        }
+                  ]
+                }
+          ]
+        },
+        {
+          "id":"completioncondition",
+          "type":"String",
+          "title":"CompletionCondition:",
+          "title_de":"Beendigungsbedingung",
+          "description":"This attribute defines a Boolean Expression that when evaluated to true, cancels the remaining Activity instances and produces a token.",
+          "description_de":"Alle verbleibenden Aktivitätsinstanzen werden abgebrochen, falls die hier definierte Bedingung wahr wird.",
+          "value":""
+        },
+        {
+              "id":"onebehavioreventref:",
+              "type":"Choice",
+              "value":"signal",
+              "title":"OneBehaviorEventRef",
+              "title_de":"Einzel-Verhalten-Ereignis",
+              "description":"The EventDefinition which is thrown when behavior is set to one and the first internal Activity instance has completed.",
+              "items":[
+                    {
+                      "id":"cnone",
+                      "value":"None",
+                      "title":"None"
+                    },
+                    {
+                      "id":"cmessage",
+                      "value":"Message",
+                      "title":"Message"
+                    },
+                    {
+                      "id":"cescalation",
+                      "value":"Escalation",
+                      "title":"Escalation"
+                    },
+                    {
+                      "id":"cerror",
+                      "value":"Error",
+                      "title":"Error"
+                    },
+                    {
+                      "id":"ccancel",
+                      "value":"Cancel",
+                      "title":"Cancel"
+                    },
+                    {
+                      "id":"ccompensation",
+                      "value":"Compensation",
+                      "title":"Compensation"
+                    },
+                    {
+                      "id":"csignal",
+                      "value":"Signal",
+                      "title":"Signal"
+                    },
+                    {
+                      "id":"cterminate",
+                      "value":"Terminate",
+                      "title":"Terminate"
+                    }
+              ]
+            },
+            {
+              "id":"nonebehavioreventref",
+              "type":"Choice",
+              "value":"signal",
+              "title":"NoneBehaviorEventRef",
+              "title_de":"Ohne-Verhalten-Ereignis",
+              "items":[
+                    {
+                      "id":"cnone",
+                      "value":"None",
+                      "title":"None"
+                    },
+                    {
+                      "id":"cmessage",
+                      "value":"Message",
+                      "title":"Message"
+                    },
+                    {
+                      "id":"cescalation",
+                      "value":"Escalation",
+                      "title":"Escalation"
+                    },
+                    {
+                      "id":"cerror",
+                      "value":"Error",
+                      "title":"Error"
+                    },
+                    {
+                      "id":"ccancel",
+                      "value":"Cancel",
+                      "title":"Cancel"
+                    },
+                    {
+                      "id":"ccompensation",
+                      "value":"Compensation",
+                      "title":"Compensation"
+                    },
+                    {
+                      "id":"csignal",
+                      "value":"Signal",
+                      "title":"Signal"
+                    },
+                    {
+                      "id":"cterminate",
+                      "value":"Terminate",
+                      "title":"Terminate"
+                    }
+              ]
+            }
+      ]
+    },
+    {
+      "name" : "task",
+      "properties" : [
+        {
+          "id":"tasktype",
+          "type":"Choice",
+          "title":"TaskType",
+          "title_zh":"任务类型",
+          "title_de":"Tasktyp",
+          "value":"None",
+          "description":"",
+          "readonly":false,
+          "optional":false,
+          "refToView":"",
+          "items":[
+            {
+              "id":"c1",
+              "title":"None",
+              "title_de":"Kein Typ",
+              "title_zh":"无",
+              "value":"None",
+              "refToView":"none"
+            },
+            {
+              "id":"c2",
+              "title":"Send",
+              "title_de":"Sendend",
+              "title_zh":"发送任务",
+              "value":"Send",
+              "icon" : "activity/list/type.send.png",
+              "refToView":"sendTask"
+            },
+            {
+              "id":"c3",
+              "title":"Receive",
+              "title_de":"Empfangend",
+              "title_zh":"接收任务",
+              "value":"Receive",
+              "icon" : "activity/list/type.receive.png",
+              "refToView":"receiveTask"
+            },
+            {
+              "id":"c4",
+              "title":"User",
+              "title_de":"Benutzer",
+               "title_zh":"人工任务",
+              "value":"User",
+              "icon" : "activity/list/type.user.png",
+              "refToView":"userTask"
+            },
+            {
+              "id":"c5",
+              "title":"Manual",
+              "title_de":"Manuell",
+               "title_zh":"手工任务",
+              "value":"Manual",
+              "icon" : "activity/list/type.manual.png",
+              "refToView":"manualTask"  
+            },
+            {
+              "id":"c6",
+              "title":"Service",
+              "title_de":"Service",
+               "title_zh":"服务任务",
+              "value":"Service",
+              "icon" : "activity/list/type.service.png",
+              "refToView":"serviceTask"
+            },
+            {
+              "id":"c7",
+              "title":"Business Rule",
+              "title_de":"Geschäftsregel",
+               "title_zh":"业务规则",
+              "value":"Business Rule",
+              "icon" : "activity/list/type.business.rule.png",
+              "refToView":"businessRuleTask"
+            },
+            {
+              "id":"c8",
+              "title":"Script",
+              "title_de":"Skript",
+               "title_zh":"脚本任务",
+              "value":"Script",
+              "icon" : "activity/list/type.script.png",
+              "refToView":"scriptTask"
+            }
+          ]
+        },
+        {
+          "id":"implementation",
+          "type":"Choice",
+          "title":"Implementation",
+          "title_de":"Implementierung",
+           "title_zh":"实现",
+          "value":"webService",
+          "description":"",
+          "readonly":false,
+          "optional":false,
+          "refToView":"",
+          "items": [
+            {
+              "id":"c1",
+              "title":"HumanTaskWebService",
+               "title_zh":"人工任务web服务",
+              "value":"humanTaskWebService",
+              "refToView":""
+            },
+            {
+              "id":"c2",
+              "title":"BuisnessRuleWebService",
+              "title_zh":"业务规则web服务",
+              "value":"BuisnessRuleWebService",
+              "refToView":""
+            },
+            {
+              "id":"c1",
+              "title":"WebService",
+              "title_zh":"web服务",
+              "value":"webService",
+              "refToView":""
+            },
+            {
+              "id":"c2",
+              "title":"Other",
+              "title_zh":"其他",
+              "value":"other",
+              "refToView":""
+            },
+            {
+              "id":"c2",
+              "title":"Unspecified",
+              "title_zh":"未指定",
+              "value":"unspecified",
+              "refToView":""
+            }
+          ]
+        },
+        {
+          "id":"resources",
+          "type":"Complex",
+          "title":"Resources",
+          "title_zh":"资源",
+          "title_de":"Ressourcen",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "popular":true,
+          "complexItems": [
+            {
+              "id":"resource_type",
+              "name":"Type",
+              "name_de":"Typ",
+              "name_zh":"类型",
+              "type":"Choice",
+              "value":"",
+              "width":100,
+              "optional":false,
+              "items": [
+                {
+                  "id":"c1",
+                  "title":"Performer",
+                  "title_de":"Performer",
+                  "title_zh":"执行人",
+                  "value":"Performer",
+                  "refToView":""
+                },
+                {
+                  "id":"c2",
+                  "title":"HumanPerformer",
+                  "title_de":"HumanPerformer",
+                  "title_zh":"人员执行人",
+                  "value":"HumanPerformer",
+                  "refToView":""
+                },
+                {
+                  "id":"c3",
+                  "title":"PotentialOwner",
+                  "title_de":"PotentialOwner",
+                  "title_zh":"候选人",
+                  "value":"PotentialOwner",
+                  "refToView":""
+                }
+              ]
+            },
+            {
+              "id":"resource",
+              "name":"Resource",
+              "name_de":"Ressource",
+              "name_zh":"资源",
+              "type":"String",
+              "value":"",
+              "width":200,
+              "optional":true
+            },
+            {
+              "id":"resourceassignmentexpr",
+              "name":"ResourceAssignmentExpression",
+              "name_zh":"资源分配表达式",
+              "type":"String",
+              "value":"",
+              "width":200,
+              "optional":true
+            },
+            {
+              "id":"language",
+              "name":"Language",
+              "name_zh":"语言",
+              "type":"String",
+              "value":"",
+              "width":100,
+              "optional":true
+            },
+            {
+              "id":"evaluatestotype",
+              "name":"EvaluatesToType",
+              "name_zh":"转为指定类型",
+              "type":"String",
+              "value":"",
+              "width":200,
+              "optional":true
+            }
+          ]
+        },
+        {
+          "id":"messageref",
+          "type":"String",
+          "title":"MessageRef",
+          "title_de":"Nachrichten-Referenz",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":false,
+          "refToView":""
+        },
+        {
+          "id":"operationref",
+          "type":"String",
+          "title":"OperationRef",
+          "title_de":"Operations-Referenz",
+          "value":"",
+          "description":"ID-Reference to an operation definition.",
+          "description_de":"ID-Referenz zur Definition einer Operation.",
+          "readonly":false,
+          "optional":true
+        },
+        {
+          "id":"instantiate",
+          "type":"Boolean",
+          "dependsOn": {"tasktype":"Receive"},
+          "title":"Instantiate",
+          "title_de":"Instanziieren",
+          "value":false,
+          "description":"",
+          "readonly":false,
+          "optional":false,
+          "refToView":"instantiate"
+        },
+        {
+          "id":"script",
+          "type":"Text",
+          "title":"Script",
+          "title_zh":"脚本",
+          "title_de":"Skript",
+          "value":"",
+          "description":"Script that can be run when the Task is performed. Related to the Script TaskType, if a script is not included, then the Task will act equivalent to a TaskType of None.",
+          "readonly":false,
+          "optional":true
+        },
+        {
+          "id":"scriptformat",
+          "type":"String",
+          "title":"ScriptFormat",
+          "title_zh":"脚本格式",
+          "title_de":"Skript Format",
+          "value":"",
+          "description":"Defines the script format. The script format MUST be provided if a script is provided.",
+          "readonly":false,
+          "optional":true
+        },
+        {
+          "id":"bgcolor",
+          "type":"Color",
+          "title":"BackgroundColor",
+          "title_zh":"背景色",
+          "title_de":"Hintergrundfarbe",
+          "value":"#ffffcc",
+          "description":"",
+          "readonly":false,
+          "optional":false,
+          "refToView":"fill_el",
+          "fill":true,
+          "stroke":false
+        }   
+      ]
+    },
+    {
+      "name" : "subprocess",
+      "properties" : [
+        {
+          "id": "subprocesstype",
+          "type": "Choice",
+          "title": "subProcessType",
+          "title_de":"Subprozesstyp",
+          "value": "Embedded",
+          "description": "SubProcessType is an attribute that defines whether the Sub-Process details are embedded within the higher level Process or refers to another, re-usable Process. The default is Embedded.",
+          "description_de":"Der Subprozesstyp gibt an, ob die Subprozessdetails in einen übergeordneten Prozess eingebettet sind oder auf einen anderen wiederverwendbaren Prozess verweisen.",
+          "optional": false,
+          "refToView": "",
+          "items": [
+            {
+              "id": "choice1",
+              "title":"Embedded",
+              "value":"Embedded"
+            },
+            {
+              "id": "choice2",
+              "title": "Independent",
+              "value": "Independent"
+            },
+            {
+              "id": "choice3",
+              "title": "Reference",
+              "value": "Reference"
+            }
+          ]
+        },
+        {
+          "id":"isatransaction",
+          "type":"Boolean",
+          "title":"is a Transaction",
+          "title_de":"ist eine Transaktion",
+          "value":false,
+          "description":"A Transaction is a set of activities that logically belongs together; it might follow a specified transaction protocol.",
+          "readonly":false,
+          "optional":false,
+          "refToView":"border"
+        },
+        {
+          "id":"transaction",
+          "type":"String",
+          "title":"TransactionRef",
+          "title_de":"Transaktions-Referenz",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "refToView":""
+        },
+        {
+          "id":"transactionmethod",
+          "type":"Choice",
+          "title":"TransactionMethod",
+          "title_de":"Transaktions-Methode",
+          "value":"compensate",
+          "description":"The technique that will be used to undo a transaction that has been cancelled.",
+          "readonly":false,
+          "optional":true,
+          "items": [
+            {
+              "id":"c1",
+              "title":"Compensate",
+              "value":"compensate"
+            },
+            {
+              "id":"c2",
+              "title":"Store",
+              "value":"store"
+            },
+            {
+              "id":"c3",
+              "title":"Image",
+              "value":"image"
+            }
+          ]
+        },
+        {
+          "id":"isadhoc",
+          "type":"Boolean",
+          "title":"isAdHoc",
+          "title_de":"ist Ad-hoc",
+          "value":false,
+          "description":"",
+          "readonly":false,
+          "optional":false,
+          "refToView":"adhoc"
+        },
+        {
+          "id":"adhocordering",
+          "type":"Choice",
+          "title":"AdHocOrdering",
+          "title_de":"Ad-hoc Anordnung",
+          "value":"Sequential",
+          "description":"",
+          "readonly":false,
+          "optional":false,
+          "refToView":"",
+          "items": [
+            {
+              "id":"c1",
+              "title":"Sequential",
+              "title_de":"sequentiell",
+              "value":"sequential"
+            },
+            {
+              "id":"c2",
+              "title":"Parallel",
+              "title_de":"parallel",
+              "value":"parallel"
+            }
+          ]
+        },
+        {
+          "id":"adhoccompletioncondition",
+          "type":"String",
+          "title":"AdHocCompletionCondition",
+          "title_de":"Ad-hoc Fertigstellungsbedingung",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "refToView":""
+        },
+        {
+          "id":"adhoccancelremaininginstances",
+          "type":"Boolean",
+          "title":"AdhocCancelRemainingInstances",
+          "title_de":"Ad-hoc Abbruch laufender Instanzen",
+          "value":true,
+          "description":"This attribute is used only if ordering is parallel. It determines whether running instances are cancelled when the completionCondition becomes true.",
+          "readonly":false,
+          "optional":true
+        },
+        {
+          "id":"entry",
+          "type":"DiagramLink",
+          "title":"SubProcessRef",
+          "title_de":"Subprozess-Referenz",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":false,
+          "refToView":"u"
+        },
+        {
+          "id":"diagramref",
+          "type":"String",
+          "title":"DiagramRef",
+          "title_de":"Diagramm-Referenz",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":false,
+          "refToView":""
+        },
+        {
+          "id":"processref",
+          "type":"String",
+          "title":"ProcessRef",
+          "title_de":"Prozess-Referenz",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":false,
+          "refToView":""
+        },
+        {
+          "id":"inputmaps",
+          "type":"String",
+          "title":"InputMaps",
+          "title_de":"Eingabe-Mengen",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":false,
+          "refToView":""
+        },
+        {
+          "id":"outputmaps",
+          "type":"String",
+          "title":"OutputMaps",
+          "title_de":"Ausgabe-Mengen",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":false,
+          "refToView":""
+        }
+      ]
+    },
+    {
+      "name" : "gateway",
+      "properties" : [
+        {
+          "id":"assignments",
+          "type":"Complex",
+          "title":"Assignments",
+          "title_zh":"分配",
+          "title_de":"Zuweisungen",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "complexItems": [
+            {
+              "id":"to",
+              "name":"To",
+              "name_de":"Auf",
+              "type":"String",
+              "value":"",
+              "width":100,
+              "optional":false 
+            },
+            {
+              "id":"from",
+              "name":"From",
+              "name_de":"Aus",
+              "type":"String",
+              "value":"",
+              "width":100,
+              "optional":false
+            },
+            {
+              "id":"assigntime",
+              "name":"AssignTime",
+              "name_de":"Zuweisungszeit",
+              "type":"Choice",
+              "value":"Start",
+              "width":100,
+              "optional":true,
+              "items": [
+                {
+                  "id":"c1",
+                  "title":"Start",
+                  "title_de":"Start",
+                  "value":"Start",
+                  "refToView":""
+                },
+                {
+                  "id":"c2",
+                  "title":"End",
+                  "title_de":"Ende",
+                  "value":"End",
+                  "refToView":""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id":"pool",
+          "type":"String",
+          "title":"Pool",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":false,
+          "length":""
+        },
+        {
+          "id":"lanes",
+          "type":"String",
+          "title":"Lanes",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "length":""
+        },
+        {
+          "id":"gates",
+          "type":"String",
+          "title":"Gates",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "refToView":"",
+          "wrapLines":true
+        },
+        {
+          "id":"gates_outgoingsequenceflow",
+          "type":"String",
+          "title":"[Gates] OutgoingSequenceFlow",
+          "title_de":"[Gates] Ausgehender Steuerfluss",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "refToView":"",
+          "wrapLines":true
+        },
+        {
+          "id":"gates_assignments",
+          "type":"String",
+          "title":"[Gates] Assignments",
+          "title_de":"[Gates] Zuweisungen",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "refToView":"",
+          "wrapLines":true
+        }
+      ]
+    },
+    {
+      "name" : "artifact",
+      "properties" : [
+        {
+          "id":"pool",
+          "type":"String",
+          "title":"Pool",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "length":""
+        },
+        {
+          "id":"lanes",
+          "type":"String",
+          "title":"Lanes",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "length":""
+        }
+      ]
+    },
+    {
+      "name":"process",
+      "properties":[
+        {
+          "id":"processtype",
+          "type":"Choice",
+          "title":"ProcessType",
+          "title_zh":"流程类型",
+          "title_de":"Prozesstyp",
+          "value":"None",
+          "description":"The processType attribute Provides additional information about the level of abstraction modeled by this Process.",
+          "description_de":"Beschreibt den Abstraktionsgrad des beinhaltenden Prozesses.",
+          "readonly":false,
+          "optional":false,
+          "popular" : true,
+          "items": [
+            {
+              "id":"c1",
+              "title":"None",
+              "title_zh":"无",
+              "value":"None"
+            },
+            {
+              "id":"c2",
+              "title":"Private",
+              "title_zh":"私有",
+              "value":"Private"
+            },
+            {
+              "id":"c4",
+              "title":"Public",
+              "title_zh":"共享",
+              "value":"Public"
+            }
+          ]
+        },
+        {
+          "id":"isclosed",
+          "type":"Boolean",
+          "title":"isClosed",
+          "title_zh":"是否关闭",
+          "title_de":"IstGeschlossen",
+          "value":false,
+          "description":"A Boolean value specifying whether interactions, such as sending and receiving Messages and Events, not modeled in the Process can occur when the Process is executed or performed. If the value is true, they MAY NOT occur. If the value is false, they MAY occur.",
+          "readonly":false,
+          "optional":true
+        },
+        {
+          "id":"isexecutable",
+          "type":"Boolean",
+          "title":"isExecutable",
+          "title_zh":"是否可执行",
+          "title_de":"IstAusführbar",
+          "value":false,
+          "description":"An optional Boolean value specifying whether the Process is executable.",
+          "description_de":"Ein optionales Attribut, um anzuzeigen ob der Prozess ausführbar ist.",
+          "readonly":false,
+          "optional":true
+        }
+      ]
+    },
+    {
+      "name" : "participantmultiplicity",
+      "properties" : [
+        {
+          "id" : "multiinstance",
+          "type" : "Boolean",
+          "title" : "is Multi Instance Participant",
+          "title_zh":"是否多实例",
+          "title_de" : "ist Mehrfach-Beteiligung",
+          "value" : false,
+          "description" : "Is used to define the multiplicity of a participant.",
+          "description_de" : "Legt fest, ob der Teilnehmer mehrfach beteiligt ist (Multi Instance).",
+          "readonly" : false,
+          "optional" : true,
+          "refToView" : "multiInstance"
+        },
+        {
+          "id" : "minimum",
+          "type" : "Integer",
+          "title" : "Minimum",
+          "title_zh":"最小值",
+          "title_de" : "Minimal-Anzahl",
+          "value" : 2,
+          "description" : "The minimum attribute defines minimum number of participants that must be involved in the collaboration.",
+          "description_de" : "Legt die minimale Anzahl der Beteiligten an dieser Kollaboration fest.",
+          "readonly" : false,
+          "optional" : true
+        },
+        {
+          "id" : "maximum",
+          "type" : "Integer",
+          "title" : "Maximum",
+          "title_zh":"最大值",
+          "title_de" : "Maximal-Anzahl",
+          "value" : 2,
+          "description" : "The maximum attribute defines maximum number of participants that may be involved in the Collaboration.",
+          "description_de" : "Legt die maximale Anzahl der Beteiligten fest, die an dieser Kollaboration teilnehmen.",
+          "readonly" : false,
+          "optional" : true
+        }
+      ]
+    },
+    {
+      "name" : "pool",
+      "properties" : [
+        {
+          "id":"boundaryvisible",
+          "type":"Boolean",
+          "title":"BoundaryVisible",
+          "title_de":"Umrandung sichtbar",
+          "value":true,
+          "description":"Defines if the rectangular boundary for the Pool is visible.",
+          "description_de":"Gibt an, ob die rechteckige Umrandung des Pools sichtbar ist.",
+          "readonly":false,
+          "optional":false,
+          "refToView": ["border", "c", "caption", "captionDisableAntialiasing"],
+          "visible":false
+        },
+        {
+          "id":"processname",
+          "type":"String",
+          "title":"ProcessName",
+          "title_de":"Prozessname",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":false,
+          "refToView":"",
+          "length":"30"
+        },
+        {
+          "id":"status",
+          "type":"Choice",
+          "title":"Status",
+          "value":"None",
+          "description":"",
+          "readonly":false,
+          "optional":false,
+          "popular" : true,
+          "items": [
+            {
+              "id":"c1",
+              "title":"None",
+              "value":"None"
+            },
+            {
+              "id":"c2",
+              "title":"Ready",
+              "value":"Ready"
+            },
+            {
+              "id":"c3",
+              "title":"Active",
+              "value":"Active"
+            },
+            {
+              "id":"c4",
+              "title":"Cancelled",
+              "value":"Cancelled"
+            },
+            {
+              "id":"c5",
+              "title":"Aborting",
+              "value":"Aborting"
+            },
+            {
+              "id":"c6",
+              "title":"Aborted",
+              "value":"Aborted"
+            },
+            {
+              "id":"c7",
+              "title":"Completing",
+              "value":"Completing"
+            },
+            {
+              "id":"c8",
+              "title":"Completed",
+              "value":"Completed"
+            }
+          ]
+        },
+        {
+          "id":"adhoc",
+          "type":"Boolean",
+          "title":"AdHoc",
+          "value":false,
+          "description":"",
+          "readonly":false,
+          "optional":false
+        },
+        {
+          "id":"adhocordering",
+          "type":"Choice",
+          "title":"AdHocOrdering",
+          "title_de":"Ad-Hoc Anordnung",
+          "value":"Parallel",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "refToView":"",
+          "items": [
+            {
+              "id":"c1",
+              "title":"Sequential",
+              "value":"Sequential",
+              "refToView":""
+            },
+            {
+              "id":"c2",
+              "title":"Parallel",
+              "value":"Parallel",
+              "refToView":""
+            }
+          ]
+        },
+        {
+          "id":"adhoccompletioncondition",
+          "type":"String",
+          "title":"AdHocCompletionCondition",
+          "title_de":"Ad-hoc Fertigstellungsbedingung",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "refToView":""
+        },
+        {
+          "id":"suppressjoinfailure",
+          "type":"Boolean",
+          "title":"SuppressJoinFailure",
+          "value":false,
+          "description":"",
+          "readonly":false,
+          "optional":false
+        },
+        {
+          "id":"enableinstancecompensation",
+          "type":"Boolean",
+          "title":"EnableBooleanCompensation",
+          "value":false,
+          "description":"",
+          "readonly":false,
+          "optional":false
+        },
+        {
+          "id":"processcategories",
+          "type":"String",
+          "title":"ProcessCategories",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "refToView":"",
+          "wrapLines":true
+        },
+        {
+          "id":"processdocumentation",
+          "type":"String",
+          "title":"Process Documentation",
+          "title_de":"Prozess-Dokumentation",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "refToView":"",
+          "length":"",
+          "wrapLines":true
+        }
+      ]
+    },
+    {
+      "name" : "dataAssociation",
+      "properties" : [
+          {
+          "id":"assignments",
+          "type":"Complex",
+          "title":"Assignments",
+          "title_zh":"分配",
+          "title_de":"Zuweisungen",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "popular":true,
+          "complexItems": [
+            {
+              "id":"to",
+              "name":"To",
+              "name_de":"Auf",
+              "type":"String",
+              "value":"",
+              "width":100,
+              "optional":false 
+            },
+            {
+              "id":"from",
+              "name":"From",
+              "name_de":"Aus",
+              "type":"String",
+              "value":"",
+              "width":100,
+              "optional":false
+            },
+            {
+              "id":"language",
+              "name":"Language",
+              "name_de":"Sprache",
+              "type":"String",
+              "value":"",
+              "width":100,
+              "optional":true
+            }
+          ]
+          },
+          {
+          "id":"transformation",
+          "title":"Transformation",
+          "type":"String",
+          "value":"",
+          "optional":true,
+          "popular":true
+        }
+      ]
+    },
+    {
+      "name":"taskAttributes",
+      "properties": [
+        {
+          "id":"name",
+          "type":"String",
+          "title":"Name",
+          "title_zh":"名称",
+          "value":"",
+          "description":"The descriptive name of the BPMN element.",
+          "description_de":"Bezeichnung des BPMN-Elementes.",
+          "readonly":false,
+          "optional":true,
+          "length":"",
+          "wrapLines" : false,
+          "refToView":"text_name" 
+        },
+        {
+          "id":"documentation",
+          "type":"Text",
+          "title":"Documentation",
+          "title_zh":"备注",
+          "title_de":"Dokumentation",
+          "value":"",
+          "description":"This attribute is used to annotate the BPMN element, such as descriptions and other documentation.",
+          "description_de":"Der Modellierer kann weiteren Text zur Dokumentation des BPMN-Elementes einfügen.",
+          "readonly":false,
+          "optional":true,
+          "length":"",
+          "wrapLines":true,
+          "popular" : true
+        },
+        {
+          "id":"formPath",
+          "type":"Complex",
+          "title":"Form Path",
+          "title_zh":"表单路径",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":false,
+          "popular" : true,
+          "complexItems": [
+            {
+              "id":"formpath",
+              "name":"formpath",
+              "name_zh":"Form Path",
+              "type":"String",
+              "value":"",
+              "width":200,
+              "optional":false 
+            }
+            ]
+        }
+      ]
+    }
+  ],
+  "stencils" : [
+   {
+      // 00基本必须元素
+      "type":       "node",
+      "id":       "BPMNDiagram",
+      "title":      "BPMN-Diagram",
+      "title_zh":      "BPMN流程图",
+      "title_de":     "BPMN-Diagramm",
+      "groups":     ["Diagram"],
+      "description":    "A BPMN 2.0 Diagram.",
+      "description_de": "Ein BPMN 2.0 Diagramm",
+      "view":"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?> <svg    xmlns=\"http://www.w3.org/2000/svg\"    xmlns:svg=\"http://www.w3.org/2000/svg\"    xmlns:oryx=\"http://www.b3mn.org/oryx\"    xmlns:xlink=\"http://www.w3.org/1999/xlink\"    width=\"800\"    height=\"600\"    version=\"1.0\">   <defs></defs>   <g pointer-events=\"fill\" >     <polygon stroke=\"black\" fill=\"black\" stroke-width=\"1\" points=\"0,0 0,590 9,599 799,599 799,9 790,0\" stroke-linecap=\"butt\" stroke-linejoin=\"miter\" stroke-miterlimit=\"10\" />     <rect id=\"diagramcanvas\" oryx:resize=\"vertical horizontal\" x=\"0\" y=\"0\" width=\"790\" height=\"590\" stroke=\"black\" stroke-width=\"2\" fill=\"white\" />      <text font-size=\"22\" id=\"diagramtext\" x=\"400\" y=\"25\" oryx:align=\"top center\" stroke=\"black\"></text>   </g> </svg> ",
+      "icon":       "diagram.png",
+      "mayBeRoot":    true,
+      "hide":       true,
+      "propertyPackages" : ["baseAttributes","diagram"],
+      "roles":      ["canContainArtifacts"]
+    },
+    {
+  //开始节点
+      "type" :      "node",
+      "id":         "StartNoneEvent",
+      "title":      "Start Event",
+      "title_zh":      "开始",
+      "title_de" :    "Start-Ereignis",
+      "groups" :      ["Start Events"],
+      "groups_de" :     ["Start-Ereignisse"],
+      "description" :   "Untyped start event.",
+      "description_zh" :   "流程开始",
+      "description_de" :  "Ein nicht weiter typisiertes Start-Ereignis.",
+      "view":"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?> <svg    xmlns=\"http://www.w3.org/2000/svg\"    xmlns:oryx=\"http://www.b3mn.org/oryx\"    width=\"40\"    height=\"40\"    version=\"1.0\">   <defs></defs>   <oryx:magnets>    <oryx:magnet oryx:cx=\"16\" oryx:cy=\"16\" oryx:default=\"yes\" />   </oryx:magnets>   <g pointer-events=\"fill\">        <defs>   <radialGradient id=\"background\" cx=\"10%\" cy=\"10%\" r=\"100%\" fx=\"10%\" fy=\"10%\">    <stop offset=\"0%\" stop-color=\"#ffffff\" stop-opacity=\"1\"/>    <stop id=\"fill_el\" offset=\"100%\" stop-color=\"#ffffff\" stop-opacity=\"1\"/>   </radialGradient>  </defs>       <circle id=\"bg_frame\" cx=\"16\" cy=\"16\" r=\"15\" stroke=\"black\" fill=\"url(#background) white\" stroke-width=\"1\"/>  <text font-size=\"11\"    id=\"text_name\"    x=\"16\" y=\"33\"    oryx:align=\"top center\"    stroke=\"black\"  ></text>   </g> </svg> ",
+      "icon" :      "startevent/none.png",
+      "propertyPackages": [
+        "baseAttributes",
+        "catchEventAttributes",
+        "bgColor"
+      ],
+      "roles" : [
+        "all",
+        "Startevents_all",
+        "sequence_start",
+        "choreography_sequence_start",
+        "to_task_event",
+        "from_task_event",
+        "fromtoall",
+        "StartEventsMorph"
+      ],
+      "properties": [
+        {
+          "id":"trigger",
+          "type":"String",
+          "title":"Trigger",
+          "title_de":"Auslöser",
+          "value":"None",
+          "description":"",
+          "readonly":true,
+          "optional":false
+        }
+      ]
+    },
+    {
+  //结束节点
+      "type" : "node",
+      "id": "EndNoneEvent",
+      "title": "End Event",
+      "title_zh": "结束",
+      "title_de" : "End-Ereignis",
+      "groups" : ["End Events"],
+      "groups_de" : ["End-Ereignisse"],
+      "description" : "The untyped end event typically marks the standard end of a process.",
+      "description_de" : "Untypisiertes End-Ereignis, welches ein normales Ende eines Prozesses markiert.",
+      "view":"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?> <svg    xmlns=\"http://www.w3.org/2000/svg\"    xmlns:oryx=\"http://www.b3mn.org/oryx\"    width=\"40\"    height=\"40\"    version=\"1.0\">   <defs></defs>   <oryx:magnets>    <oryx:magnet oryx:cx=\"16\" oryx:cy=\"16\" oryx:default=\"yes\" />   </oryx:magnets>   <g pointer-events=\"fill\">      <defs>   <radialGradient id=\"background\" cx=\"10%\" cy=\"10%\" r=\"100%\" fx=\"10%\" fy=\"10%\">    <stop offset=\"0%\" stop-color=\"#ffffff\" stop-opacity=\"1\"/>    <stop id=\"fill_el\" offset=\"100%\" stop-color=\"#ffffff\" stop-opacity=\"1\"/>   </radialGradient>  </defs>       <circle id=\"bg_frame\" cx=\"16\" cy=\"16\" r=\"14\" stroke=\"black\" fill=\"url(#background) white\" stroke-width=\"3\"/>  <text font-size=\"11\"    id=\"text_name\"    x=\"16\" y=\"32\"    oryx:align=\"top center\"    stroke=\"black\"  ></text>   </g> </svg> ",
+      "icon" : "endevent/none.png",
+      "propertyPackages":[
+        "baseAttributes",
+        "throwEventAttributes",
+        "bgColor"
+      ],
+      "roles" : [
+        "all",
+        "sequence_end",
+        "to_task_event",
+        "from_task_event",
+        "fromtoall",
+        "choreography_sequence_end",
+        "Endevents_all",
+        "EndEventsMorph"
+      ],
+      "properties": [
+        {
+          "id":"trigger",
+          "type":"String",
+          "title":"Trigger",
+          "title_de":"Auslöser",
+          "value":"None",
+          "description":"",
+          "readonly":true,
+          "optional":false
+        }
+      ]
+    },
+    {
+    // 任务节点
+      "type" :      "node",
+      "id":         "Task",
+      "title" :       "Task",
+      "title_zh" :       "任务",
+      "title_de" :    "Task",
+      "groups" :      ["Activities"],
+      "groups_de" :   ["Aktivitäten"],
+      "description" :   "A task is a unit of work - the job to be performed.",
+      "description_de" :  "Eine Task ist eine Arbeitseinheit. Sie repräsentiert die Aufgabe, die zu tun ist.",
+      "view":"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?> <svg    xmlns=\"http://www.w3.org/2000/svg\"    xmlns:svg=\"http://www.w3.org/2000/svg\"    xmlns:oryx=\"http://www.b3mn.org/oryx\"    xmlns:xlink=\"http://www.w3.org/1999/xlink\"     width=\"102\"    height=\"82\"    version=\"1.0\">   <defs></defs>   <oryx:magnets>    <oryx:magnet oryx:cx=\"1\" oryx:cy=\"20\" oryx:anchors=\"left\" />    <oryx:magnet oryx:cx=\"1\" oryx:cy=\"40\" oryx:anchors=\"left\" />    <oryx:magnet oryx:cx=\"1\" oryx:cy=\"60\" oryx:anchors=\"left\" />        <oryx:magnet oryx:cx=\"25\" oryx:cy=\"79\" oryx:anchors=\"bottom\" />    <oryx:magnet oryx:cx=\"50\" oryx:cy=\"79\" oryx:anchors=\"bottom\" />    <oryx:magnet oryx:cx=\"75\" oryx:cy=\"79\" oryx:anchors=\"bottom\" />        <oryx:magnet oryx:cx=\"99\" oryx:cy=\"20\" oryx:anchors=\"right\" />    <oryx:magnet oryx:cx=\"99\" oryx:cy=\"40\" oryx:anchors=\"right\" />    <oryx:magnet oryx:cx=\"99\" oryx:cy=\"60\" oryx:anchors=\"right\" />        <oryx:magnet oryx:cx=\"25\" oryx:cy=\"1\" oryx:anchors=\"top\" />    <oryx:magnet oryx:cx=\"50\" oryx:cy=\"1\" oryx:anchors=\"top\" />    <oryx:magnet oryx:cx=\"75\" oryx:cy=\"1\" oryx:anchors=\"top\" />        <oryx:magnet oryx:cx=\"50\" oryx:cy=\"40\" oryx:default=\"yes\" />   </oryx:magnets>   <g pointer-events=\"fill\" oryx:minimumSize=\"50 40\">    <defs>   <radialGradient id=\"background\" cx=\"10%\" cy=\"10%\" r=\"100%\" fx=\"10%\" fy=\"10%\">    <stop offset=\"0%\" stop-color=\"#ffffff\" stop-opacity=\"1\"/>    <stop id=\"fill_el\" offset=\"100%\" stop-color=\"#ffffcc\" stop-opacity=\"1\"/>   </radialGradient>  </defs>    <rect id=\"text_frame\" oryx:anchors=\"bottom top right left\" x=\"1\" y=\"1\" width=\"94\" height=\"79\" rx=\"10\" ry=\"10\" stroke=\"none\" stroke-width=\"0\" fill=\"none\" />     <rect id=\"callActivity\" oryx:resize=\"vertical horizontal\" oryx:anchors=\"bottom top right left\" x=\"0\" y=\"0\" width=\"100\" height=\"80\" rx=\"10\" ry=\"10\" stroke=\"black\" stroke-width=\"4\" fill=\"none\" />  <rect id=\"bg_frame\" oryx:resize=\"vertical horizontal\" x=\"0\" y=\"0\" width=\"100\" height=\"80\" rx=\"10\" ry=\"10\" stroke=\"black\" stroke-width=\"1\" fill=\"url(#background) #ffffcc\" />   <text     font-size=\"12\"     id=\"text_name\"     x=\"50\"     y=\"40\"     oryx:align=\"middle center\"    oryx:fittoelem=\"text_frame\"    stroke=\"black\">   </text>     <g id=\"manualTask\" transform=\"scale(0.7,0.7) translate(8,8)\" display=\"none\">      <path oryx:anchors=\"top left\" id=\"hand\"  style=\"opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1\"     d=\"M0.5,3.751l4.083-3.25c0,0,11.166,0.083,12.083,0.083s-2.417,2.917-1.5,2.917     s11.667,0,12.584,0c1.166,1.708-0.168,3.167-0.834,3.667s0.875,1.917-1,4.417c-0.75,0.25,0.75,1.875-1.333,3.333     c-1.167,0.583,0.583,1.542-1.25,2.833c-1.167,0-20.833,0.083-20.833,0.083l-2-1.333V3.751z\"/>   <path oryx:anchors=\"top left\" id=\"finger\" style=\"opacity:1;fill:none; stroke:#000000; stroke-width:2\" d=\"M 13.5 7 L 27 7\" />   <path oryx:anchors=\"top left\" id=\"finger1\" style=\"opacity:1;fill:none; stroke:#000000; stroke-width:2\" d=\"M 13.5 11 L 26 11\" />   <path oryx:anchors=\"top left\" id=\"finger2\" style=\"opacity:1;fill:none; stroke:#000000; stroke-width:1.5\" d=\"M 14 14.5 L 25 14.5\" />   <path oryx:anchors=\"top left\" id=\"thumb\" style=\"opacity:1;fill:none; stroke:#000000; stroke-width:1.5\" d=\"M 8.2 3.1 L 15 3.1\" />  </g>    <g id=\"businessRuleTask\" transform=\"scale(0.7,0.7) translate(8,8)\" display=\"none\">   <rect oryx:anchors=\"top left\" id=\"top\" x=\"0\" y=\"0\" width=\"22\" height=\"4\" style=\"opacity:1;fill:#B3B1B3;fill-opacity:1;stroke:#000000\"/>   <rect oryx:anchors=\"top left\" id=\"rect\" x=\"0\" y=\"4\" style=\"opacity:1;fill:none;stroke:#000000\" width=\"22\" height=\"12\"/>   <path oryx:anchors=\"top left\" id=\"row\" style=\"opacity:1;fill:none;stroke:#000000\" d=\"M 0 10 L 22 10\" />   <path oryx:anchors=\"top left\" id=\"col\" style=\"opacity:1; fill:none; stroke:#000000\" d=\"M 7 4 L 7 16\" />  </g>    <g id=\"scriptTask\" transform=\"scale(0.7,0.7) translate(8,8)\" display=\"none\">   <path oryx:anchors=\"top left\" id=\"paper\" style=\"opacity:1;fill:none;stroke:#000000\"    d=\"M6.402,0.5h14.5c0,0-5.833,2.833-5.833,5.583s4.417,6,4.417,9.167    s-4.167,5.083-4.167,5.083H0.235c0,0,5-2.667,5-5s-4.583-6.75-4.583-9.25S6.402,0.5,6.402,0.5z\"/>   <path oryx:anchors=\"top left\" id=\"line1\" style=\"opacity:1;fill:none;stroke:#000000;stroke-width:1.5\" d=\"M 3.5 4.5 L 13.5 4.5\" />   <path oryx:anchors=\"top left\" id=\"line2\" style=\"opacity:1;fill:none;stroke:#000000;stroke-width:1.5\" d=\"M 3.8 8.5 L 13.8 8.5\" />   <path oryx:anchors=\"top left\"  id=\"line3\" style=\"opacity:1;fill:none;stroke:#000000;stroke-width:1.5\" d=\"M 6.3 12.5 L 16.3 12.5\" />   <path oryx:anchors=\"top left\" id=\"line4\" style=\"opacity:1;fill:none;stroke:#000000;stroke-width:1.5\" d=\"M 6.5 16.5 L 16.5 16.5\" />  </g>    <g id=\"userTask\" transform=\"scale(0.7,0.7) translate(8,8)\" display=\"none\">   <path oryx:anchors=\"top left\" style=\"opacity:1;fill:#F4F6F7;stroke:#000000\"    d=\"M0.585,24.167h24.083v-7.833c0,0-2.333-3.917-7.083-5.167h-9.25    c-4.417,1.333-7.833,5.75-7.833,5.75L0.585,24.167z\"/>   <path oryx:anchors=\"top left\" style=\"opacity:1;fill:none;stroke:#000000\" d=\"M 6 20 L 6 24\" />   <path oryx:anchors=\"top left\" style=\"opacity:1;fill:none;stroke:#000000\" d=\"M 20 20 L 20 24\" />   <circle oryx:anchors=\"top left\" fill=\"#000000\" stroke=\"#000000\" cx=\"13.002\" cy=\"5.916\" r=\"5.417\"/>   <path oryx:anchors=\"top left\" style=\"opacity:1;fill:#F0EFF0;stroke:#000000\"   d=\"M8.043,7.083c0,0,2.814-2.426,5.376-1.807s4.624-0.693,4.624-0.693    c0.25,1.688,0.042,3.75-1.458,5.584c0,0,1.083,0.75,1.083,1.5s0.125,1.875-1,3s-5.5,1.25-6.75,0S8.668,12.834,8.668,12    s0.583-1.25,1.25-1.917C8.835,9.5,7.419,7.708,8.043,7.083z\"/>  </g>    <g id=\"serviceTask\" transform=\"scale(0.7,0.7) translate(8,8)\" display=\"none\">   <polygon oryx:anchors=\"top left\" id=\"teethForeground\" style=\"opacity:1;fill:#ffffff;stroke:#000000\" points=\"15.392,5.064 17.954,2.502 20.347,4.895 17.786,7.455     18.729,9.732 22.353,9.732 22.353,13.115 18.731,13.115 17.788,15.392 20.351,17.955 17.958,20.347 15.397,17.786 13.12,18.729     13.12,22.353 9.737,22.353 9.737,18.731 7.46,17.788 4.897,20.35 2.506,17.958 5.066,15.397 4.124,13.12 0.5,13.12 0.5,9.737     4.121,9.737 5.065,7.461 2.503,4.898 4.895,2.506 7.455,5.066 9.732,4.125 9.732,0.5 13.116,0.5 13.116,4.121 \"/>   <circle oryx:anchors=\"top left\" id=\"ringForeground\" style=\"opacity:1;fill:none;stroke:#000000\" cx=\"11.427\" cy=\"11.426\" r=\"3.714\"/>   <polygon oryx:anchors=\"top left\" id=\"teethBackground\" style=\"opacity:1;fill:#ffffff;stroke:#000000\" points=\"21.392,11.064 23.954,8.502 26.347,10.895 23.786,13.455     24.729,15.732 28.353,15.732 28.353,19.115 24.731,19.115 23.788,21.392 26.351,23.955 23.958,26.347 21.397,23.786 19.12,24.729     19.12,28.353 15.737,28.353 15.737,24.731 13.46,23.788 10.897,26.35 8.506,23.958 11.066,21.397 10.124,19.12 6.5,19.12     6.5,15.737 10.121,15.737 11.065,13.461 8.503,10.898 10.895,8.506 13.455,11.066 15.732,10.125 15.732,6.5 19.116,6.5     19.116,10.121 \"/>   <circle oryx:anchors=\"top left\" id=\"ringBackground\" style=\"opacity:1;fill:none;stroke:#000000\" cx=\"17.427\" cy=\"17.426\" r=\"3.714\"/>  </g>    <g id=\"sendTask\" display=\"none\">   <path oryx:anchors=\"left top\" stroke=\"white\" fill=\"black\" stroke-width=\"1\" d=\"M8,11 L8,21 L24,21 L24,11 L16,17z\"/>   <path oryx:anchors=\"left top\" stroke=\"white\" fill=\"black\" stroke-width=\"1\" d=\"M7,10 L16,17 L25 10z\"/>  </g>    <g id=\"receiveTask\" display=\"none\">   <path oryx:anchors=\"left top\" stroke=\"black\" fill=\"none\" stroke-width=\"1\" d=\"M8,11 L8,21 L24,21 L24,11z M8,11 L16,17 L24,11\" />   <circle id=\"instantiate\" cx=\"16\" cy=\"16\" r=\"13\" stroke=\"black\" fill=\"none\" stroke-width=\"1\"/>  </g>    <g id=\"none\"></g>  <g id=\"loop\" display=\"none\">       <path          oryx:anchors=\"bottom\"          style=\"opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.0999999;stroke-dasharray:none;stroke-opacity:1\"          id=\"path2396\"          d=\"M 47.608384,75.188343 L 47.608384,78.188343 L 44.608384,78.188343 M 47.608384,78.188343 A 4.875,4.875 0 1 1 51.639336,78.189378\"          />     </g>      <g id=\"parallel\" display=\"none\">   <path oryx:anchors=\"bottom\" fill=\"none\" stroke=\"black\" d=\"M46 70 v8 M50 70 v8 M54 70 v8\" stroke-width=\"2\" />  </g>  <g id=\"sequential\" display=\"none\">   <path oryx:anchors=\"bottom\" fill=\"none\" stroke=\"#000000\" stroke-width=\"2\" d=\"M46,76h10M46,72h10 M46,68h10\"/>  </g>     <g id=\"compensation\" display=\"none\">   <path oryx:anchors=\"bottom\" fill=\"none\" stroke=\"black\" d=\"M 62 74 L 66 70 L 66 78 L 62 74 L 62 70 L 58 74 L 62 78 L 62 74\" stroke-width=\"1\" />  </g>   </g> </svg> ",
+      "icon" :      "activity/task.png",
+      "propertyPackages" :[
+        "taskAttributes",
+        "flowElement",
+        "task",
+        "properties",
+        "iospecification"
+      ],
+      "properties": [ ],
+      "roles" :       [
+        "all",
+        "sequence_start",
+        "sequence_end",
+        "from_task_event",
+        "to_task_event",
+        "FromEventbasedGateway",
+        "messageflow_start",
+        "messageflow_end",
+        "fromtoall",
+        "ActivitiesMorph"
+      ]
+    },
+    {
+    //外部子流程
+      "type" :      "node",
+      "id" :        "CollapsedSubprocess",
+      "title" :       "Collapsed Subprocess",
+      "title_zh" :       "子流程",
+      "title_de" :    "Zugeklappter Unterprozess",
+      "groups" :      ["Activities"],
+      "groups_de" :   ["Aktivitäten"],
+      "description" :   "A subprocess is a decomposable activity. It can be linked to another process diagram.",
+      "description_de" :  "Ein Unterprozess ist eine verfeinerbare Aktivität. Er kann mit einem anderen Prozessdiagramm verlinkt werden.",
+      "view":"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?> <svg    xmlns=\"http://www.w3.org/2000/svg\"    xmlns:svg=\"http://www.w3.org/2000/svg\"    xmlns:oryx=\"http://www.b3mn.org/oryx\"    xmlns:xlink=\"http://www.w3.org/1999/xlink\"    width=\"100\"    height=\"80\"    version=\"1.0\">   <defs></defs>   <oryx:magnets>    <oryx:magnet oryx:cx=\"1\" oryx:cy=\"20\" oryx:anchors=\"left\" />    <oryx:magnet oryx:cx=\"1\" oryx:cy=\"40\" oryx:anchors=\"left\" />    <oryx:magnet oryx:cx=\"1\" oryx:cy=\"60\" oryx:anchors=\"left\" />        <oryx:magnet oryx:cx=\"25\" oryx:cy=\"79\" oryx:anchors=\"bottom\" />    <oryx:magnet oryx:cx=\"50\" oryx:cy=\"79\" oryx:anchors=\"bottom\" />    <oryx:magnet oryx:cx=\"75\" oryx:cy=\"79\" oryx:anchors=\"bottom\" />        <oryx:magnet oryx:cx=\"99\" oryx:cy=\"20\" oryx:anchors=\"right\" />    <oryx:magnet oryx:cx=\"99\" oryx:cy=\"40\" oryx:anchors=\"right\" />    <oryx:magnet oryx:cx=\"99\" oryx:cy=\"60\" oryx:anchors=\"right\" />        <oryx:magnet oryx:cx=\"25\" oryx:cy=\"1\" oryx:anchors=\"top\" />    <oryx:magnet oryx:cx=\"50\" oryx:cy=\"1\" oryx:anchors=\"top\" />    <oryx:magnet oryx:cx=\"75\" oryx:cy=\"1\" oryx:anchors=\"top\" />        <oryx:magnet oryx:cx=\"50\" oryx:cy=\"40\" oryx:default=\"yes\" />   </oryx:magnets>   <g pointer-events=\"fill\" oryx:minimumSize=\"80 60\">    <defs>   <radialGradient id=\"background\" cx=\"10%\" cy=\"10%\" r=\"100%\" fx=\"10%\" fy=\"10%\">    <stop offset=\"0%\" stop-color=\"#ffffff\" stop-opacity=\"1\"/>    <stop id=\"fill_el\" offset=\"100%\" stop-color=\"#ffffcc\" stop-opacity=\"1\"/>   </radialGradient>  </defs>    <rect id=\"text_frame\" oryx:anchors=\"bottom top right left\" x=\"1\" y=\"1\" width=\"94\" height=\"79\" rx=\"10\" ry=\"10\" stroke=\"none\" stroke-width=\"0\" fill=\"none\" />  <rect id=\"bg_frame\" oryx:anchors=\"bottom top right left\" x=\"0\" y=\"0\" width=\"100\" height=\"80\" rx=\"10\" ry=\"10\" stroke=\"black\" stroke-width=\"1\" fill=\"url(#background) #ffffcc\" />     <rect id=\"callActivity\" oryx:resize=\"vertical horizontal\" oryx:anchors=\"bottom top right left\" x=\"0\" y=\"0\" width=\"100\" height=\"80\" rx=\"10\" ry=\"10\" stroke=\"black\" stroke-width=\"4\" fill=\"none\" />  <rect id=\"border\" oryx:anchors=\"top bottom left right\" oryx:resize=\"vertical horizontal\" x=\"2.5\" y=\"2.5\" width=\"95\" height=\"75\" rx=\"8\" ry=\"8\" stroke=\"black\" stroke-width=\"1\" fill=\"none\" />      <text     font-size=\"12\"    id=\"text_name\"     x=\"50\"     y=\"40\"     oryx:align=\"middle center\"    oryx:fittoelem=\"text_frame\"    stroke=\"black\">   </text>         <a id=\"u\" target=\"_blank\">    <g id=\"b\"     oryx:anchors=\"bottom\">         <rect oryx:anchors=\"bottom\" x=\"44\" y=\"66\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"black\" stroke-width=\"1\" />    <path oryx:anchors=\"bottom\" fill=\"none\" stroke=\"black\" d=\"M51 68 v10 M 46 73 h10\" stroke-width=\"1\"/>      </g>  </a>  <g id=\"none\"></g>  <g id=\"loop\">   <path           oryx:anchors=\"bottom\"          style=\"opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.0999999;stroke-dasharray:none;stroke-opacity:1\"           id=\"path2396\"           d=\"M 50.5,72 L 50.5,75 L 47.5,75 M 50.5,75 A 4.875,4.875 0 1 1 54.5,75\"    transform=\"translate(-15.5,0)\"           />  </g>     <g id=\"parallel\">   <path oryx:anchors=\"bottom\" fill=\"none\" stroke=\"black\" d=\"M47 65 v10 M51 65 v10 M55 65 v10\" stroke-width=\"2\" transform=\"translate(-15 0)\" />  </g>  <g id=\"sequential\">   <path oryx:anchors=\"bottom\" fill=\"none\" stroke=\"#000000\" stroke-width=\"2\" d=\"M42,66H32 M42,70H32 M42,74H32\"/>  </g>      <g id=\"adhoc\">   <text     oryx:anchors=\"bottom\"    x=\"61\"    y=\"77\"    font-size=\"20\"    transform=\"translate(14,0)\"   >~</text>  </g>  <g id=\"compensation\">   <path oryx:anchors=\"bottom\" fill=\"none\" stroke=\"black\" d=\"M 51 70 L 56 65 L 56 75z M45.7 70 L50.7 75 L 50.7 65z\" stroke-width=\"1\"   transform=\"translate(-28,0)\" />  </g>   </g> </svg> ",
+      "icon" :      "activity/subprocess.png",
+      "hide":       true,
+      "propertyPackages" :[
+        "baseAttributes",
+        "flowElement",
+        "activity",
+        "subprocess",
+        "loopcharacteristics",
+        "bgColor",
+        "properties",
+        "iospecification"
+      ],
+      "properties" :    [
+        {
+          "id":"activitytype",
+          "type":"String",
+          "title":"ActivityType",
+          "title_de":"Aktivitätstyp",
+          "value":"Sub-Process",
+          "value_de":"Unterprozess",
+          "description":"The Type of Activity.",
+          "description_de":"Typ der Aktivität",
+          "readonly":true,
+          "optional":false,
+          "length":""
+        },
+        {
+          "id":"bgcolor",
+          "type":"Color",
+          "title":"BackgroundColor",
+          "title_de":"Hintergrundfarbe",
+          "value":"#ffffcc",
+          "description":"",
+          "readonly":false,
+          "optional":false,
+          "refToView":"fill_el",
+          "fill":true,
+          "stroke":false
+        } 
+      ],
+      "roles":      [
+        "all",
+        "sequence_start",
+        "sequence_end",
+        "messageflow_start",
+        "messageflow_end",
+        "to_task_event",
+        "from_task_event",
+        "fromtoall",
+        "ActivitiesMorph"
+      ]
+    },
+    {
+    //XOR路由
+      "type" :      "node",
+      "id" :        "Exclusive_Databased_Gateway",
+      "title" :     "Data-based Exclusive (XOR) Gateway",
+      "title_zh" :     "互斥路由",
+      "title_de" :    "Daten-basiertes exklusives Gateway",
+      "description" :   "When splitting, it routes the sequence flow to exactly one of the outgoing branches based on conditions. When merging, it awaits one incoming branch to complete before triggering the outgoing flow.",
+      "description_de" :  "Bei einer Verzweigung wird der Sequenzfluss abhängig von Verzweigungsbedingungen zu genau einer ausgehenden Kante geleitet. Bei einer Zusammenführung wird auf eine der eingehenden Kante gewartet, um den ausgehenden Sequenzfluss zu aktivieren.",
+      "groups" :      ["Gateways"],
+      "view":"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?> <svg    xmlns:oryx=\"http://www.b3mn.org/oryx\"    xmlns:svg=\"http://www.w3.org/2000/svg\"    xmlns=\"http://www.w3.org/2000/svg\"    version=\"1.0\"    width=\"40\"    height=\"40\">   <defs      id=\"defs4\" />   <oryx:magnets>     <oryx:magnet        oryx:default=\"yes\"        oryx:cy=\"16\"        oryx:cx=\"16\" />   </oryx:magnets>        <g>        <defs>   <radialGradient id=\"background\" cx=\"10%\" cy=\"10%\" r=\"100%\" fx=\"10%\" fy=\"10%\">    <stop offset=\"0%\" stop-color=\"#ffffff\" stop-opacity=\"1\"/>    <stop id=\"fill_el\" offset=\"100%\" stop-color=\"#ffffff\" stop-opacity=\"1\"/>   </radialGradient>  </defs>       <path        d=\"M -4.5,16 L 16,-4.5 L 35.5,16 L 16,35.5z\"        id=\"bg_frame\"        fill=\"url(#background) white\"        style=\"stroke:#000000;stroke-width:1\" />     <g        id=\"cross\">       <path          d=\"M 8.75,7.55 L 12.75,7.55 L 23.15,24.45 L 19.25,24.45 z\"          style=\"fill:#000000;stroke:#000000;stroke-width:1\" />       <path          d=\"M 8.75,24.45 L 19.25,7.55 L 23.15,7.55 L 12.75,24.45 z\"          style=\"fill:#000000;stroke:#000000;stroke-width:1\" />     </g>    <text id=\"text_name\" x=\"26\" y=\"26\" oryx:align=\"left top\"/>     </g> </svg> ",
+      "icon" :      "gateway/exclusive.databased.png",
+      "propertyPackages" :[
+        "baseAttributes",
+        "flowElement",
+        "gateway",
+        "bgColor"
+      ],
+      "properties" :    [
+        {
+          "id":"gatewaytype",
+          "type":"String",
+          "title":"Gateway type",
+          "title":"Gateway-Typ",
+          "value":"XOR",
+          "description":"",
+          "readonly":true,
+          "optional":false,
+          "length":""
+        },
+        {
+          "id":"xortype",
+          "type":"String",
+          "title":"XOR type",
+          "title_de":"XOR-Typ",
+          "value":"Data",
+          "description":"",
+          "readonly":true,
+          "optional":false,
+          "length":""
+        },
+        {
+          "id":"markervisible",
+          "type":"Boolean",
+          "title":"X-Marker visible",
+          "title_de":"X-Marker sichtbar",
+          "value":"true",
+          "description":"",
+          "readonly":false,
+          "optional":false,
+          "refToView":"cross"
+        },    
+        {
+          "id":"defaultgate",
+          "type":"String",
+          "title":"Default gate",
+          "title_de":"Standardgate",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "refToView":"",
+          "wrapLines":true
+        },
+        {
+          "id":"gate_outgoingsequenceflow",
+          "type":"String",
+          "title":"[Gate] OutgoingSequenceFlow",
+          "title_de":"[Gate] Ausgehender Steuerfluss",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "refToView":""
+        },
+        {
+          "id":"gate_assignments",
+          "type":"String",
+          "title":"[Gate] Assignments",
+          "title_de":"[Gates] Zuweisungen",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "refToView":"",
+          "wrapLines":true
+        } 
+      ],
+      "roles":      [
+        "all",
+        "sequence_start",
+        "sequence_end",
+        "choreography_sequence_start",
+        "choreography_sequence_end",
+        "fromtoall",
+        "GatewaysMorph"
+      ]
+    },
+     {
+        //并行路由
+      "type" :      "node",
+      "id" :        "ParallelGateway",
+      "title" :     "Parallel Gateway",
+      "title_zh" :     "并行路由",
+      "title_de" :    "Paralleles Gateway",
+      "groups" :      ["Gateways"],
+      "description" :   "When used to split the sequence flow, all outgoing branches are activated simultaneously. When merging parallel branches it waits for all incoming branches to complete before triggering the outgoing flow.",
+      "description_de" :  "Wenn der Sequenzfluss verzweigt wird, werden alle ausgehenden Kanten simultan aktiviert. Bei der Zusammenführung wird auf alle eingehenden Kanten gewartet, bevor der ausgehende Sequenzfluss aktiviert wird.",
+      "view":"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?> <svg    xmlns:oryx=\"http://www.b3mn.org/oryx\"    xmlns:svg=\"http://www.w3.org/2000/svg\"    xmlns=\"http://www.w3.org/2000/svg\"    version=\"1.0\"    width=\"40\"    height=\"40\">       <oryx:magnets>     <oryx:magnet        oryx:default=\"yes\"        oryx:cy=\"16\"        oryx:cx=\"16\" />   </oryx:magnets>   <g>      <defs>   <radialGradient id=\"background\" cx=\"10%\" cy=\"10%\" r=\"100%\" fx=\"10%\" fy=\"10%\">    <stop offset=\"0%\" stop-color=\"#ffffff\" stop-opacity=\"1\"/>    <stop id=\"fill_el\" offset=\"100%\" stop-color=\"#ffffff\" stop-opacity=\"1\"/>   </radialGradient>  </defs>       <path        d=\"M -4.5,16 L 16,-4.5 L 35.5,16 L 16,35.5z\"        id=\"bg_frame\"        fill=\"url(#background) white\"        style=\"stroke:#000000;stroke-width:1\" />     <path        d=\"M 6.75,16 L 25.75,16 M 16,6.75 L 16,25.75\"        id=\"path9\"        style=\"fill:none;stroke:#000000;stroke-width:3\" />       <text id=\"text_name\" x=\"26\" y=\"26\" oryx:align=\"left top\"/>     </g> </svg> ",
+      "icon" :      "gateway/parallel.png",
+      "propertyPackages" :[
+        "baseAttributes",
+        "flowElement",
+        "gateway",
+        "bgColor"
+      ],
+      "properties" : [
+        {
+          "id":"gatewaytype",
+          "type":"String",
+          "title":"GatewayType",
+          "title_de":"Gatewaytyp",
+          "value":"AND",
+          "description":"",
+          "readonly":true,
+          "optional":false,
+          "length":""
+        }
+      ],
+      "roles":      [
+        "all",
+        "sequence_start",
+        "sequence_end",
+        "choreography_sequence_start",
+        "choreography_sequence_end",
+        "fromtoall",
+        "GatewaysMorph"
+      ]
+    },
+    {
+    //Inclusive路由
+      "type" :      "node",
+      "id" :        "InclusiveGateway",
+      "title" :     "Inclusive Gateway",
+      "title_zh" :     "相容路由",
+      "title_de" :    "Inklusives Gateway",
+      "groups" :      ["Gateways"],
+      "description" :   "When splitting, one or more branches are activated based on branching conditions. When merging, it awaits all active incoming branches to complete.",
+      "description_de" :  "Bei einer Verzweigung werden eine oder mehrere Kanten abhängig von Verzweigungsbedingungen aktiviert. Bei einer Vereinigung wird auf alle eingehenden aktiven Kanten gewartet.",
+      "view":"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?> <svg    xmlns:oryx=\"http://www.b3mn.org/oryx\"    xmlns:svg=\"http://www.w3.org/2000/svg\"    xmlns=\"http://www.w3.org/2000/svg\"    version=\"1.0\"    width=\"40\"    height=\"40\">   <oryx:magnets>     <oryx:magnet        oryx:default=\"yes\"        oryx:cy=\"16\"        oryx:cx=\"16\" />   </oryx:magnets>   <g>      <defs>   <radialGradient id=\"background\" cx=\"10%\" cy=\"10%\" r=\"100%\" fx=\"10%\" fy=\"10%\">    <stop offset=\"0%\" stop-color=\"#ffffff\" stop-opacity=\"1\"/>    <stop id=\"fill_el\" offset=\"100%\" stop-color=\"#ffffff\" stop-opacity=\"1\"/>   </radialGradient>  </defs>       <path        d=\"M -4.5,16 L 16,-4.5 L 35.5,16 L 16,35.5z\"        id=\"bg_frame\"        fill=\"url(#background) white\"        style=\"stroke:#000000;stroke-width:1\" />     <circle        cx=\"16\"        cy=\"16\"        r=\"9.75\"        style=\"fill:none;stroke:#000000;stroke-width:2.5\" />       <text id=\"text_name\" x=\"26\" y=\"26\" oryx:align=\"left top\"/>     </g> </svg> ",
+      "icon" :      "gateway/inclusive.png",
+      "propertyPackages" :[
+        "baseAttributes",
+        "flowElement",
+        "gateway",
+        "bgColor"
+      ],
+      "properties" :    [
+        {
+          "id":"gatewaytype",
+          "type":"String",
+          "title":"GatewayType",
+          "title_de":"Gatewaytyp",
+          "value":"OR",
+          "description":"",
+          "readonly":true,
+          "optional":false,
+          "length":""
+        },
+        {
+          "id":"defaultgate",
+          "type":"String",
+          "title":"DefaultGate",
+          "title_de":"Standardgate",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "refToView":"",
+          "wrapLines":true
+        },
+        {
+          "id":"gate_outgoingsequenceflow",
+          "type":"String",
+          "title":"[Gate] OutgoingSequenceFlow",
+          "title_de":"[Gate] Ausgehender Steuerfluss",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "refToView":""
+        },
+        {
+          "id":"gate_assignments",
+          "type":"String",
+          "title":"[Gate] Assignments",
+          "title":"[Gates] Zuweisungen",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "refToView":"",
+          "wrapLines":true
+        }
+      ],
+      "roles":      [
+        "all",
+        "sequence_start",
+        "sequence_end",
+        "choreography_sequence_start",
+        "choreography_sequence_end",
+        "fromtoall",
+        "GatewaysMorph"
+      ]
+    },
+    {
+    //Complex路由
+      "type": "node",
+      "id":"ComplexGateway",
+      "title":"Complex Gateway",
+      "title_zh":"复杂路由",
+      "title_de":"Komplexes Gateway",
+      "groups":["Gateways"],
+      "description":"It triggers one or more branches based on complex conditions or verbal descriptions. Use it sparingly as the semantics might not be clear.",
+      "description_de":"Eine oder mehrere Kanten werden abhängig von komplexen Bedingungen oder verbalen Beschreibungen aktiviert. Es sollte nur benutzt werden, wenn sich das Verhalten nicht durch andere Gateways ausdrücken lässt.",
+      "view":"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?> <svg    xmlns:oryx=\"http://www.b3mn.org/oryx\"    xmlns:svg=\"http://www.w3.org/2000/svg\"    xmlns=\"http://www.w3.org/2000/svg\"    version=\"1.0\"    width=\"40\"    height=\"40\">   <oryx:magnets>     <oryx:magnet        oryx:default=\"yes\"        oryx:cy=\"16\"        oryx:cx=\"16\" />   </oryx:magnets>   <g>      <defs>   <radialGradient id=\"background\" cx=\"10%\" cy=\"10%\" r=\"100%\" fx=\"10%\" fy=\"10%\">    <stop offset=\"0%\" stop-color=\"#ffffff\" stop-opacity=\"1\"/>    <stop id=\"fill_el\" offset=\"100%\" stop-color=\"#ffffff\" stop-opacity=\"1\"/>   </radialGradient>  </defs>       <path        d=\"M -4.5,16 L 16,-4.5 L 35.5,16 L 16,35.5z\"        id=\"bg_frame\"        fill=\"url(#background) white\"        style=\"stroke:#000000;stroke-width:1\" />     <path        d=\"M 6.25,16 L 25.75,16 M 16,6.25 L 16,25.75 M 8.85,8.85 L 23.15,23.15 M 8.85,23.15 L 23.15,8.85\"        style=\"fill:#ffffff;stroke:#000000;stroke-width:3.9\" />       <text id=\"text_name\" x=\"26\" y=\"26\" oryx:align=\"left top\"/>     </g> </svg> ",
+      "icon":"gateway/complex.png",
+      "propertyPackages" : [
+        "baseAttributes",
+        "flowElement",
+        "gateway",
+        "bgColor"
+      ],
+      "properties" : [
+        {
+          "id":"gatewaytype",
+          "type":"String",
+          "title":"GatewayType",
+          "title_de":"Gatewaytyp",
+          "value":"Complex",
+          "description":"",
+          "readonly":true,
+          "optional":false,
+          "length":""
+        },
+        {
+          "id":"activationcondition",
+          "type":"String",
+          "title":"ActivationCondition",
+          "title_de":"Aktivierungsbedingung",
+          "value":"",
+          "popular":true,
+          "description":"Determines which combination of incoming tokens will be synchronized for activation of the Gateway.",
+          "readonly":false,
+          "optional":true
+        },
+        {
+          "id":"incomingcondition",
+          "type":"String",
+          "title":"IncomingCondition",
+          "title_de":"Eingangsbedingung",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "refToView":""
+        },
+        {
+          "id":"outgoingcondition",
+          "type":"String",
+          "title":"OutgoingCondition",
+          "title_de":"Ausgangsbedingung",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "refToView":""
+        }
+      ],
+      "roles": [
+        "all",
+        "sequence_start",
+        "sequence_end",
+        "choreography_sequence_start",
+        "choreography_sequence_end",
+        "fromtoall",
+        "GatewaysMorph"
+      ]
+    },
+    {
+    //文本注释
+      "type" :      "node",
+      "id" :        "TextAnnotation",
+      "title" :     "Text Annotation",
+      "title_zh" :     "文本注释",
+      "title_de" :    "Text-Anmerkung",
+      "groups" :      ["Artifacts"],
+      "groups_de" :   ["Artefakte"],
+      "description" :   "Any object can be associated with a Text Annotation to provide additional documentation.",
+      "description_de" :  "Jedes Objekt kann durch eine Text-Anmerkung kommentiert werden.",
+      "view":"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?> <svg    xmlns=\"http://www.w3.org/2000/svg\"    xmlns:svg=\"http://www.w3.org/2000/svg\"    xmlns:oryx=\"http://www.b3mn.org/oryx\"    xmlns:xlink=\"http://www.w3.org/1999/xlink\"    width=\"102\"    height=\"51\"    version=\"1.0\">   <defs></defs>   <oryx:magnets>    <oryx:magnet oryx:cx=\"2\" oryx:cy=\"25\" oryx:anchors=\"left\" oryx:default=\"yes\"/>   </oryx:magnets>   <g pointer-events=\"all\" oryx:minimumSize=\"10 20\" oryx:maximumSize=\"\" >   <rect   id=\"textannotationrect\"  oryx:resize=\"vertical horizontal\"  x=\"1\"   y=\"1\"  width=\"100\"  height=\"50\"  stroke=\"none\"  fill=\"none\" />   <path   d=\"M20,1 L1,1 L1,50 L20,50\"   oryx:anchors=\"top bottom left\"   stroke=\"black\"   fill=\"none\"   stroke-width=\"1\" />          <text    font-size=\"12\"    id=\"text\"    x=\"5\"    y=\"25\"    oryx:align=\"middle left\"   oryx:fittoelem=\"textannotationrect\"   oryx:anchors=\"left\"   stroke=\"black\">  </text>   </g> </svg> ",
+      "icon" :      "artifact/text.annotation.png",
+      "defaultAlign" :  "northeast",
+      "propertyPackages": [
+        "baseAttributes",
+        "flowElement",
+        "artifact"
+      ],
+      "properties" :    [
+        {
+          "id":"text",
+          "type":"String",
+          "title":"Text",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "refToView":"text",
+          "length":"",
+          "wrapLines":true
+        },
+        {
+          "id":"textformat",
+          "type":"String",
+          "title":"Text Format",
+          "title_de":"Textformat",
+          "popular":true,
+          "value":"text/plain",
+          "description":"This attribute identifies the format of the text. It MUST follow the mimetype format.",
+          "description_de":"Dieses Attribut definiert das Format des Textes.",
+          "readonly":true,
+          "optional":false,
+          "length":""
+        }
+      ],
+      "roles": [
+        "all",
+        "from_artifact",
+        "to_artifact",
+        "TextAnnotationMorph"
+      ]
+    },
+    {
+    //Sequence Flow
+      "type": "edge",
+      "id":"SequenceFlow",
+      "title":"Sequence Flow",
+      "title_zh":"顺序流",
+      "title_de":"Sequenzfluss",
+      "description":"Sequence Flow defines the execution order of activities.",
+      "description_de":"Ein Sequenzfluss definiert die Reihenfolge der Ausführung von Aktivitäten.",
+      "groups":["Connecting Objects"],
+      "groups_de":["Konnektoren"],
+      "view":"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?> <svg  xmlns=\"http://www.w3.org/2000/svg\"  xmlns:oryx=\"http://www.b3mn.org/oryx\"  version=\"1.0\"  oryx:edge=\"edge\" >  <defs>     <marker id=\"start\" refX=\"1\" refY=\"5\" markerUnits=\"userSpaceOnUse\" markerWidth=\"17\" markerHeight=\"11\" orient=\"auto\">      <path id=\"conditional\" d=\"M 0 5 L 8 0 L 16 5 L 8 10 L 0 5\" fill=\"white\" stroke=\"black\" stroke-width=\"1\" />    <path id=\"default\" d=\"M 5 0 L 11 10\" fill=\"white\" stroke=\"black\" stroke-width=\"1\" />     </marker>     <marker id=\"end\" refX=\"15\" refY=\"6\" markerUnits=\"userSpaceOnUse\" markerWidth=\"15\" markerHeight=\"12\" orient=\"auto\">      <path d=\"M 0 1 L 15 6 L 0 11z\" fill=\"black\" stroke=\"black\" stroke-linejoin=\"round\" stroke-width=\"2\" />     </marker>  </defs>  <g id=\"edge\">   <path d=\"M10 50 L210 50\" stroke=\"black\" fill=\"none\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" marker-start=\"url(#start)\" marker-end=\"url(#end)\" />   <text id=\"text_name\" x=\"0\" y=\"0\" oryx:edgePosition=\"startTop\"/>  </g> </svg> ",
+      "icon":"connector/sequenceflow.png",
+      "propertyPackages":[
+        "baseAttributes"
+      ],
+      "layout" : [{"type" : "layout.bpmn2_0.sequenceflow"}],
+      "roles": [
+        "all",
+        "ConnectingObjectsMorph",
+        "fromtoall"
+      ],
+      "properties":[
+        {
+          "id":"ConditionType",
+          "type":"Choice",
+          "title":"ConditionType",
+          "title_de":"Bedingungstyp",
+          "value":"None",
+          "description":"Determine the typ of the flow object.",
+          "description_de":"Legt den Typ des Flussobjekts fest.",
+          "readonly":false,
+          "optional":false,
+          "items": [
+            {
+              "id":"none",
+              "title":"Standard",
+              "title_de":"Standard",
+              "value":"None"
+            },
+            {
+              "id":"expression",
+              "title":"Conditional Flow",
+              "title_de":"Bedingter Fluss",
+              "value":"Expression",
+              "icon" : "connector/list/type.expression.png",
+              "refToView":""
+            },
+            {
+              "id":"default",
+              "title":"Default Flow",
+              "title_de":"Standardfluss",
+              "value":"Default",
+              "icon" : "connector/list/type.default.png",
+              "refToView":"default"
+            }
+          ]
+        },
+        {
+          "id":"conditionexpression",
+          "type":"String",
+          "title":"Condition Expression",
+          "title_de":"Bedingungsausdruck",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "length":"",
+          "wrapLines":true
+        },
+        {
+          "id":"isimmediate",
+          "type":"Boolean",
+          "title":"isImmediate",
+          "title_de":"Sofortige Ausführung",
+          "value":"",
+          "description":"An optional Boolean value specifying whether Activities or Choreography Activities not in the model containing the Sequence Flow can occur between the elements connected by the Sequence Flow. If the value is true, they MAY NOT occur. If the value is false, they MAY occur. Also see the isClosed attribute on Process, Choreography, and Collaboration.",
+          "readonly":false,
+          "optional":false
+        },
+        {
+          "id":"showdiamondmarker",
+          "type":"Boolean",
+          "title":"is conditional flow",
+          "title_de":"ist bedingter Fluss",
+          "value":false,
+          "description":"System intern variable to set the Diamond invisible, if sourceShape is a gateway and ConditionType is set to Expression",
+          "readonly":true,
+          "optional":false,
+          "visible":false,
+          "refToView":"conditional"
+        }
+      ]
+    },
+    {
+    //文本关联线
+      "type": "edge",
+      "id":"Association_Undirected",
+      "title":"Association (undirected)",
+      "title":"关联 (无方向)",
+      "title_de":"Ungerichtete Assoziation",
+      "description":"Attaching a data object with an Undirected Association to a sequence flow indicates hand-over of information between the activities involved.",
+      "description_de":"Die Zuordnung eines Datenobjekts zu einem Sequenzfluss über eine ungerichtete Assoziation weist auf eine Informationsübergabe zwischen den Aktivitäten hin.",
+      "groups":["Connecting Objects"],
+      "groups_de":["Konnektoren"],
+      "view":"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?> <svg  xmlns=\"http://www.w3.org/2000/svg\"  xmlns:oryx=\"http://www.b3mn.org/oryx\"  version=\"1.0\"  oryx:edge=\"edge\" >  <g id=\"edge\">      <path d=\"M10 50 L210 50\" stroke=\"black\" fill=\"none\" stroke-width=\"2\" stroke-dasharray=\"3, 4\" />   <text id=\"name\" x=\"0\" y=\"0\" oryx:edgePosition=\"midTop\" oryx:offsetTop=\"6\" style=\"font-size:9px;\"/>  </g> </svg> ",
+      "icon":"connector/association.undirected.png",
+      "roles": [
+        "all",
+        "ConnectingObjectsMorph",
+        "fromtoall"
+      ],      
+      "propertyPackages" : [
+          "dataAssociation"
+      ],
+      "properties" : [
+        {
+          "id":"type",
+          "type":"Choice",
+          "title":"Responsibilities",
+          "title_de":"Verantwortlichkeiten",
+          "value":"none",
+          "description":"Describes the type of the responsibility according to RACI.",
+          "description_de":"Beschreibt die Verantwortlichkeiten nach dem RACI-Modell.",
+          "readonly":false,
+          "optional":true,
+          "refToView":"name",
+          "items": [
+            {
+              "id":"c1",
+              "title":"",
+              "title_de":"",
+              "value":"none"
+            },
+            {
+              "id":"c2",
+              "title":"responsible",
+              "title_de":"führt durch",
+              "value":"performs"
+            },
+            {
+              "id":"c3",
+              "title":"accountable",
+              "title_de":"erteilt Freigabe",
+              "value":"approves"
+            },
+            {
+              "id":"c4",
+              "title":"consulted",
+              "title_de":"wird konsultiert",
+              "value":"consulted"
+            },
+            {
+              "id":"c5",
+              "title":"informed",
+              "title_de":"wird informiert",
+              "value":"isNotified"
+            }
+          ]
+        }
+           ]
+    }
+  ],
+  
+  "rules" : {
+    "cardinalityRules": [
+      {
+        "role":"Startevents_all",
+        "incomingEdges": [
+          {
+            "role":"SequenceFlow",
+            "maximum":0
+            
+          }
+        ]
+      },
+      {
+        "role":"Endevents_all",
+        "outgoingEdges": [
+          {
+            "role":"SequenceFlow",
+            "maximum":0
+            
+          }
+        ]
+      }
+    ],
+    "connectionRules": [
+      {
+        "role":"SequenceFlow",
+        "connects": [
+          {
+            "from":"sequence_start",
+            "to":["sequence_end"]
+          },
+          {
+            "from":"choreography_sequence_start",
+            "to":["choreography_sequence_end"]
+          },
+          {
+            "from":"Exclusive_Eventbased_Gateway",
+            "to":["FromEventbasedGateway"]
+          },{
+            "from" : "EventbasedGateway",
+            "to" : ["FromEventbasedGateway"]
+          }
+        ]
+      },
+      {
+        "role":"MessageFlow",
+        "connects": [
+          {
+            "from":"messageflow_start",
+            "to":["messageflow_end"]
+          }
+        ]
+      },
+      {
+        "role":"ChoreographyMessageFlowStart",
+        "connects": [
+          {
+            "from":"messageflow_start",
+            "to":["choreography_messageflow_end"]
+          }
+        ]
+      },
+      {
+        "role":"ChoreographyMessageFlowEnd",
+        "connects": [
+          {
+            "from":"choreography_messageflow_start",
+            "to":["messageflow_end"]
+          }
+        ]
+      },
+      {
+        "role":"IntermediateEventOnActivityBoundary",
+        "connects": [
+          {
+            "from":"Task",
+            "to":["IntermediateEventOnActivityBoundary"]
+          }
+        ]
+      },
+      {
+        "role":"IntermediateEventOnSubprocessBoundary",
+        "connects": [
+          {
+            "from":"CollapsedSubprocess",
+            "to":["IntermediateEventOnSubprocessBoundary"]
+          },
+          {
+            "from":"Subprocess",
+            "to":["IntermediateEventOnSubprocessBoundary"]
+          }
+        ]
+      },
+      {
+        "role":"EventOnChoreographyActivityBoundary",
+        "connects": [
+          {
+            "from":"ChoreographyMorph",
+            "to":["EventOnChoreographyActivityBoundary"]
+          }
+        ]
+      },
+      {
+        "role" : "Directed_Association",
+        "connects" : [
+          {
+            "from" : "from_task_event",
+            "to" : ["DataObject"]
+          },
+          {
+            "from" : "from_task_event",
+            "to" : ["DataStore"]
+          },
+          {
+            "from" : "from_task_event",
+            "to" : ["ITSystem"]
+          },
+          {
+            "from" : "DataObject",
+            "to" : ["to_task_event"]
+          },
+          {
+            "from" : "DataStore",
+            "to" : ["to_task_event"]
+          },
+          {
+            "from" : "ITSystem",
+            "to" : ["to_task_event"]
+          },
+          {
+            "from" : "IntermediateCompensationEventCatching",
+            "to" : ["to_task_event"]
+          },
+          {
+            "from" : "IntermediateCompensationEventCatching",
+            "to" : ["ChoreographyMorph"]
+          }
+        ]
+      },
+      {
+        "role" : "Association_Undirected",
+        "connects" : [
+          {
+            "from" : "SequenceFlow",
+            "to" : ["DataObject"]
+          },
+          {
+            "from" : "DataObject",
+            "to" : ["SequenceFlow"]
+          },
+          {
+            "from" : "DataObject",
+            "to" : ["MessageFlow"]
+          },
+          {
+            "from" : "MessageFlow",
+            "to" : ["DataObject"]
+          },
+          {
+            "from" : "ITSystem",
+            "to" : ["to_task_event"]
+          },
+          {
+            "from" : "from_task_event",
+            "to" : ["ITSystem"]
+          },
+          {
+            "from" : "DataStore",
+            "to" : ["to_task_event"]
+          },
+          {
+            "from" : "from_task_event",
+            "to" : ["DataStore"]
+          },
+          {
+            "from" : "fromtoall",
+            "to" : ["TextAnnotation"]
+          },
+          {
+            "from" : "TextAnnotation",
+            "to" : "fromtoall"
+          },
+          {
+            "from" : "Message",
+            "to" : ["MessageFlow"]
+          },
+          {
+            "from" : "MessageFlow",
+            "to" : ["Message"]
+          },
+          {
+            "from" : "Message",
+            "to" : ["ChoreographyElement"]
+          },
+          {
+            "from" : "ChoreographyElement",
+            "to" : ["Message"]
+          },
+          {
+            "from" : "ChoreographyElement",
+            "to" : ["TextAnnotation"]
+          },
+          {
+            "from" : "TextAnnotation",
+            "to" : "ChoreographyElement"
+          },
+          {
+             "from" : "ActivitiesMorph",
+             "to" : ["to_participant"]
+          },
+          {
+             "from" : "to_participant",
+             "to" : ["ActivitiesMorph"]
+          }
+        ]
+      }
+    ],
+    "containmentRules" : [
+      {
+        "role" : "BPMNDiagram",
+        "contains" : ["all"]
+      },
+      {
+        "role" : "EventSubprocess",
+        "contains" : [
+          "eventSubprocessElement",
+          "EventSubprocess",
+          "CollapsedEventSubprocess",
+          "sequence_start",
+          "sequence_end"
+        ]
+      },
+      {
+        "role" : "Pool",
+        "contains" : [
+          "Lane"
+        ]
+      },
+      {
+        "role" : "Lane",
+        "contains" : [
+          "Lane",
+          "sequence_start",
+          "sequence_end",
+          "DataObjectMorph",
+          "TextAnnotationMorph",
+          "from_participant",
+          "EventSubprocess",
+          "CollapsedEventSubprocess"
+        ]
+      },
+      {
+        "role" : "Subprocess",
+        "contains" : [
+          "sequence_start",
+          "sequence_end",
+          "from_task_event",
+          "to_task_event",
+          "EventSubprocess",
+          "CollapsedEventSubprocess",
+          "TextAnnotation",
+          "from_participant"
+        ]
+      },
+      {
+        "role" : "MessageContainer",
+        "contains" : ["Message"]
+      },
+      {
+        "role" : "ChoreographyElement",
+        "contains" : ["ChoreographyParticipant"]
+      },
+      {
+        "role" : "ChoreographySubprocessExpanded",
+        "contains": [
+                "ChoreographyElement",
+                "choreography_sequence_start",
+                "choreography_sequence_end",
+                "Message",
+                "TextAnnotation"
+                                
+              ]
+      },
+      {
+        "role" : "Group",
+        "exclude": true
+      }
+    ],
+    "morphingRules": [
+      {
+        "role": "ActivitiesMorph",
+        "baseMorphs": ["Task"],
+        "preserveBounds" : true
+      },
+      {
+        "role": "EventActivitiesMorph",
+        "baseMorphs": ["CollapsedEventSubprocess"]
+      },
+      {
+        "role": "GatewaysMorph",
+        "baseMorphs": ["Exclusive_Databased_Gateway"]
+      },
+      {
+        "role": "StartEventsMorph",
+        "baseMorphs": ["StartNoneEvent"],
+        "showInShapeMenu":false
+      },
+      {
+        "role": "IntermediateEventsMorph",
+        "baseMorphs": ["IntermediateEvent"]
+      },
+      {
+        "role": "EndEventsMorph",
+        "baseMorphs": ["EndNoneEvent"]
+      },
+      {
+        "role": "TextAnnotationMorph",
+        "baseMorphs": ["TextAnnotation"]
+      },
+      {
+        "role": "DataObjectMorph",
+        "baseMorphs": ["DataObject"]
+      },
+      {
+        "role": "ConnectingObjectsMorph",
+        "baseMorphs": ["SequenceFlow"]
+      },
+      {
+        "role": "ChoreographyMorph",
+        "baseMorphs": ["ChoreographyTask"]
+      },
+      {
+        "role": "AssociationMorph",
+        "baseMorphs": [""]
+      }
+    ],
+    "layoutRules" : [
+      {
+        "role": "ActivitiesMorph",
+        "outs":[{"edgeRole":"MessageFlow","t":2, "r":1, "b":2, "l":1},
+            {"t":1,"r":2,"b":1,"l":2}],
+        "ins": [{"edgeRole":"MessageFlow","t":2, "r":1, "b":2, "l":1},
+            {"t":1, "r":2, "b":1, "l":2}]
+      },
+      {
+        "role": "EventActivitiesMorph",
+        "outs":[{"edgeRole":"MessageFlow","t":2, "r":1, "b":2, "l":1},
+            {"t":1,"r":2,"b":1,"l":2}],
+        "ins": [{"edgeRole":"MessageFlow","t":2, "r":1, "b":2, "l":1},
+            {"t":1, "r":2, "b":1, "l":2}]
+      },
+      {
+        "role": "ChoreographyMorph",
+        "outs":[{"edgeRole":"MessageFlow","t":2, "r":1, "b":2, "l":1},
+            {"t":1,"r":2,"b":1,"l":2}],
+        "ins": [{"edgeRole":"MessageFlow","t":2, "r":1, "b":2, "l":1},
+            {"t":1, "r":2, "b":1, "l":2}]
+      },
+      {
+        "role": "GatewaysMorph",
+        "outs": [{"t":2, "r":1, "b":2, "l":1}]
+      },
+      {
+        "role": "StartEventsMorph",
+        "outs":[{"edgeRole":"MessageFlow","t":2, "r":1, "b":2, "l":1},
+            {"t":1,"r":2,"b":1,"l":2}],
+        "ins": [{"edgeRole":"MessageFlow","t":2, "r":1, "b":2, "l":1},
+            {"t":1, "r":2, "b":1, "l":2}]
+      },
+      {
+        "role": "IntermediateEventsMorph",
+        "outs":[{"edgeRole":"MessageFlow","t":2, "r":1, "b":2, "l":1},
+            {"t":1,"r":2,"b":1,"l":2}],
+        "ins": [{"edgeRole":"MessageFlow","t":2, "r":1, "b":2, "l":1},
+            {"t":1, "r":2, "b":1, "l":2}]
+      },
+      {
+        "role": "EndEventsMorph",
+        "outs":[{"edgeRole":"MessageFlow","t":2, "r":1, "b":2, "l":1},
+            {"t":1,"r":2,"b":1,"l":2}],
+        "ins": [{"edgeRole":"MessageFlow","t":2, "r":1, "b":2, "l":1},
+            {"t":1, "r":2, "b":1, "l":2}]
+      }
+    ]
+  }
+}

@@ -140,11 +140,11 @@ ORYX.Plugins.PropertyWindow = {
 			width: 220,
 			layout: "fit",
 			border: false,
-			title: 'Properties',
+			//title: ORYX.I18N.PropertyWindow.title,
 			items: [
 				this.grid 
 			]
-		}), ORYX.I18N.PropertyWindow.title)
+		}), ORYX.I18N.PropertyWindow.title);
 
 		// Register on Events
 		this.grid.on('beforeedit', this.beforeEdit, this, true);

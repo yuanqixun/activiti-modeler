@@ -57,6 +57,8 @@
     <plugin source="rowLayouting.js" name="ORYX.Plugins.RowLayouting" />
     <plugin source="autoLayout.js" name="ORYX.Plugins.AutoLayout" />
     <plugin source="feedback.js" name="ORYX.Plugins.Feedback" />
+    <plugin source="pluginLoader.js" name="ORYX.Plugins.PluginLoader" />
+    <plugin source="addssextension.js" name="ORYX.Plugins.SSExtensionLoader" />
     
     <plugin source="syntaxchecker.js" name="ORYX.Plugins.SyntaxChecker">
       <requires namespace="http://b3mn.org/stencilset/bpmn1.1#"/>

@@ -35,6 +35,7 @@
 		<plugin name="ORYX.Plugins.Layouter.EdgeLayouter" />
 		<plugin name="ORYX.Plugins.SyntaxChecker" />
 		<plugin name="ORYX.Plugins.Feedback" />
+		<plugin name="ORYX.Plugins.PluginLoader" />
     
 		<!-- Begin: BPMN2.0 specific plugins -->
 		<plugin name="ORYX.Plugins.BPMN2_0" />

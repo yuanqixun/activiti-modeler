@@ -405,18 +405,41 @@ ORYX.I18N.Feedback.subjects = [
       id: "question",   // ansi-compatible name
       name: "Question", // natural name
       description: "Ask your question here! \nPlease give us as much information as possible, so we don't have to bother you with more questions, before we can give an answer.", // default text for the description text input field
-      info: "", // optional field to give more info
+      info: "" // optional field to give more info
     },
     {
       id: "problem",   // ansi-compatible name
       name: "Problem", // natural name
       description: "We're sorry for the inconvenience. Give us feedback on the problem, and we'll try to solve it for you. Describe it as detailed as possible, please.", // default text for the description text input field
-      info: "", // optional field to give more info
+      info: ""// optional field to give more info
     },
     {
       id: "idea",   // ansi-compatible name
       name: "Idea", // natural name
       description: "Share your ideas and thoughts here!", // default text for the description text input field
-      info: "", // optional field to give more info
+      info: ""// optional field to give more info
     }
 ];
+
+if(!ORYX.I18N.PluginLoad) ORYX.I18N.PluginLoad = {};
+ORYX.I18N.PluginLoad.AddPluginButtonName = "Add Plugins";
+ORYX.I18N.PluginLoad.AddPluginButtonDesc = "Add additional Plugins dynamically";
+ORYX.I18N.PluginLoad.loadErrorTitle="Loading Error";
+ORYX.I18N.PluginLoad.loadErrorDesc = "Unable to load Plugin. \n Error:\n";
+ORYX.I18N.PluginLoad.WindowTitle ="Add additional Plugins";
+
+ORYX.I18N.PluginLoad.NOTUSEINSTENCILSET = "Not allowed in this Stencilset!";
+ORYX.I18N.PluginLoad.REQUIRESTENCILSET = "Require another Stencilset!";
+ORYX.I18N.PluginLoad.NOTFOUND = "Pluginname not found!"
+ORYX.I18N.PluginLoad.YETACTIVATED = "Plugin is yet activated!"
+
+if(!ORYX.I18N.SSExtensionLoader) ORYX.I18N.SSExtensionLoader = {};
+ORYX.I18N.SSExtensionLoader.group = "Stencil Set";
+ORYX.I18N.SSExtensionLoader.add = "Add Stencil Set Extension";
+ORYX.I18N.SSExtensionLoader.addDesc = "Add a stencil set extension";
+ORYX.I18N.SSExtensionLoader.loading = "Loading Stencil Set Extension";
+ORYX.I18N.SSExtensionLoader.noExt = "There are no extensions available or all available extensions are already loaded.";
+ORYX.I18N.SSExtensionLoader.failed1 = "Loading stencil set extensions configuration failed. The response is not a valid configuration file.";
+ORYX.I18N.SSExtensionLoader.failed2 = "Loading stencil set extension configuration file failed. The request returned an error.";
+ORYX.I18N.SSExtensionLoader.panelTitle = "Stencil Set Extensions";
+ORYX.I18N.SSExtensionLoader.panelText = "Select the stencil set extensions you want to load.";

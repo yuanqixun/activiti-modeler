@@ -36,6 +36,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 
+import com.eontime.bdp.util.ClassPathScanHandler;
 import com.signavio.platform.handler.AbstractHandler;
 import com.signavio.platform.handler.BasisHandler;
 
@@ -141,7 +142,7 @@ public class HandlerDirectory extends HashMap<String, HandlerEntry> implements D
 	 * @throws ClassNotFoundException
 	 */
     @SuppressWarnings("unchecked")
-	private static List<Class<? extends AbstractHandler>> getClassesByPackageName(String pckgname) throws ClassNotFoundException {
+	private static List<Class<? extends AbstractHandler>> getClassesByPackageName2(String pckgname) throws ClassNotFoundException {
         // This will hold a list of directories matching the packagename. There may be more than one if a package is split over multiple jars/paths
         ArrayList<File> directories = new ArrayList<File>();
         try {
@@ -192,6 +193,17 @@ public class HandlerDirectory extends HashMap<String, HandlerEntry> implements D
         return classes;
     }
 	
+    @SuppressWarnings("unchecked")
+    private static List<Class<? extends AbstractHandler>> getClassesByPackageName(String pckgname) throws ClassNotFoundException {
+      ArrayList<Class<? extends AbstractHandler>> classes = new ArrayList<Class<? extends AbstractHandler>>();
+      ClassPathScanHandler scanHandler = new ClassPathScanHandler(true, true, null);
+      List<Class<?>> result = scanHandler.getPackageAllClasses(pckgname, false);
+      for (Class<?> clazz : result) {
+      	classes.add((Class<? extends AbstractHandler>) clazz);
+      }
+      return classes;
+  }
+    
     public void registerHandlersOfPackage(String packageName) {
     	// Try to get all Handler Classes and instantiate the HandlerEntries with it
 		try {
@@ -220,7 +232,10 @@ public class HandlerDirectory extends HashMap<String, HandlerEntry> implements D
 				this.put(cls.getName(), he);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			System.out.println("==========");
+			System.out.println(packageName);
+			System.out.println("==========");
+			
 			e.printStackTrace();
 		}
     }

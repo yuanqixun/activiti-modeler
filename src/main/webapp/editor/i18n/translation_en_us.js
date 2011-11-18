@@ -388,3 +388,35 @@ ORYX.I18N.SyntaxChecker.COMMUNICATION_AT_LEAST_TWO_PARTICIPANTS = "The communica
 ORYX.I18N.SyntaxChecker.MESSAGEFLOW_START_MUST_BE_PARTICIPANT = "The message flow's source must be a participant.";
 ORYX.I18N.SyntaxChecker.MESSAGEFLOW_END_MUST_BE_PARTICIPANT = "The message flow's target must be a participant.";
 ORYX.I18N.SyntaxChecker.CONV_LINK_CANNOT_CONNECT_CONV_NODES = "The conversation link must connect a communication or sub conversation node with a participant.";
+
+if(!ORYX.I18N.Feedback) ORYX.I18N.Feedback = {};
+ORYX.I18N.Feedback.name = "Feedback";
+ORYX.I18N.Feedback.failure = "Failure";
+ORYX.I18N.Feedback.failureMsg = "Unfortunately, the message could not be sent. This is our fault! Please try again or contact someone at http://code.google.com/p/oryx-editor/";
+ORYX.I18N.Feedback.submit = "Send Message";
+
+ORYX.I18N.Feedback.emailDesc = "Your e-mail address?";
+ORYX.I18N.Feedback.titleDesc = "Summarize your message with a short title";
+ORYX.I18N.Feedback.descriptionDesc = "Describe your idea, question, or problem."
+ORYX.I18N.Feedback.info = '<p>Oryx is a research platform intended to support scientists in the field of business process management and beyond with a flexible, extensible tool to validate research theses and conduct experiments.</p><p>We are happy to provide you with the <a href="http://bpt.hpi.uni-potsdam.de/Oryx/ReleaseNotes" target="_blank"> latest technology and advancements</a> of our platform. <a href="http://bpt.hpi.uni-potsdam.de/Oryx/DeveloperNetwork" target="_blank">We</a> work hard to provide you with a reliable system, even though you may experience small hiccups from time to time.</p><p>If you have ideas how to improve Oryx, have a question related to the platform, or want to report a problem: <strong>Please, let us know. Here.</strong></p>'; // general info will be shown, if no subject specific info is given
+// list subjects in reverse order of appearance!
+ORYX.I18N.Feedback.subjects = [
+    {
+      id: "question",   // ansi-compatible name
+      name: "Question", // natural name
+      description: "Ask your question here! \nPlease give us as much information as possible, so we don't have to bother you with more questions, before we can give an answer.", // default text for the description text input field
+      info: "", // optional field to give more info
+    },
+    {
+      id: "problem",   // ansi-compatible name
+      name: "Problem", // natural name
+      description: "We're sorry for the inconvenience. Give us feedback on the problem, and we'll try to solve it for you. Describe it as detailed as possible, please.", // default text for the description text input field
+      info: "", // optional field to give more info
+    },
+    {
+      id: "idea",   // ansi-compatible name
+      name: "Idea", // natural name
+      description: "Share your ideas and thoughts here!", // default text for the description text input field
+      info: "", // optional field to give more info
+    }
+];

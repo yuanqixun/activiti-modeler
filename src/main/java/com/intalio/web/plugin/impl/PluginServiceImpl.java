@@ -1,8 +1,8 @@
 package com.intalio.web.plugin.impl;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -95,15 +95,16 @@ public class PluginServiceImpl implements IDiagramPluginService {
 			ServletContext context) {
 		Map<String, IDiagramPlugin> local = new HashMap<String, IDiagramPlugin>();
 		// we read the plugins.xml file and make sense of it.
-		FileInputStream fileStream = null;
+		InputStream fileStream = null;
 		try {
-			try {
-				fileStream = new FileInputStream(new StringBuilder(
-						context.getRealPath("/")).append("/editor").append("/scripts").append("/Plugins").append("/")
-						.append("plugins.xml").toString());
-			} catch (FileNotFoundException e) {
-				throw new RuntimeException(e);
-			}
+//			try {
+//				fileStream = new FileInputStream(new StringBuilder(
+//						context.getRealPath("/")).append("/editor").append("/scripts").append("/Plugins").append("/")
+//						.append("plugins.xml").toString());
+				fileStream = context.getResourceAsStream("/WEB-INF/xml/editor/plugins.xml");
+//			} catch (FileNotFoundException e) {
+//				throw new RuntimeException(e);
+//			}
 			XMLInputFactory factory = XMLInputFactory.newInstance();
 			XMLStreamReader reader = factory.createXMLStreamReader(fileStream);
 			while (reader.hasNext()) {

@@ -21,8 +21,13 @@
  */
 package com.signavio.editor.handler;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -34,39 +39,39 @@ import com.signavio.platform.handler.BasisHandler;
 import com.signavio.platform.security.business.FsAccessToken;
 import com.signavio.platform.security.business.FsSecureBusinessObject;
 
-
-@HandlerConfiguration(uri = "/editor_plugins", rel="plugins")
+@HandlerConfiguration(uri = "/editor_plugins", rel = "plugins")
 public class PluginsHandler extends BasisHandler {
-	
+
 	public PluginsHandler(ServletContext servletContext) {
 		super(servletContext);
-		
-
 	}
 
 	/**
-	 * Returns a plugins configuration xml file that fits to the current user's license.
+	 * Returns a plugins configuration xml file that fits to the current user's
+	 * license.
+	 * 
 	 * @throws Exception
 	 */
 	@Override
-    public <T extends FsSecureBusinessObject> void doGet(HttpServletRequest req, HttpServletResponse res, FsAccessToken token, T sbo) {
-  	
-  		File pluginConf = new File(this.getRootDirectory() + "/WEB-INF/xml/editor/plugins.xml");
-  		
-  		if(pluginConf.exists()) {
-  			res.setStatus(200);
-  	  		res.setContentType("text/xml");
-  	  		
-  	  		try {
-				this.writeFileToResponse(pluginConf, res);
+	public <T extends FsSecureBusinessObject> void doGet(HttpServletRequest req, HttpServletResponse res,
+	    FsAccessToken token, T sbo) {
+
+		// File pluginConf = new File(this.getRootDirectory() +
+		// "/WEB-INF/xml/editor/plugins.xml");
+		InputStream pluginsInput = getServletContext().getResourceAsStream("/WEB-INF/xml/editor/plugins.xml");
+
+		// if (pluginConf.exists()) {
+		if (pluginsInput != null) {
+			res.setStatus(200);
+			res.setContentType("text/xml");
+			try {
+				// this.writeFileToResponse(pluginConf, res);
+				this.writeInputStreamToResponse(pluginsInput, res);
 			} catch (IOException e) {
 				throw new RequestException("platform.ioexception", e);
 			}
-  		} else {
-  			throw new RequestException("editor.pluginXmlForProfileNotFound");
-  		}
-  		
-  		
-  		
+		} else {
+			throw new RequestException("editor.pluginXmlForProfileNotFound");
+		}
 	}
 }

@@ -386,3 +386,35 @@ ORYX.I18N.SyntaxChecker.COMMUNICATION_AT_LEAST_TWO_PARTICIPANTS = "The communica
 ORYX.I18N.SyntaxChecker.MESSAGEFLOW_START_MUST_BE_PARTICIPANT = "The message flow's source must be a participant.";
 ORYX.I18N.SyntaxChecker.MESSAGEFLOW_END_MUST_BE_PARTICIPANT = "The message flow's target must be a participant.";
 ORYX.I18N.SyntaxChecker.CONV_LINK_CANNOT_CONNECT_CONV_NODES = "The conversation link must connect a communication or sub conversation node with a participant.";
+
+if(!ORYX.I18N.Feedback) ORYX.I18N.Feedback = {};
+ORYX.I18N.Feedback.name = "问题反馈";
+ORYX.I18N.Feedback.failure = "错误";
+ORYX.I18N.Feedback.failureMsg = "消息无法发送，请联系管理员！";
+ORYX.I18N.Feedback.submit = "发送消息";
+
+ORYX.I18N.Feedback.emailDesc = "邮箱地址";
+ORYX.I18N.Feedback.titleDesc = "问题概要";
+ORYX.I18N.Feedback.descriptionDesc = "问题描述（建议、错误、问题）"
+ORYX.I18N.Feedback.info = '<p>Oryx is a research platform intended to support scientists in the field of business process management and beyond with a flexible, extensible tool to validate research theses and conduct experiments.</p><p>We are happy to provide you with the <a href="http://bpt.hpi.uni-potsdam.de/Oryx/ReleaseNotes" target="_blank"> latest technology and advancements</a> of our platform. <a href="http://bpt.hpi.uni-potsdam.de/Oryx/DeveloperNetwork" target="_blank">We</a> work hard to provide you with a reliable system, even though you may experience small hiccups from time to time.</p><p>If you have ideas how to improve Oryx, have a question related to the platform, or want to report a problem: <strong>Please, let us know. Here.</strong></p>'; 
+// list subjects in reverse order of appearance!
+ORYX.I18N.Feedback.subjects = [
+    {
+      id: "question",   // ansi-compatible name
+      name: "问题", // natural name
+      description: "Ask your question here! \nPlease give us as much information as possible, so we don't have to bother you with more questions, before we can give an answer.", // default text for the description text input field
+      info: "" // optional field to give more info
+    },
+    {
+      id: "problem",   // ansi-compatible name
+      name: "错误", // natural name
+      description: "We're sorry for the inconvenience. Give us feedback on the problem, and we'll try to solve it for you. Describe it as detailed as possible, please.", // default text for the description text input field
+      info: ""// optional field to give more info
+    },
+    {
+      id: "idea",   // ansi-compatible name
+      name: "建议", // natural name
+      description: "Share your ideas and thoughts here!", // default text for the description text input field
+      info: "" // optional field to give more info
+    }
+];

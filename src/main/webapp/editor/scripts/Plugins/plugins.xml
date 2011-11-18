@@ -51,6 +51,11 @@
 		<plugin source="edit.js" name="ORYX.Plugins.Edit" />
 		<plugin source="keysMove.js" name="ORYX.Plugins.KeysMove" />
 		<plugin source="Layouter/edgeLayouter.js" name="ORYX.Plugins.Layouter.EdgeLayouter" />
+		<plugin source="labelLayout.js" name="ORYX.Plugins.LabelLayout" />
+		<plugin source="rowLayouting.js" name="ORYX.Plugins.RowLayouting" />
+		<plugin source="autoLayout.js" name="ORYX.Plugins.AutoLayout" />
+		<plugin source="feedback.js" name="ORYX.Plugins.Feedback" />
+    
 		<plugin source="syntaxchecker.js" name="ORYX.Plugins.SyntaxChecker">
 			<requires namespace="http://b3mn.org/stencilset/bpmn1.1#"/>
 			<requires namespace="http://b3mn.org/stencilset/epc#"/>

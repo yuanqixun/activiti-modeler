@@ -469,7 +469,7 @@ public class EditorHandler extends BasisHandler {
 				+ "/ext-2.0.2/adapter/ext/ext-base.js\" type=\"text/javascript\" />\n"
 				+ "<script src=\""
 				+ libsUri
-				+ "/ext-2.0.2/ext-all.js\" type=\"text/javascript\" />\n"
+				+ "/ext-2.0.2/ext-all"+(_devMode ? "-debug":"")+".js\" type=\"text/javascript\" />\n"
 				+ "<script src=\""
 				+ libsUri
 				+ "/ext-2.0.2/color-field.js\" type=\"text/javascript\" />\n"
@@ -518,6 +518,15 @@ public class EditorHandler extends BasisHandler {
 				// + EDITOR_URL_PREFIX
 				// + "oryx.debug.js\" type=\"text/javascript\" />\n"
 				+ getPluginScripts()
+				//加载自定义控件
+				+ "<script src=\""
+				+ EDITOR_URL_PREFIX
+				+ "scripts/ux/Ext.ux.bpm.FormPathField.js\" type=\"text/javascript\" />\n"
+				
+				+ "<script src=\""
+				+ EDITOR_URL_PREFIX
+				+ "scripts/ux/Ext.ux.bpm.TaskResourcesField.js\" type=\"text/javascript\" />\n"
+				
 				+ "<!-- erdf schemas -->\n"
 				+ "<link rel=\"schema.dc\" href=\"http://purl.org/dc/elements/1.1/\" />\n"
 				+ "<link rel=\"schema.dcTerms\" href=\"http://purl.org/dc/terms/\" />\n"

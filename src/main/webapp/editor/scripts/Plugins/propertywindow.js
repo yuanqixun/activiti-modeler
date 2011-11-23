@@ -502,7 +502,8 @@ ORYX.Plugins.PropertyWindow = {
 				var refToViewFlag = false;
 
 				if(!pair.readonly()){
-					switch(pair.type()) {
+					var pairType = pair.type();
+					switch(pairType) {
 						case ORYX.CONFIG.TYPE_STRING:
 							// If the Text is MultiLine
 							if(pair.wrapLines()) {
@@ -628,23 +629,32 @@ ORYX.Plugins.PropertyWindow = {
 							editorGrid = new Ext.Editor(new Ext.form.DateField({ allowBlank: pair.optional(), format:currFormat,  msgTarget:'title'}));
 							break;
 
-						case ORYX.CONFIG.TYPE_TEXT:
-							
+						case ORYX.CONFIG.TYPE_TEXT :
 							var cf = new Ext.form.ComplexTextField({
-								allowBlank: pair.optional(),
-								dataSource:this.dataSource,
-								grid:this.grid,
-								row:index,
-								facade:this.facade
-							});
-							cf.on('dialogClosed', this.dialogClosed, {scope:this, row:index, col:1,field:cf});							
+										allowBlank : pair.optional(),
+										dataSource : this.dataSource,
+										grid : this.grid,
+										row : index,
+										facade : this.facade
+									});
+							cf.on('dialogClosed', this.dialogClosed, {
+										scope : this,
+										row : index,
+										col : 1,
+										field : cf
+									});
 							editorGrid = new Ext.Editor(cf);
 							break;
 							
 						// extended by Kerstin (start)
 						case ORYX.CONFIG.TYPE_COMPLEX:
 							
-							var cf = new Ext.form.ComplexListField({ allowBlank: pair.optional()}, pair.complexItems(), key, this.facade);
+							var cf = new Ext.form.ComplexListField({ 
+							allowBlank: pair.optional()
+							}, 
+							pair.complexItems(),
+							key, 
+							this.facade);
 							cf.on('dialogClosed', this.dialogClosed, {scope:this, row:index, col:1,field:cf});							
 							editorGrid = new Ext.Editor(cf);
 							break;
@@ -669,9 +679,42 @@ ORYX.Plugins.PropertyWindow = {
 							editorGrid = new Ext.Editor(editorInput);							
 							break;
 						// extended by Gerardo (End)
-						
+						// extended by yuan(begin) 2011-11-22
+						case "formpath" :
+							var cf = new Ext.ux.bpm.FormPathField({
+										allowBlank : pair.optional(),
+										dataSource : this.dataSource,
+										grid : this.grid
+									}, index, this.facade);
+							cf.on('dialogClosed', this.dialogClosed, {
+										scope : this,
+										row : index,
+										col : 1,
+										field : cf
+									});
+							editorGrid = new Ext.Editor(cf);
+							break;
+							case "taskresources" :
+              var cf = new Ext.ux.bpm.TaskResourcesField({
+                    allowBlank : pair.optional(),
+                    dataSource : this.dataSource,
+                    grid : this.grid
+                  }, index, this.facade);
+              cf.on('dialogClosed', this.dialogClosed, {
+                    scope : this,
+                    row : index,
+                    col : 1,
+                    field : cf
+                  });
+              editorGrid = new Ext.Editor(cf);
+              break;
+						// extended by yuan (end)2011-11-22
 						default:
-							var editorInput = new Ext.form.TextField({ allowBlank: pair.optional(),  msgTarget:'title', maxLength:pair.length(), enableKeyEvents: true});
+							var editorInput = new Ext.form.TextField({ 
+							allowBlank: pair.optional(), 
+							msgTarget:'title', 
+							maxLength:pair.length(), 
+							enableKeyEvents: true});
 							editorInput.on('keyup', function(input, event) {
 								this.editDirectly(key, input.getValue());
 							}.bind(this));
@@ -778,7 +821,7 @@ Ext.extend(Ext.form.ComplexListField, Ext.form.TriggerField,  {
      * class 'x-form-trigger' and triggerClass will be <b>appended</b> if specified.
      */
     triggerClass:	'x-form-complex-trigger',
-	readOnly:		true,
+	readOnly:		false,
 	emptyText: 		ORYX.I18N.PropertyWindow.clickIcon,
 		
 	/**

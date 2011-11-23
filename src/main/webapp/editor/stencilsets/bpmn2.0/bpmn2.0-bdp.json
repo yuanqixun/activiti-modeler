@@ -47,6 +47,7 @@
           "description_de":"",
           "readonly":false,
           "optional":true,
+          "visible":false,
           "length":"",
           "wrapLines":true
         },
@@ -61,6 +62,7 @@
           "description_de":"",
           "readonly":false,
           "optional":true,
+          "visible":false,
           "length":"",
           "wrapLines":true
         }
@@ -573,6 +575,7 @@
           "description":"",
           "readonly":false,
           "optional":true,
+          "visible":false,
           "refToView":"",
           "wrapLines":true
         }
@@ -1580,6 +1583,17 @@
           ]
         },
         {
+          "id":"taskresources",
+          "type":"taskresources",
+          "title":"Task Resources",
+          "title_zh":"任务执行人",
+          "value":"",
+          "description":"",
+          "readonly":false,
+          "optional":true,
+          "popular":true
+        },
+        {
           "id":"resources",
           "type":"Complex",
           "title":"Resources",
@@ -1675,6 +1689,7 @@
           "description":"",
           "readonly":false,
           "optional":false,
+          "visible":false,
           "refToView":""
         },
         {
@@ -1686,6 +1701,7 @@
           "description":"ID-Reference to an operation definition.",
           "description_de":"ID-Referenz zur Definition einer Operation.",
           "readonly":false,
+          "visible":false,
           "optional":true
         },
         {
@@ -1696,8 +1712,9 @@
           "title_de":"Instanziieren",
           "value":false,
           "description":"",
-          "readonly":false,
+          "readonly":true,
           "optional":false,
+          "visible":false,
           "refToView":"instantiate"
         },
         {
@@ -2433,7 +2450,7 @@
         },
         {
           "id":"formPath",
-          "type":"Complex",
+          "type":"formpath",
           "title":"Form Path",
           "title_zh":"表单路径",
           "value":"",
